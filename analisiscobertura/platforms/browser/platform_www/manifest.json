@@ -1,6 +1,6 @@
 {
-  "name": "AnalisisDeCobertura",
-  "short_name": "AnalisisDeCobertura",
+  "name": "Analisis de cobertura",
+  "short_name": "Analisis de cobertura",
   "description": "Description of your app from template",
   "start_url": "index.html",
   "scope": "index.html",
