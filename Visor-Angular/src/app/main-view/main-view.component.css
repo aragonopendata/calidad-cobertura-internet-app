@@ -1,0 +1,87 @@
+.header{
+    width: 100%;
+    height: 6em;
+    background-color: #333333;
+}
+.inputAragon{
+    box-sizing: border-box;
+    border: 4px solid #e5e7eb;
+    border-radius: 0px;
+}
+.inputAragon:focus{
+    box-sizing: border-box;
+    border: 4px solid black;
+    outline: none;
+    border-radius: 0px;
+    outline: none !important;
+    box-shadow: 0 0 0px black;
+
+}
+.inputAragon:hover{
+    box-sizing: border-box;
+    border: 4px solid black;
+    outline: none;
+    border-radius: 0px;
+    outline: none !important;
+    box-shadow: 0 0 0px black;
+}
+.p-dropdown{
+    border-radius: 0px !important;
+}
+:host ::ng-deep .dropdownAragon{
+    box-sizing: border-box;
+    border: 4px solid #e5e7eb;
+    border-radius: 0px;
+
+}
+:host ::ng-deep .dropdownAragon:hover{
+    box-sizing: border-box;
+    border: 4px solid black;
+    outline: none;
+    border-radius: 0px;
+    outline: none !important;
+    box-shadow: 0 0 0px black;
+
+}
+:host ::ng-deep .dropdownAragon:not(p.disabled).p-focus{
+    box-sizing: border-box;
+    border: 4px solid black;
+    outline: none;
+    border-radius: 0px;
+    outline: none !important;
+    box-shadow: 0 0 0px black;
+}
+:host ::ng-deep .dropdownAragon:focus{
+    box-sizing: border-box;
+    border: 4px solid black;
+    outline: none;
+    border-radius: 0px;
+    outline: none !important;
+    box-shadow: 0 0 0px black;
+
+}
+:host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    background-color: whitesmoke;
+}
+:host ::ng-deep .p-button.p-button-text{
+    color: black;
+}
+
+
+:host ::ng-deep .padding0{
+    padding: 0px;
+}
+
+:host ::ng-deep .sizebig{
+    font-size: x-large !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .phoneDisabled {
+      display: none;
+    }
+  }
+.iframe{
+    width: 100%;
+}
+

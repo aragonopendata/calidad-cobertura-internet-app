@@ -1,0 +1,80 @@
+<div class="header">
+    <div class="grid">
+        <div class="col-7">
+            <img alt="logo" src="assets/VCAI-logo.png" />
+        </div>
+
+        <div class="phoneDisabled col-5" style="text-align: right">
+            <img alt="logo" src="assets/gobierno-de-aragon-logo.png" />
+
+        </div>
+    </div>
+    <!--<div style="margin: 1em;">
+        <div class="grid">
+            <div class="col">
+
+                <div class="field">
+                    <label for="municipio" class="block">Buscar por Municipio</label>
+                    <input id="municipio" type="text" aria-describedby="municipio-help" pInputText class="inputAragon"
+                        [(ngModel)]="municipio" />
+                </div>
+
+
+            </div>
+            <div class="col">
+                <div class="grid">
+                    <div class="col">
+                        <div class="field">
+                            <label for="filtro" class="block">Filtrar para mostrar</label>
+                            <p-dropdown id="filtro" [options]="filtros" [(ngModel)]="selectedFiltro" optionLabel="name"
+                                styleClass="dropdownAragon" panelStyleClass="dropdownAragon">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="field">
+                            <label for="estado" class="block">Mostrar estado de</label>
+                            <p-dropdown id="estado" [options]="estados" [(ngModel)]="selectedEstado" optionLabel="name"
+                                styleClass="dropdownAragon" panelStyleClass="dropdownAragon">
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col" style="text-align: center;">
+                <button pButton pRipple type="button" icon="pi pi-search-plus"
+                    class="p-button-rounded p-button-text p-button-lg"></button>
+                <button pButton pRipple type="button" icon="pi pi-search-minus"
+                    class="p-button-rounded p-button-text p-button-lg"></button>
+                <p-button style="padding:0px; margin-left: 1em;" styleClass="padding0">
+                    <ng-template pTemplate="content">
+                        <img alt="logo" style="max-height: 5em;" src="assets/iconoDescarga.PNG" />
+                    </ng-template>
+                </p-button>
+
+            </div>
+        </div>
+    </div>
+    -->
+</div>
+<br><br>
+<div>
+    <iframe class="iframe" src="https://presms.itsoft.es/kibana/app/dashboards#/view/177a1800-a388-11ec-919a-998994641c3c?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3A'2022-02-28T10%3A22%3A29.160Z'%2Cto%3Anow%2B700y))&hide-filter-bar=true" height="800" width="800"></iframe>
+</div>
+<!--Leyenda-->
+<div style="margin-left:1em">
+    <div>
+        <img src = "assets/iconos/cross.svg" style="filter: invert(57%) sepia(2%) saturate(11%) hue-rotate(314deg) brightness(93%) contrast(89%);height: 40px;"/>
+        <img src = "assets/iconos/cross.svg" style="filter:invert(12%) sepia(49%) saturate(5434%) hue-rotate(352deg) brightness(101%) contrast(120%);height: 40px;"/>
+        <img src = "assets/iconos/cross.svg" style="filter:invert(15%) sepia(94%) saturate(4238%) hue-rotate(352deg) brightness(97%) contrast(101%);height: 40px;"/>
+
+        <img src = "assets/iconos/triangle.svg" style="filter:invert(58%) sepia(76%) saturate(825%) hue-rotate(347deg) brightness(102%) contrast(99%);height: 40px;"/>
+        <img src = "assets/iconos/triangle.svg" style="filter:invert(39%) sepia(15%) saturate(1848%) hue-rotate(50deg) brightness(95%) contrast(91%);height: 40px;"/>
+
+        <img src = "assets/iconos/circle.svg" style="filter:invert(39%) sepia(15%) saturate(1848%) hue-rotate(50deg) brightness(95%) contrast(91%);height: 40px;"/>
+        <img src = "assets/iconos/circle.svg" style="filter:invert(27%) sepia(90%) saturate(771%) hue-rotate(78deg) brightness(97%) contrast(86%);height: 40px;"/>
+
+    </div>
+    <div><span style="margin-right: 4em;margin-left: 0.5em;">Muy mal</span><span>Muy bien</span></div>
+</div>
