@@ -25,4 +25,4 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se en
 ### Despliegue
 - Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión desplegar el contenido de la carpeta analisiscobertura\platforms\browser\www
 
--Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicación para generar un APK firmado que se pueda desplegar en la Play Store de Google.
+- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicación para generar un APK firmado que se pueda desplegar en la Play Store de Google.

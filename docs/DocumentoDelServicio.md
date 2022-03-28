@@ -39,6 +39,6 @@ Para poder realizar el mantenimiento del código fuente de esta aplicación es nec
 	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión se habrá creado un fichero APK en la ruta analisiscobertura\platforms\android\app\build\outputs\apk\debug
 	
 ### Guía de despliegue:
-- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión desplegar el contenido de la carpeta analisiscobertura\platforms\browser\www
-
--Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicación para generar un APK firmado que se pueda desplegar en la Play Store de Google.
+	- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión desplegar el contenido de la carpeta analisiscobertura\platforms\browser\www
+	
+	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicación para generar un APK firmado que se pueda desplegar en la Play Store de Google.
