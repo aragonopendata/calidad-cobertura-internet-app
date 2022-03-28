@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** "> -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'; media-src *; connect-src *"> -->
+        <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <!--<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">-->
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi" />
+        <meta name="color-scheme" content="light dark">
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter"> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/app-cobertura-aragon.css"/>
+        <link rel="stylesheet" href="css/ol.css">
+        <link rel="stylesheet" href="css/analisiscobertura.css">
+        <script src="js/librerias/jquery-2.1.1.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery.mobile-1.4.5.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/ol.js" type="text/javascript"></script>
+        <script src="cordova.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/constantes/constantes.js"></script>
+        <script src="js/utils/conectivity_manager.js" type="text/javascript"></script>
+        <script src="js/utils/string_utils.js" type="text/javascript"></script>
+        <script src="js/utils/platform_detector.js" type="text/javascript"></script>
+        <script src="js/ws/webservices.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/index.js"></script>
+        <script src="js/modelo/DatosCobertura.js" type="text/javascript"></script>
+        <title>Bienvenida</title>
+    </head>
+    <body id="ACAI">
+        <div data-role="page">
+            <!--
+            <div class="app">
+                <h1>Apache Cordova</h1>
+                <div id="deviceready" class="blink">
+                    <p class="event listening">Connecting to Device</p>
+                    <p class="event received">Device is Ready</p>
+                </div>
+            </div>
+            -->
+            <!--<ul class="navbarul">
+                <li class="navbarli"><span class="navbarlispan">Analisis de Cobertura de Acceso a Internet</span></li>
+            </ul>-->
+
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+                <h1>Analisis de Cobertura de Acceso a Internet</h1>
+            </div>
+            <div id="mensaje_error_permiso_gps_bienvenida" class="seccionComprobacion" style="position: fixed; z-index: 9999;" hidden>Por favor, conceda permiso de captura de posición GPS a la aplicación para poder usarla. Gracias.</div>
+            <div data-role="content" class="contentPrincipal">
+                <div class="container">
+                    <div class="tituloPrincipal">Impulsado por Aragon Open Data</div>
+                    <div class="envolvente">
+                        <div class="tituloParrafo">Le damos la bienvenida</div>
+                        <div class="parrafo nina">Desde el Gobierno de Aragón trabajamos por mejorar la calidad del acceso a internet.<br/>
+                            Su colaboración y datos nos van a ser de gran ayuda.<br />
+                            ¡Gracias!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="territorio-conectado"><span>Aragón, territorio conectado.</span></div>
+            <div data-role="content" class="content-feder">
+                <div class="container">
+                    <div class="tituloParrafo">Fondo Europeo de Desarrollo Regional (FEDER)</div>
+                    <div class="parrafo logotipos">
+                        <span class="ue-logo">Unión Europea.</span>
+                        <span class="gda-logo">Gobierno de Aragón.</span>
+                    </div>
+                    <div class="parrafo ceda">Financiado como parte de la respuesta de la Unión a la pandemia de COVID-19.</div>
+                    <div class="claim">Construyendo Europa desde Aragón</div>
+                    <!--<div class="botonPie">
+                        <button id="id_bot_empezar" class="ui-btn ui-corner-all primary" style="width: 100%;">Empezar</button>
+                    </div>-->
+                </div>
+            </div>
+            <!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <button data-theme="b" id="id_bot_empezar" class="btn btn-primary btn-block mt-3 aumentado botonPie">Empezar</button>
+             </div>
+             <!-- /footer -->
+
+        </div>
+        <!-- /page -->
+    </body>
+</html>

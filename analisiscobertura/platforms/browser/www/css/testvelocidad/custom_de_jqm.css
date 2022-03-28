@@ -1,0 +1,137 @@
+.lefted {
+    margin-left:70px !important;
+    text-align:left !important;
+
+}
+.headded {
+    min-width:320px !important;
+    height:64px;
+    overflow:hidden;
+    border: 0px solid;
+}
+.headded h1 {
+    line-height: 1.7em;
+    display: inline-block;
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    font-size: 1.4em !important;
+    left: -10px;
+    position: relative;
+}
+
+.preppo, .loggout {
+    padding: 0;
+    border: solid 0;
+    top: 0 !important;
+	margin: 2px;
+}
+.preppo  > a.ui-btn-up-d, .loggout  > a.ui-btn-up-a {
+border: 0 solid;
+min-height: 50px;
+padding-right: 0!important;
+width: 50%;
+line-height: 50px;
+}
+.preppo  > a.ui-btn-up-d {
+background: url("images/bot_atras_sprite.png") no-repeat right center transparent;
+background-size: cover;
+}
+.loggout  > a.ui-btn-up-a {
+background: url("images/bot_logout_sprite.png") no-repeat right center transparent;
+background-size: cover;
+}
+.preppo  > a.ui-btn-hover-d, .loggout  > a.ui-btn-hover-a {
+border: 0 solid;
+min-height: 50px;
+padding-right: 0!important;
+width: 50%;
+line-height: 50px;
+}
+.preppo  > a.ui-btn-hover-d {
+background: url("images/bot_atras_sprite.png") no-repeat left center transparent;
+background-size: cover;
+}
+.loggout  > a.ui-btn-hover-a {
+background: url("images/bot_logout_sprite.png") no-repeat left center transparent;
+background-size: cover;
+}
+.ui-btn-icon-right .ui-btn-inner {
+padding-right: 20px;
+border-top: 0px solid #fff;
+}
+
+.floo .ui-btn-text{
+    font-size:0.85em !important;
+    padding:0 4px;
+}
+.adppo {
+    padding-top:2px;
+}
+.toff {margin:-1px 5px !important; float:left;}
+.toff label {min-width:70px;}
+.toff label .ui-btn-text {font-size:0.85em !important;}
+.toff span {padding-top:30px !important;}
+
+.floo {
+    float:left;
+    margin-right: 8px !important;
+}
+.flooleft {
+	float:left;
+    margin-left: 8px !important;
+}
+
+.jqm-content label{
+    line-height:36px;
+}
+.jqm-content {padding-top:5px;padding-bottom:5px;}
+
+.fircol {width:100%;display:inline-block;float:left;}
+.secol {width:18%;display:inline-block;float:left;}
+
+td {
+    line-height:56px !important;
+}
+.ui-table-columntoggle-btn {display:none;}
+
+#id_ficha_cliente_div_tabla_ventas_articulos .ui-table-columntoggle-btn {display:block;}
+
+.ui-input-search, div.ui-input-text {
+	margin: 1em 0;
+}
+
+#id_mi_evento_listado_logs .ui-icon, #id_listado_multimedia_listado_multimedia .ui-icon{
+    background: #666666;
+    background: transparent;
+    background-image: url(../jqm/images/icons-18-black.png);
+    background-repeat: no-repeat;
+    -webkit-border-radius: 9px;
+    border-radius: 9px;
+
+
+    background-position: -108px -1px;
+
+}
+
+
+#id_listado_multimedia_listado_multimedia .ui-li-thumb, #id_listado_multimedia_listado_multimedia .ui-listview .ui-li-icon {
+    position: absolute;
+    left: 1px;
+    top: 0;
+    max-height: 80px;
+    max-width: 80px;
+    height: auto;
+    width: 80px;
+    padding-top: 10px;
+    padding-left: 5px
+}
+
+.ui-li-has-thumb > .ui-li > .ui-btn-text > .ui-link-inherit > .ui-li-heading{
+    padding-left: 10px;
+    height:100%;
+    display:block;
+    
+    white-space: normal;
+
+}
+
