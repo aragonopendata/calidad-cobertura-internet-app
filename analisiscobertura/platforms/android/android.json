@@ -15,6 +15,14 @@
             {
               "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SignalStrength\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.SignalStrength\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -50,6 +58,12 @@
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "es.aragon.analisiscobertura"
+    },
+    "org.apache.cordova.signal-strength": {
+      "PACKAGE_NAME": "es.aragon.analisiscobertura"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "es.aragon.analisiscobertura"
     }
   },
   "dependent_plugins": {},
@@ -83,10 +97,28 @@
       "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
       "pluginId": "cordova-plugin-geolocation",
       "runs": true
+    },
+    {
+      "id": "org.apache.cordova.signal-strength.signal-strength",
+      "file": "plugins/org.apache.cordova.signal-strength/www/signal-strength.js",
+      "pluginId": "org.apache.cordova.signal-strength",
+      "clobbers": [
+        "signal-strength"
+      ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-network-information": "3.0.0",
-    "cordova-plugin-geolocation": "4.1.0"
+    "cordova-plugin-geolocation": "4.1.0",
+    "org.apache.cordova.signal-strength": "1.0.0",
+    "cordova-plugin-android-permissions": "1.1.3"
   }
 }

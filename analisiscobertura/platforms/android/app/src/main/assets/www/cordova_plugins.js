@@ -29,10 +29,28 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
       "pluginId": "cordova-plugin-geolocation",
       "runs": true
+    },
+    {
+      "id": "org.apache.cordova.signal-strength.signal-strength",
+      "file": "plugins/org.apache.cordova.signal-strength/www/signal-strength.js",
+      "pluginId": "org.apache.cordova.signal-strength",
+      "clobbers": [
+        "signal-strength"
+      ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-network-information": "3.0.0",
-    "cordova-plugin-geolocation": "4.1.0"
+    "cordova-plugin-geolocation": "4.1.0",
+    "org.apache.cordova.signal-strength": "1.0.0",
+    "cordova-plugin-android-permissions": "1.1.3"
   };
 });
