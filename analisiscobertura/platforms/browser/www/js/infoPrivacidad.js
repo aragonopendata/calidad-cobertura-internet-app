@@ -58,24 +58,29 @@
 
                 console.log('Municipio de Aragón en el que estoy: ' + miMunicipio);
                 //Como estoy en un municipio de Aragón sí dejo usar la aplicación.
-                $('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                 document.location="infoConexion.html";
             }
             else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error controlado.');
                 if(wsResponse.getResponseMessage() == "No se encontraron conincidencias") {
                     //Como el servicio web de obtener municipio no encontró ningún municipio que esté en esa posición sé que el usuario no está en Aragón.
-                    $('#mensaje_error_fuera_de_aragon_info_privacidad').show();
+                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').show();
+                    $("body").overhang({
+                        type: "error",
+                        message: "Esta aplicación no puede ser utilizada fuera de Aragón. Disculpe las molestias.",
+                        closeConfirm: true
+                    });
                 } else {
                     //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                    $('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                     document.location="infoConexion.html";
                 }
             }
             else{
             	console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
                 //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                $('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                 document.location="infoConexion.html";
             }
 		})
@@ -84,13 +89,13 @@
             if(wsError.getResponseMessage() == "timeout"){
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
                 //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                $('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                 document.location="infoConexion.html";
             }
             else{
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
                 //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                $('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                 document.location="infoConexion.html";
             }
 

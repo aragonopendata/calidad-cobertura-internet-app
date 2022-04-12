@@ -26,7 +26,7 @@ function onDeviceReady() {
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     //document.getElementById('deviceready').classList.add('ready');
-    $('#mensaje_error_permiso_gps_bienvenida').hide();
+    //$('#mensaje_error_permiso_gps_bienvenida').hide();
 
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){
         console.log('Boton Empezar pulsado.');
@@ -81,7 +81,7 @@ function onDeviceReady() {
     });
 
     function permitirAcceso() {
-        $('#mensaje_error_permiso_gps_bienvenida').hide();
+        //$('#mensaje_error_permiso_gps_bienvenida').hide();
         //Limpiamos mis datos conexión almacenados en el local storage salvo los datos del test de velocidad.
         var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
         if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
@@ -104,6 +104,11 @@ function onDeviceReady() {
     }
 
     function impedirAcceso() {
-        $('#mensaje_error_permiso_gps_bienvenida').show();
+        //$('#mensaje_error_permiso_gps_bienvenida').show();
+        $("body").overhang({
+            type: "error",
+            message: "Por favor, conceda permiso de captura de posición GPS a la aplicación para poder usarla. Gracias.",
+            closeConfirm: true
+        });
     }
 }

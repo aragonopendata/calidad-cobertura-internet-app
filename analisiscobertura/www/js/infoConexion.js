@@ -24,7 +24,9 @@
     $(document).ready(function () {
         console.log('Página infoConexion lista.');
 
+        //Modificado 12/04/2022: Ahora el Operador ya no es un desplegable, ahora es un input.
         //Configuramos el desplegable de Operador:
+        /*
         $("#inputOperador").mSelectDBox({
             "list": ["Vodafone", "Orange", "Movistar", "Más movil", "YOIGO", "O2", "Finetwork", "Jazztel", "Otro"],
             "multiple":false,
@@ -39,9 +41,12 @@
             "openOnFocus":true,
             "freeWrite":false
         });
+        */
 
-        //Los campos de tipo de red e intensidad de la señal no dejo editarlos nunca:
+        //No se puede editar ninguna de las opciones y todas se cumplimentarán automáticamente (salvo la Ubicación en caso de que no se pueda obtener):
+        $('#inputModeloSO').prop('disabled', true);
         $('#inputTipoRed').prop('disabled', true);
+        $('#inputOperador').prop('disabled', true);
         $('#inputIntensidad').prop('disabled', true);
 
         //Si al entrar en esta pantalla ya tenía rellenos los datos de conexión los pinto y no los vuelvo a capturar.
@@ -89,6 +94,12 @@
                 miModelo = "";
                 miSO = "";
             }
+            $("#inputModeloSO").val(miModelo + " - " + miSO);
+            if (((!miModelo) || (miModelo === "")) && ((!miSO) || (miSO === ""))) {
+                $('#divInputModeloSO').hide();
+            } else {
+                $('#divInputModeloSO').show();
+            }
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             var networkState = navigator.connection.type;
@@ -108,6 +119,11 @@
                 console.log('Connection type: ' + networkState);
                 miTipoRed = networkState;
                 $("#inputTipoRed").val(miTipoRed);
+                if ((!networkState) || (networkState === "Desconocido")) {
+                    $('#divInputTipoRed').hide();
+                } else {
+                    $('#divInputTipoRed').show();
+                }
             }, 1000);
             
             //Coger la intensidad de la señal con el plugin.
@@ -121,6 +137,7 @@
                             miValorIntensidad = measuredDbm;
                             miRangoIntensidad = "";
                             $("#inputIntensidad").val(miValorIntensidad);
+                            $('#divInputIntensidad').show();
                         }
                     }
                 )
@@ -128,9 +145,12 @@
                 $("#inputIntensidad").val("Desconocido");
                 miValorIntensidad = "";
                 miRangoIntensidad = "-1";
+                $('#divInputIntensidad').hide();
             }
 
-            $("#inputModeloSO").val(miModelo + " - " + miSO);
+            //Coger el operador con un plugin.
+            miOperador = "Desconocido";
+            $("#inputOperador").val("Desconocido");
         }
 
         $("#submitForm").on(MAIN.clickEvent, function (){
@@ -432,10 +452,27 @@
         $('#labelValorUbicacion').prop('disabled', true);
 
         $("#inputModeloSO").val(miModelo + " - " + miSO);
+        if (((!miModelo) || (miModelo === "")) && ((!miSO) || (miSO === ""))) {
+            $('#divInputModeloSO').hide();
+        } else {
+            $('#divInputModeloSO').show();
+        }
+
         $("#inputTipoRed").val(miTipoRed);
+        if ((!miTipoRed) || (miTipoRed === "Desconocido")) {
+            $('#divInputTipoRed').hide();
+        } else {
+            $('#divInputTipoRed').show();
+        }
+
         $("#inputOperador").val(miOperador);
+
         if (miRangoIntensidad.toString() === "-1") {
             $("#inputIntensidad").val("Desconocido");
+            $('#divInputIntensidad').hide();
+        } else {
+            $("#inputIntensidad").val(miValorIntensidad);
+            $('#divInputIntensidad').show();
         }
 
         //Miro si tengo datos del test de velocidad hechos. Si los tengo pongo "Repetir test" y muestro el botón de "Resultados".
