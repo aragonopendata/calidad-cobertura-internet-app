@@ -1,4 +1,4 @@
-function DatosCobertura (timestamp, coordenadax, coordenaday, municipio, ine, modelo, so, tipoRed, operador, valorIntensidadSenial, rangoIntensidadSenial, velocidadBajada, velocidadSubida, latencia, datosConexionLimpiados) {
+function DatosCobertura (timestamp, coordenadax, coordenaday, municipio, ine, modelo, so, tipoRed, operador, valorIntensidadSenial, rangoIntensidadSenial, velocidadBajada, velocidadSubida, latencia, datosConexionLimpiados, ubicacionManual) {
 	this.timestamp = timestamp;
 	this.coordenadax = coordenadax;
 	this.coordenaday = coordenaday;
@@ -14,4 +14,5 @@ function DatosCobertura (timestamp, coordenadax, coordenaday, municipio, ine, mo
 	this.velocidadSubida = velocidadSubida;
 	this.latencia = latencia;
 	this.datosConexionLimpiados = datosConexionLimpiados;
+	this.ubicacionManual = ubicacionManual;
 }

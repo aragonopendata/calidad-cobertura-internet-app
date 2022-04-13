@@ -2,7 +2,6 @@
 
     var miINE = "";
     var miMunicipio = "";
-    var miProvincia = "";
     var misDatosCobertura;
 
     $(document).ready(function () {
@@ -762,6 +761,8 @@
         //Botón atrás
         $("#id_bot_atras_ubicacion_manual").on(MAIN.clickEvent, function (){
             console.log('Boton atrás pulsado.');
+            //En este caso no actualizo los datos de Municipioe INE.
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
             volverAtras();
         });
 
@@ -771,20 +772,10 @@
             console.log('Municipio: ' + $("#inputMunicipio").text());
             console.log('INE: ' + $("#inputMunicipio").val());
             miMunicipio = $("#inputMunicipio").val();
-            miProvincia = "";
-            if (miINE.length > 0) {
-                var codProvincia = miINE.substring(0, 2);
-                if (codProvincia === "50") {
-                    miProvincia = "Zaragoza";
-                } else if (codProvincia === "22") {
-                    miProvincia = "Huesca";
-                } else if (codProvincia === "44") {
-                    miProvincia = "Teruel";
-                }
-            }
 
             misDatosCobertura.ine = miINE;
             misDatosCobertura.municipio = miMunicipio;
+            misDatosCobertura.ubicacionManual = true;
             localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
             volverAtras();
         });

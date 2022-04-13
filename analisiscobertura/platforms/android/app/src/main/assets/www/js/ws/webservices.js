@@ -7,7 +7,8 @@ MAIN.ws = (function(){
         urlWS = "https://wsdevcobertura.itsoft.es/api";
     }
     if (MAIN.entorno === "PROD") {
-        urlWS = "https://miv-aodei2a-01.aragon.local:4000/api";
+        //urlWS = "https://miv-aodei2a-01.aragon.local:4000/api";
+        urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";
     }
 
     /*SERVICIOS WEB*/

@@ -20,6 +20,8 @@
     var miVelocidadSubida = null;
     var miLatencia = null;
     var ws = MAIN.ws;
+    var ubicacionObtenida = false;
+    var ubicacionCapturadaManualmente = false;
 
     $(document).ready(function () {
         console.log('Página infoConexion lista.');
@@ -66,6 +68,9 @@
         } else {
             //Si ya había hecho el test de velocidad antes y lo único que quiero es volver a caturar los datos de conexión doy la opción de saltar directamente a resultados o repetir el test de velocidad.
             if ((misDatosCoberturaAux) && (testDeVelocidadHecho(misDatosCoberturaAux.velocidadBajada, misDatosCoberturaAux.velocidadSubida, misDatosCoberturaAux.latencia))) {
+                miVelocidadBajada = misDatosCoberturaAux.velocidadBajada;
+                miVelocidadSubida = misDatosCoberturaAux.velocidadSubida;
+                miLatencia = misDatosCoberturaAux.latencia;
                 $('#id_bot_resultados_info_conexion').show();
                 $('#submitForm').text("Repetir test de velocidad");
             } else {
@@ -148,27 +153,38 @@
                 $('#divInputIntensidad').hide();
             }
 
-            //Coger el operador con un plugin.
+            //TODO: Coger el operador con un plugin.
             miOperador = "Desconocido";
             $("#inputOperador").val("Desconocido");
+            if ((!miOperador) || (miOperador === "Desconocido")) {
+                $('#divInputOperador').hide();
+            } else {
+                $('#divInputOperador').show();
+            }
         }
 
-        $("#submitForm").on(MAIN.clickEvent, function (){
-            //miModelo = $("#inputModeloSO").val();
-            //miTipoRed = $("#inputTipoRed").val();
-            miOperador = $("#inputOperador").val();
-            //miValorIntensidad = $("#inputIntensidad").val();
+        $("#submitForm").on(MAIN.clickEvent, function (event){
+            console.log('Botón submitForm pulsado.');
+            if (ubicacionObtenida) {
+                miOperador = $("#inputOperador").val();
 
-            console.log("He hecho submit: " + miModelo + " - " + miTipoRed + " - " + miOperador + " - " + miValorIntensidad);
+                console.log("He hecho submit: " + miModelo + " - " + miTipoRed + " - " + miOperador + " - " + miValorIntensidad);
 
-            miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
+                miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
 
-            var misDatosCobertura = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false);
+                var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
 
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
-            document.location="infoTestVelocidad.html";
-            
-            //event.preventDefault();
+                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaBotTestVel));
+                document.location="infoTestVelocidad.html";
+            } else {
+                console.log('Ubicación no obtenida.');
+                event.preventDefault();
+                $("body").overhang({
+                    type: "error",
+                    message: "Por favor, debe especificar su ubicación antes de continuar.",
+                    closeConfirm: true
+                });
+            }
         });
 
         //Input ubicación. Si está disabled no funciona el evento click, por lo que si no está disabled que es cunado no tiene ubicación sí entraría.
@@ -180,34 +196,43 @@
             }
             */
             miOperador = $("#inputOperador").val();
-            var misDatosCobertura = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false);
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+            var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaUbicacionManual));
             document.location="ubicacionManual.html";
         });
 
         //Botón resultados
-        $("#id_bot_resultados_info_conexion").on(MAIN.clickEvent, function (){
+        $("#id_bot_resultados_info_conexion").on(MAIN.clickEvent, function (event){
             console.log('Boton resultados pulsado.');
-            //Actualizo los datos por si he camnbiado algo manualmente:
-            //Limpiamos mis datos conexión almacenados en el local storage salvo los datos del test de velocidad.
-            var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
-            if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
-                var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
-                datosCoberturaAux.timestamp = miTimestamp;
-                datosCoberturaAux.coordenadax = miCoordenadaX;
-                datosCoberturaAux.coordenaday = miCoordenadaY;
-                datosCoberturaAux.municipio = miMunicipio;
-                datosCoberturaAux.ine = miINE;
-                datosCoberturaAux.modelo = miModelo;
-                datosCoberturaAux.so = miSO;
-                datosCoberturaAux.tipoRed = miTipoRed;
-                miOperador = $("#inputOperador").val();
-                datosCoberturaAux.operador = miOperador;
-                datosCoberturaAux.valorIntensidadSenial = miValorIntensidad;
-                datosCoberturaAux.rangoIntensidadSenial = miRangoIntensidad;
-                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+            if (ubicacionObtenida) {
+                //Actualizo los datos por si he camnbiado algo manualmente:
+                var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
+                if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
+                    var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
+                    datosCoberturaAux.timestamp = miTimestamp;
+                    datosCoberturaAux.coordenadax = miCoordenadaX;
+                    datosCoberturaAux.coordenaday = miCoordenadaY;
+                    datosCoberturaAux.municipio = miMunicipio;
+                    datosCoberturaAux.ine = miINE;
+                    datosCoberturaAux.modelo = miModelo;
+                    datosCoberturaAux.so = miSO;
+                    datosCoberturaAux.tipoRed = miTipoRed;
+                    miOperador = $("#inputOperador").val();
+                    datosCoberturaAux.operador = miOperador;
+                    datosCoberturaAux.valorIntensidadSenial = miValorIntensidad;
+                    datosCoberturaAux.rangoIntensidadSenial = miRangoIntensidad;
+                    datosCoberturaAux.ubicacionManual = ubicacionCapturadaManualmente;
+                    localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+                }
+                document.location="resumenDatos.html";
+            } else {
+                event.preventDefault();
+                $("body").overhang({
+                    type: "error",
+                    message: "Por favor, debe especificar su ubicación antes de continuar.",
+                    closeConfirm: true
+                });
             }
-            document.location="resumenDatos.html";
         });
 
         //Botón atrás
@@ -299,6 +324,7 @@
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
+            ubicacionObtenida = false;
         }
     }
     function showPosition(position) {
@@ -325,23 +351,33 @@
                 miCoordenadaX = resp.coordenadax;
                 miCoordenadaY = resp.coordenaday;
 
-                console.log('Municipio en el que estoy: ' + miMunicipio);
+                //Si no se han recibido bien todos los campos del servicio web no pinto la posición como correcta.
+                if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
+                    console.log('Municipio en el que estoy: ' + miMunicipio);
 
-                pintarMapa();
+                    pintarMapa();
 
-                //Actualizo el label de ubicación.
-                $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
-                $('#labelValorUbicacion').prop('disabled', true);
+                    //Actualizo el label de ubicación.
+                    $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
+                    $('#labelValorUbicacion').prop('disabled', true);
+                    ubicacionObtenida = true;
+                    ubicacionCapturadaManualmente = false;
+                } else {
+                    ubicacionObtenida = false;
+                }
             }
             else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas.');
+                ubicacionObtenida = false;
             }
             else{
             	console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
+                ubicacionObtenida = false;
             }
 		})
         .fail(function (wsError){
             console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
+            ubicacionObtenida = false;
             if(wsError.getResponseMessage() == "timeout"){
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
             }
@@ -434,22 +470,34 @@
         miVelocidadBajada = datosCoberturaObjeto.velocidadBajada;
         miVelocidadSubida = datosCoberturaObjeto.velocidadSubida;
         miLatencia = datosCoberturaObjeto.latencia;
+        ubicacionCapturadaManualmente = datosCoberturaObjeto.ubicacionManual;
 
         pintarMapa();
 
-        //Actualizo el label de ubicación.
-        if (miINE.length > 0) {
-            var codProvincia = miINE.substring(0, 2);
-            if (codProvincia === "50") {
-                miProvincia = "Zaragoza";
-            } else if (codProvincia === "22") {
-                miProvincia = "Huesca";
-            } else if (codProvincia === "44") {
-                miProvincia = "Teruel";
+        //Actualizo el label de ubicación si tengo ubicación.
+        if (miINE && (miINE !== "") && miMunicipio && (miMunicipio !== "")) {
+            if (miINE.length > 0) {
+                var codProvincia = miINE.substring(0, 2);
+                if (codProvincia === "50") {
+                    miProvincia = "Zaragoza";
+                } else if (codProvincia === "22") {
+                    miProvincia = "Huesca";
+                } else if (codProvincia === "44") {
+                    miProvincia = "Teruel";
+                }
             }
+            $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
+            if (ubicacionCapturadaManualmente) {
+                $('#labelValorUbicacion').prop('disabled', false);
+            } else {
+                $('#labelValorUbicacion').prop('disabled', true);
+            }
+            ubicacionObtenida = true;
+        } else {
+            $('#labelValorUbicacion').prop('disabled', false);
+            ubicacionObtenida = false;
         }
-        $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
-        $('#labelValorUbicacion').prop('disabled', true);
+        
 
         $("#inputModeloSO").val(miModelo + " - " + miSO);
         if (((!miModelo) || (miModelo === "")) && ((!miSO) || (miSO === ""))) {
@@ -466,6 +514,11 @@
         }
 
         $("#inputOperador").val(miOperador);
+        if ((!miOperador) || (miOperador === "Desconocido")) {
+            $('#divInputOperador').hide();
+        } else {
+            $('#divInputOperador').show();
+        }
 
         if (miRangoIntensidad.toString() === "-1") {
             $("#inputIntensidad").val("Desconocido");

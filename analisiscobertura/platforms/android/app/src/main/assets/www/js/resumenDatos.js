@@ -29,7 +29,22 @@
         } else {
             $("#id_valor_resumen_ping").text("Desconocido");
         }
-        $("#id_valor_resumen_ubicacion").text(misDatosCobertura.municipio);
+
+        var textoMunicipio = misDatosCobertura.municipio;
+        var miINE = misDatosCobertura.ine;
+        if (miINE && (miINE !== "")) {
+            if (miINE.length > 0) {
+                var codProvinciaAux = miINE.substring(0, 2);
+                if (codProvinciaAux === "50") {
+                    textoMunicipio = textoMunicipio + " (Zaragoza)";
+                } else if (codProvinciaAux === "22") {
+                    textoMunicipio = textoMunicipio + " (Huesca)";
+                } else if (codProvinciaAux === "44") {
+                    textoMunicipio = textoMunicipio + " (Teruel)";
+                }
+            }
+        }
+        $("#id_valor_resumen_ubicacion").text(textoMunicipio);
         $("#id_valor_resumen_modelo_so").text(misDatosCobertura.modelo + " - " + misDatosCobertura.so);
         $("#id_valor_resumen_tipo_red").text(misDatosCobertura.tipoRed);
         $("#id_valor_resumen_operador").text(misDatosCobertura.operador);

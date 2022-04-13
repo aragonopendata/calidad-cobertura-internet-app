@@ -98,6 +98,7 @@ function onDeviceReady() {
             datosCoberturaAux.valorIntensidadSenial = "";
             datosCoberturaAux.rangoIntensidadSenial = -1;
             datosCoberturaAux.datosConexionLimpiados = true;
+            datosCoberturaAux.ubicacionManual = false;
             localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
         }
         document.location="infoPrivacidad.html";
