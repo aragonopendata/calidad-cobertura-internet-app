@@ -65,6 +65,12 @@
         //Botón enviar resultados
         $("#id_bot_resumen_enviar_resultados").on(MAIN.clickEvent, function (){
             console.log('Boton enviar resultados pulsado.');
+            $.mobile.loading( "show", {
+                text: "Enviando datos ...",
+                textVisible: true,
+                theme: "b",
+                textonly: true
+            });
             if (!misDatosCobertura.coordenadax) {
                 misDatosCobertura.coordenadax = null;
             }
@@ -84,6 +90,7 @@
             $.when( ws.registrarDatosCobertura(misDatosCobertura) )
             .then(function (wsResponse) {     
                 //alert("login done: " + wsResponse);
+                $.mobile.loading( "hide" );
                 if (wsResponse.getResponseType() == ws.OK) {
                     console.log('Datos de cobertura registrados correctamente');
                     document.location="datosEnviadosOK.html";
@@ -98,6 +105,7 @@
                 }
             })
             .fail(function (wsError){
+                $.mobile.loading( "hide" );
                 console.log("registrarDatosCobertura Error: " + wsError);
                 
                 if(wsError.getResponseMessage() == "timeout"){

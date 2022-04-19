@@ -9,6 +9,11 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.cordova.LOG;
+import android.provider.Settings;
+
+
+//Modified by itsoft 18/04/2022: Include airplane mode detection.
 
 public class SignalStrength extends CordovaPlugin {
 
@@ -34,6 +39,26 @@ public boolean execute(String action, JSONArray args, CallbackContext callbackCo
                 callbackContext.success(dbm);
                 return true;
         }
+		
+		if (action.equals("checkAirPlaneModeOn")) {
+			Context context = cordova.getActivity().getApplicationContext();
+			try {
+                int airPlaneModeState = Settings.Global.getInt(
+                        context.getContentResolver(),
+                        Settings.Global.AIRPLANE_MODE_ON,
+						0);
+
+                callbackContext.success(airPlaneModeState);
+				return true;
+
+            } catch (Exception e) {
+                LOG.d("SignalStrength", "Error checking air plane mode state " + e);
+                callbackContext.success(0);
+				return true;
+            }
+			
+		}
+		
 
         return false;
 }

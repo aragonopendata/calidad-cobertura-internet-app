@@ -14,8 +14,30 @@
         //Botón aceptar
         $("#id_bot_acepto_info_privacidad").on(MAIN.clickEvent, function (){
             console.log('Boton acepto pulsado.');
-            //Compruebo si estoy en Aragón. Si no estoy en Aragón no dejo seguiir al usuario.
-            getLocation();
+
+            //Compruebo si tengo el modo avión activo. Si lo tengo activo ya no dejo segir diciendo al usuario que que lo quite.
+            var plataforma = MAIN.utils.platformDetector.getPlatform();
+            if (plataforma === MAIN.utils.platformDetector.ANDROID) {
+                window.SignalStrength.checkAirPlaneModeOn(
+                    function(estado){
+                        console.log('Estado modo avión: ' + estado);
+                        if (estado == 1) {
+                            console.log('¡DESACTIVA MODO AVIÓN, POR FAVOR!');
+                            $("body").overhang({
+                                type: "error",
+                                message: "Tiene activado el modo avión. Por favor, para usar esta aplicación desactivelo.",
+                                closeConfirm: true
+                            });
+                        } else {
+                            console.log('Voy a getLocation 1.');
+                            getLocation();
+                        }
+                    }
+                );
+            } else {
+                console.log('Voy a getLocation 2.');
+                getLocation();
+            }
         });
 
         //Botón atrás
@@ -27,9 +49,16 @@
 
     function getLocation() {
         if (navigator.geolocation) {
+            $.mobile.loading( "show", {
+                text: "Recopilando datos ...",
+                textVisible: true,
+                theme: "b",
+                textonly: true
+            });
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
+            document.location="infoConexion.html";
         }
     }
     function showPosition(position) {
@@ -47,6 +76,7 @@
 		.then(function (wsResponse) {     
 			//alert("login done: " + wsResponse);
             if (wsResponse.getResponseType() == ws.OK) {
+                $.mobile.loading( "hide" );
 
 				var resp = wsResponse.getContent();
 
@@ -62,6 +92,7 @@
                 document.location="infoConexion.html";
             }
             else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
+                $.mobile.loading( "hide" );
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error controlado.');
                 if(wsResponse.getResponseMessage() == "No se encontraron conincidencias") {
                     //Como el servicio web de obtener municipio no encontró ningún municipio que esté en esa posición sé que el usuario no está en Aragón.
@@ -78,6 +109,7 @@
                 }
             }
             else{
+                $.mobile.loading( "hide" );
             	console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
                 //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
                 //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
@@ -85,6 +117,7 @@
             }
 		})
         .fail(function (wsError){
+            $.mobile.loading( "hide" );
             console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
             if(wsError.getResponseMessage() == "timeout"){
                 console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
