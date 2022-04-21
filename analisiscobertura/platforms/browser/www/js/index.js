@@ -24,6 +24,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
 
+    var controladorSincronizacion = MAIN.controladores.sincronizadorReportes;
+
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     //document.getElementById('deviceready').classList.add('ready');
     //$('#mensaje_error_permiso_gps_bienvenida').hide();
@@ -83,25 +85,37 @@ function onDeviceReady() {
     function permitirAcceso() {
         //$('#mensaje_error_permiso_gps_bienvenida').hide();
         //Limpiamos mis datos conexión almacenados en el local storage salvo los datos del test de velocidad.
-        var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
-        if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
-            var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
-            datosCoberturaAux.timestamp = "";
-            datosCoberturaAux.coordenadax = 0;
-            datosCoberturaAux.coordenaday = 0;
-            datosCoberturaAux.municipio = "";
-            datosCoberturaAux.ine = "";
-            datosCoberturaAux.modelo = "";
-            datosCoberturaAux.so = "";
-            datosCoberturaAux.tipoRed = "";
-            datosCoberturaAux.operador = "";
-            datosCoberturaAux.valorIntensidadSenial = "";
-            datosCoberturaAux.rangoIntensidadSenial = -1;
-            datosCoberturaAux.datosConexionLimpiados = true;
-            datosCoberturaAux.ubicacionManual = false;
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
-        }
-        document.location="infoPrivacidad.html";
+        $.mobile.loading( "show", {
+            text: "Enviando reportes pendientes ...",
+            textVisible: true,
+            theme: "b",
+            textonly: true
+        });
+        var continuarSiguientePantalla = function() {
+            var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
+            if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
+                var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
+                datosCoberturaAux.timestamp = "";
+                datosCoberturaAux.coordenadax = 0;
+                datosCoberturaAux.coordenaday = 0;
+                datosCoberturaAux.municipio = "";
+                datosCoberturaAux.ine = "";
+                datosCoberturaAux.modelo = "";
+                datosCoberturaAux.so = "";
+                datosCoberturaAux.tipoRed = "";
+                datosCoberturaAux.operador = "";
+                datosCoberturaAux.valorIntensidadSenial = "";
+                datosCoberturaAux.rangoIntensidadSenial = -1;
+                datosCoberturaAux.datosConexionLimpiados = true;
+                datosCoberturaAux.ubicacionManual = false;
+                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+            }
+            document.location="infoPrivacidad.html";
+        };
+        controladorSincronizacion.enviarReportesPendientes(
+            continuarSiguientePantalla,
+            continuarSiguientePantalla
+        );
     }
 
     function impedirAcceso() {

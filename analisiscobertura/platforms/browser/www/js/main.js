@@ -10,11 +10,12 @@ var MAIN = (function() {
 	ret.modelo = {}; //Acceso a entidades
     ret.utils = {}; //Utilidades
 	ret.ws = {}; //Servicios web
+    ret.controladores = {}; //Controladores
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    //ret.entorno = "DEV";
-    ret.entorno = "PRUEBAS_ARAGON";
+    ret.entorno = "DEV";
+    //ret.entorno = "PRUEBAS_ARAGON";
     //ret.entorno = "PROD";
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
