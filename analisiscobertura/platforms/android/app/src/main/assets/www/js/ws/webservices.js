@@ -6,6 +6,9 @@ MAIN.ws = (function(){
     if (MAIN.entorno === "DEV") {
         urlWS = "https://wsdevcobertura.itsoft.es/api";
     }
+    if (MAIN.entorno === "PRUEBAS_ARAGON") {
+        urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
+    }
     if (MAIN.entorno === "PROD") {
         //urlWS = "https://miv-aodei2a-01.aragon.local:4000/api";
         urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";

@@ -27,6 +27,7 @@ El código fuente de la aplicación está desarrollado creando un proyecto de Cordo
 	- cordova-plugin-geolocation (https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-geolocation/index.html)
 	- cordova-plugin-android-permissions (https://www.npmjs.com/package/cordova-plugin-android-permissions)
 	- cordova-plugin-signal-strength (https://github.com/petervojtek/cordova-plugin-signal-strength)
+	- cordova-plugin-background-mode (https://github.com/katzer/cordova-plugin-background-mode)
 	
 ### Guía de mantenimiento:
 Para poder realizar el mantenimiento del código fuente de esta aplicación es necesario tener instalado en el equipo los siguientes componentes:

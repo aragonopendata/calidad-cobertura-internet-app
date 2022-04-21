@@ -209,6 +209,7 @@
                 var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
                 if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
                     var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
+                    miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date()); //Actualizo la fecha de captura de datos.
                     datosCoberturaAux.timestamp = miTimestamp;
                     datosCoberturaAux.coordenadax = miCoordenadaX;
                     datosCoberturaAux.coordenaday = miCoordenadaY;

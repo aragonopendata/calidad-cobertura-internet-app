@@ -45,12 +45,31 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugins.permissions"
       ]
+    },
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-background-mode.BackgroundMode",
+      "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+      "pluginId": "cordova-plugin-background-mode",
+      "clobbers": [
+        "cordova.plugins.backgroundMode",
+        "plugin.backgroundMode"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-network-information": "3.0.0",
     "cordova-plugin-geolocation": "4.1.0",
     "org.apache.cordova.signal-strength": "1.0.0",
-    "cordova-plugin-android-permissions": "1.1.3"
+    "cordova-plugin-android-permissions": "1.1.3",
+    "cordova-plugin-device": "2.1.0",
+    "cordova-plugin-background-mode": "0.7.3"
   };
 });

@@ -15,7 +15,7 @@
         $("#id_bot_acepto_info_privacidad").on(MAIN.clickEvent, function (){
             console.log('Boton acepto pulsado.');
 
-            //TODO: Compruebo si tengo el modo avión activo. Si lo tengo activo ya no dejo segir diciendo al usuario que que lo quite.
+            //Compruebo si tengo el modo avión activo. Si lo tengo activo ya no dejo segir diciendo al usuario que que lo quite.
             var plataforma = MAIN.utils.platformDetector.getPlatform();
             if (plataforma === MAIN.utils.platformDetector.ANDROID) {
                 window.SignalStrength.checkAirPlaneModeOn(
