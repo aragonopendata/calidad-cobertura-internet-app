@@ -24,12 +24,12 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-network-information": {},
       "org.apache.cordova.signal-strength": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-geolocation": {
         "GPS_REQUIRED": "true"
-      }
+      },
+      "cordova-plugin-network-information": {}
     },
     "platforms": [
       "browser",

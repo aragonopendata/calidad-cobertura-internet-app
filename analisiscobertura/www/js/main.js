@@ -14,8 +14,8 @@ var MAIN = (function() {
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    ret.entorno = "DEV";
-    //ret.entorno = "PRUEBAS_ARAGON";
+    //ret.entorno = "DEV";
+    ret.entorno = "PRUEBAS_ARAGON";
     //ret.entorno = "PROD";
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
