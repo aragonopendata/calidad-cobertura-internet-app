@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <!--<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/Inter.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/app-cobertura-aragon.css"/>
+        <link rel="stylesheet" type="text/css" href="css/overhang.min.css" />
+        <link rel="stylesheet" href="css/ol.css">
+        <link rel="stylesheet" href="css/analisiscobertura.css">
+        <script src="js/librerias/jquery-2.1.1.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery.mobile-1.4.5.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/librerias/overhang.min.js"></script>
+        <script src="js/librerias/MSelectDBox.js"></script>
+        <script src="js/librerias/ol.js" type="text/javascript"></script>
+        <script src="cordova.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/constantes/constantes.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/utils/conectivity_manager.js" type="text/javascript"></script>
+        <script src="js/utils/string_utils.js" type="text/javascript"></script>
+        <script src="js/utils/platform_detector.js" type="text/javascript"></script>
+        <script src="js/ws/webservices.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/infoConexion.js"></script>
+        <script src="js/modelo/DatosCobertura.js" type="text/javascript"></script>
+        <title>Información de la conexión</title>
+    </head>
+    <body>
+        <div data-role="page">
+            <!--<ul class="navbarul">
+                <li class="navbarli"><span class="navbarlispan">Preparación</span></li>
+            </ul>-->
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+                <a id="id_bot_atras_info_conexion" href="#" data-icon="back">Atrás</a>
+                <h1>Preparación</h1>
+            </div>
+
+            <div class="seccionComprobacion" hidden>Por favor, revise los datos y pulse Iniciar TEST</div>
+
+            <div data-role="content">
+
+                
+
+                <!-- MAPA -->
+                <div id="map" class="map" tabindex="0"></div>
+                <!-- FIN MAPA -->
+
+                <form id="formDatosConexion" class="ifta">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                                <div class="group">
+                                <label id="labelCampoUbicacion" class="small ifta-label">Ubicación</label>
+                                <!--<label id="labelValorUbicacion" class="label-valor-ubicacion">- Desconocida -</label>-->
+                                <input id="labelValorUbicacion" type="text" class="ifta-field" placeholder="- Desconocida -" />
+                                </div>
+
+                                <div id="divInputModeloSO" class="group">
+                                <label class="small ifta-label" for="inputModeloSO">Modelo - Sistema Operativo</label>
+                                <input type="text" class="ifta-field" id="inputModeloSO" placeholder="" />
+                                </div>
+                                
+                                <div id="divInputTipoRed" class="group">
+                                <label class="small ifta-label" for="inputTipoRed">Tipo de red</label>
+                                <input type="text" class="ifta-field" id="inputTipoRed" placeholder="- Ejemplo: 5G -" />
+                                </div>
+                    
+                                <div id="divInputOperador" class="group">
+                                <label class="small ifta-label" for="inputOperador">Operador</label>
+                                <input type="text" class="ifta-field" id="inputOperador" placeholder="- Desconocido -" />
+                                </div>
+                    
+                                <div id="divInputIntensidad" class="group">
+                                <label class="small ifta-label" for="inputIntensidad">Intensidad de la señal</label>
+                                <input type="text" class="ifta-field" id="inputIntensidad" placeholder="- Ejemplo: Alta -" />
+                                </div>
+                    
+                                <!--<div class="col-xs-12">
+                                <button data-theme="b" type="submit" id="submitForm" class="btn btn-primary btn-block mt-3 aumentado">Iniciar TEST</button>
+                                </div>-->
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="botonPie">
+                    <button class="ui-btn ui-corner-all" style="width: 100%;">Iniciar TEST</button>
+                </div> -->
+
+            </div>
+            <!-- /content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <button data-theme="c" id="id_bot_resultados_info_conexion" class="btn btn-primary btn-block mt-3 aumentado botonPie" hidden>Resultados</button>
+                <button data-theme="b" id="submitForm" class="btn btn-primary btn-block mt-3 aumentado botonPie">Iniciar test de velocidad</button>
+            </div>
+            <!-- /footer -->
+
+            </form>
+
+        </div>
+        <!-- /page -->
+    </body>
+</html>

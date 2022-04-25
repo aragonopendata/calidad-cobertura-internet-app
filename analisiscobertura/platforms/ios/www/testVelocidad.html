@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/Inter.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/app-cobertura-aragon.css"/>
+        <link rel="stylesheet" href="css/ol.css">
+		<link rel="stylesheet" href="css/testvelocidad/custom_de_jqm.css" />
+        <link rel="stylesheet" href="css/testvelocidad/aragoneventos.css" />
+        <link rel="stylesheet" href="css/analisiscobertura.css">
+        <script src="js/librerias/jquery-2.1.1.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/ol.js" type="text/javascript"></script>
+        <script src="js/librerias/jquery.validate.min.js"></script>
+        <script src="cordova.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/librerias/jquery.mobile-1.4.5.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery.mobile.simpledialog2.min.js"></script>
+        
+        <script src="js/utils/css_loader.js"></script>
+        
+        <script src="js/librerias/moment.min.js"></script>
+        <script src="js/librerias/moment_es.js"></script>
+        <script src="js/librerias/justgage.js"></script>
+  		<script src="js/librerias/raphael.2.1.0.min.js"></script>
+		<script src="js/utils/storage_utils.js"></script>
+        <script src="js/utils/dialogs.js"></script>        
+        <script src="js/utils/dom_utils.js"></script>            
+		<script src="js/utils/image_utils.js"></script>
+        <script src="js/utils/jquery.buttonizer.js"></script>
+        <script src="js/constantes/constantes.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/utils/conectivity_manager.js" type="text/javascript"></script>
+        <script src="js/utils/string_utils.js" type="text/javascript"></script>
+        <script src="js/utils/platform_detector.js" type="text/javascript"></script>
+        <script src="js/utils/console_stub.js"></script>
+        <script src="js/ws/webservices.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/testVelocidad.js"></script>
+        <script src="js/modelo/DatosCobertura.js" type="text/javascript"></script>
+        <title>Información de la conexión</title>
+    </head>
+    <body>
+        <div id="id_test_velocidad" data-role="page" data-theme="a">
+            
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
+                <a id="id_bot_atras_test_velocidad" href="#" data-icon="back">Atrás</a>
+                <h1>Test de velocidad</h1>
+            </div>
+            <!-- /header -->
+
+            <div data-role="content">
+
+                <div id="id_test_velocidad_container">
+                    <!--<div id="id_test_velocidad_heading">Test de Velocidad</div> !-->
+                    
+                    <div id="id_test_velocidad_gauges" class="tabla tabla_test_velocidad">                     
+                        <div class="fila">
+                            <div class="columna">
+                                <div id="id_test_velocidad_gauge_download" class="gauge"></div>
+                            </div><!-- columna -->
+                            <div class="columna grow" id="columna_resultados_test_velocidad">
+                            
+                                <div id="id_test_velocidad_resoltado_descarga_tabla" class="tabla table_result">
+                                    <div class="fila cabecera_resultado cabecera_descarga">
+                                        <div id="id_test_velocidad_download_speed_Label" class="cabecera_resultado_label_mini">Descarga</div>
+                                        <div id="id_test_velocidad_download_mb" class="cabecera_resultado_label_grande" style="display: none;">--- Mbps</div>
+                                            
+                                    </div><!-- fila -->
+                                    <div class="fila resultado_test">
+                                        <div id="id_test_velocidad_result_download" class = "resultado_test" style="display: none;"></div>
+                                        <div id="id_test_velocidad_result_download_details" class = "resultado_test"></div>
+                                    </div><!-- fila -->
+                                </div>
+                                
+                            </div><!-- columna -->
+                        </div><!-- fila -->
+                            
+                        <div class="fila">
+                            <div class="columna">
+                                <div id="id_test_velocidad_gauge_upload" class="gauge"></div>
+                            </div><!-- columna -->
+                            <div class="columna grow" id="columna_resultados_test_velocidad">
+                            
+                                <div id="id_test_velocidad_resoltado_subida_tabla" class="tabla table_result">
+                                    <div class="fila cabecera_resultado cabecera_subida">
+                                        <div id="id_test_velocidad_upload_speed_Label" class="cabecera_resultado_label_mini">Subida</div>
+                                        <div id="id_test_velocidad_upload_mb" class="cabecera_resultado_label_grande" style="display: none;">--- Mbps</div>
+                                    </div>
+                                    <div class="fila resultado_test">
+                                        <div id="id_test_velocidad_result_upload" class = "resultado_test" style="display: none;"></div>
+                                        <div id="id_test_velocidad_result_upload_details" class = "resultado_test" ></div>
+                                    </div>
+                                </div>
+                            </div><!-- columna -->
+                        </div><!-- fila -->
+                    </div><!-- tabla -->
+                    
+                    <div id="id_test_velocidad_latency" class = "result_latencia"></div>
+
+        
+                    <div id="id_test_velocidad_line">
+                    
+                        <div id="id_test_velocidad_estado"></div>
+                        <span id="id_test_velocidad_loader"><img src="img/progressbar_dot.gif" alt="Loading"/></span>
+                    </div> <!-- line -->
+                    
+                </div><!-- container -->
+
+                <!-- <div class="test_velocidad_footer">
+                    <a type="submit" id="id_test_velocidad_button_start" class="submit" value="Iniciar"  data-inline="true"  data-theme="b">Iniciar Test</a>
+                </div> -->
+                
+            </div>
+            <!-- content -->
+
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <button data-theme="c" id="id_test_velocidad_button_start" class="btn btn-primary btn-block mt-3 aumentado botonPie" hidden>Repetir Test</button>
+                <button data-theme="c" id="id_bot_detener_test_velocidad" class="btn btn-primary btn-block mt-3 aumentado botonPie">Detener</button>
+                <button data-theme="b" id="id_bot_confirmar_test_velocidad" class="btn btn-primary btn-block mt-3 aumentado botonPie" disabled>Confirmar</button>
+             </div>
+             <!-- /footer -->
+            
+        </div> 
+        <!-- page -->
+    </body>
+</html>

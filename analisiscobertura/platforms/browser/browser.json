@@ -14,7 +14,7 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
+      "PACKAGE_NAME": "es.aragon.analisiscobertura"
     },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
