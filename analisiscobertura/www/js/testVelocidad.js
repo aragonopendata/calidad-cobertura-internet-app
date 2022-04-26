@@ -48,7 +48,7 @@
         var uploadURL2 = '';
         var uploadTime = 0;
         var numberUploadTest = 2;
-        var uploadSize=3246084; //Bytes
+        var uploadSize=12870630; //Bytes
         var gauge_upload;
         var sizeBuffSubida = 0;
         var timeBuffSubida = 0;
@@ -80,6 +80,10 @@
     //*** INICIALIZACION ***//
         $(document).on("pageinit", '#id_test_velocidad', function() {
             console.log('Página testVelocidad lista.');
+            
+            //Durante el test de velocidad no vamos a querer que se suba en ningún momento los reportes pendientes para no afectar a los resultados del test de velocidad.
+            MAIN.sincronizandoReportes = true;
+
             var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
             misDatosCobertura = JSON.parse(misDatosCoberturaString);
     
@@ -87,8 +91,8 @@
             
             //Cargamos las URL que vienen del JSON.
             //var miEvento = eventoCompleto.dameEvento(evento.configuracionEvento);
-            uploadURL = "https://wwwdownloaditsoftstorage.file.core.windows.net/aragon"; //miEvento.urlSubidaServidor1 //Configurar URL
-            uploadURL2 = "https://wwwdownloaditsoftstorage.file.core.windows.net/aragon"; //miEvento.urlSubidaServidor2; //Configurar URL
+            uploadURL = "https://wsdevcobertura.itsoft.es/api/testVelocidadSubida"; //miEvento.urlSubidaServidor1 //Configurar URL
+            uploadURL2 = "https://wsdevcobertura.itsoft.es/api/testVelocidadSubida"; //miEvento.urlSubidaServidor2; //Configurar URL
             testFilesArsis[0] = "https://d.itsoft.es/aragon/filedownload1.txt"; //miEvento.urlDescargaFichero1Servidor1; //Configurar URL
             //testFilesArsis[1] = "https://d.itsoft.es/aragon/filedownload2.txt"; //miEvento.urlDescargaFichero2Servidor1; //Configurar URL
             //testFilesArsis[2] = "https://d.itsoft.es/aragon/filedownload3.txt"; //miEvento.urlDescargaFichero3Servidor1; //Configurar URL

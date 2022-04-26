@@ -65,59 +65,67 @@
         //Botón enviar resultados
         $("#id_bot_resumen_enviar_resultados").on(MAIN.clickEvent, function (){
             console.log('Boton enviar resultados pulsado.');
-            $.mobile.loading( "show", {
-                text: "Enviando datos ...",
-                textVisible: true,
-                theme: "b",
-                textonly: true
-            });
-            if (!misDatosCobertura.coordenadax) {
-                misDatosCobertura.coordenadax = null;
-            }
-            if (!misDatosCobertura.coordenaday) {
-                misDatosCobertura.coordenaday = null;
-            }
-            //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
-            if (misDatosCobertura.velocidadBajada) {
-                misDatosCobertura.velocidadBajada = misDatosCobertura.velocidadBajada.toString();
-            }
-            if (misDatosCobertura.velocidadSubida) {
-                misDatosCobertura.velocidadSubida = misDatosCobertura.velocidadSubida.toString();
-            }
-            if (misDatosCobertura.latencia) {
-                misDatosCobertura.latencia = misDatosCobertura.latencia.toString();
-            }
-            $.when( ws.registrarDatosCobertura(misDatosCobertura) )
-            .then(function (wsResponse) {     
-                //alert("login done: " + wsResponse);
-                $.mobile.loading( "hide" );
-                if (wsResponse.getResponseType() == ws.OK) {
-                    console.log('Datos de cobertura registrados correctamente');
-                    document.location="datosEnviadosOK.html";
+            if (MAIN.sincronizandoReportes) {
+                console.log('No enviamos el reporte actual en Resumen Datos porque ya se estaban sincronizando reportes.');
+                document.location="datosEnviadosKO.html";
+            } else {
+                MAIN.sincronizandoReportes = true;
+                $.mobile.loading( "show", {
+                    text: "Enviando datos ...",
+                    textVisible: true,
+                    theme: "b",
+                    textonly: true
+                });
+                if (!misDatosCobertura.coordenadax) {
+                    misDatosCobertura.coordenadax = null;
                 }
-                else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
-                    console.log('Ha fallado el WS de registrarDatosCobertura.');
-                    document.location="datosEnviadosKO.html";
+                if (!misDatosCobertura.coordenaday) {
+                    misDatosCobertura.coordenaday = null;
                 }
-                else{
-                    console.log('Ha fallado el WS de registrarDatosCobertura. Error desconocido.');
-                    document.location="datosEnviadosKO.html";
+                //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
+                if (misDatosCobertura.velocidadBajada) {
+                    misDatosCobertura.velocidadBajada = misDatosCobertura.velocidadBajada.toString();
                 }
-            })
-            .fail(function (wsError){
-                $.mobile.loading( "hide" );
-                console.log("registrarDatosCobertura Error: " + wsError);
-                
-                if(wsError.getResponseMessage() == "timeout"){
-                    console.log('Ha fallado el WS de registrarDatosCobertura. Timeout.');
-                    document.location="datosEnviadosKO.html";
+                if (misDatosCobertura.velocidadSubida) {
+                    misDatosCobertura.velocidadSubida = misDatosCobertura.velocidadSubida.toString();
                 }
-                else{
-                    console.log('Ha fallado el WS de registrarDatosCobertura. Fail.');
-                    document.location="datosEnviadosKO.html";
+                if (misDatosCobertura.latencia) {
+                    misDatosCobertura.latencia = misDatosCobertura.latencia.toString();
                 }
-
-            });
+                $.when( ws.registrarDatosCobertura(misDatosCobertura) )
+                .then(function (wsResponse) {     
+                    MAIN.sincronizandoReportes = false;
+                    //alert("login done: " + wsResponse);
+                    $.mobile.loading( "hide" );
+                    if (wsResponse.getResponseType() == ws.OK) {
+                        console.log('Datos de cobertura registrados correctamente');
+                        document.location="datosEnviadosOK.html";
+                    }
+                    else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
+                        console.log('Ha fallado el WS de registrarDatosCobertura.');
+                        document.location="datosEnviadosKO.html";
+                    }
+                    else{
+                        console.log('Ha fallado el WS de registrarDatosCobertura. Error desconocido.');
+                        document.location="datosEnviadosKO.html";
+                    }
+                })
+                .fail(function (wsError){
+                    MAIN.sincronizandoReportes = false;
+                    $.mobile.loading( "hide" );
+                    console.log("registrarDatosCobertura Error: " + wsError);
+                    
+                    if(wsError.getResponseMessage() == "timeout"){
+                        console.log('Ha fallado el WS de registrarDatosCobertura. Timeout.');
+                        document.location="datosEnviadosKO.html";
+                    }
+                    else{
+                        console.log('Ha fallado el WS de registrarDatosCobertura. Fail.');
+                        document.location="datosEnviadosKO.html";
+                    }
+    
+                });
+            }
         });
 
         //Botón atrás

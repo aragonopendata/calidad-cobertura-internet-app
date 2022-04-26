@@ -82,40 +82,65 @@ function onDeviceReady() {
         }
     });
 
+    function continuarSiguientePantalla() {
+        MAIN.sincronizandoReportes = false;
+        var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
+        if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
+            var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
+            datosCoberturaAux.timestamp = "";
+            datosCoberturaAux.coordenadax = 0;
+            datosCoberturaAux.coordenaday = 0;
+            datosCoberturaAux.municipio = "";
+            datosCoberturaAux.ine = "";
+            datosCoberturaAux.modelo = "";
+            datosCoberturaAux.so = "";
+            datosCoberturaAux.tipoRed = "";
+            datosCoberturaAux.operador = "";
+            datosCoberturaAux.valorIntensidadSenial = "";
+            datosCoberturaAux.rangoIntensidadSenial = -1;
+            datosCoberturaAux.datosConexionLimpiados = true;
+            datosCoberturaAux.ubicacionManual = false;
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+        }
+        document.location="infoPrivacidad.html";
+    };
+
     function permitirAcceso() {
         //$('#mensaje_error_permiso_gps_bienvenida').hide();
         //Limpiamos mis datos conexión almacenados en el local storage salvo los datos del test de velocidad.
-        $.mobile.loading( "show", {
-            text: "Enviando reportes pendientes ...",
-            textVisible: true,
-            theme: "b",
-            textonly: true
-        });
-        var continuarSiguientePantalla = function() {
-            var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
-            if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
-                var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
-                datosCoberturaAux.timestamp = "";
-                datosCoberturaAux.coordenadax = 0;
-                datosCoberturaAux.coordenaday = 0;
-                datosCoberturaAux.municipio = "";
-                datosCoberturaAux.ine = "";
-                datosCoberturaAux.modelo = "";
-                datosCoberturaAux.so = "";
-                datosCoberturaAux.tipoRed = "";
-                datosCoberturaAux.operador = "";
-                datosCoberturaAux.valorIntensidadSenial = "";
-                datosCoberturaAux.rangoIntensidadSenial = -1;
-                datosCoberturaAux.datosConexionLimpiados = true;
-                datosCoberturaAux.ubicacionManual = false;
-                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
-            }
-            document.location="infoPrivacidad.html";
-        };
-        controladorSincronizacion.enviarReportesPendientes(
-            continuarSiguientePantalla,
-            continuarSiguientePantalla
-        );
+        if (MAIN.sincronizandoReportes) {
+            console.log('No ejecutamos sincronización reportes en Bienvenida porque ya se estaban sincronizando reportes.');
+            //TODO: Continuar a la siguiente pantalla cuando MAIN.sincronizandoReportes sea false.
+            $.mobile.loading( "show", {
+                text: "Enviando reportes pendientes ...",
+                textVisible: true,
+                theme: "b",
+                textonly: true
+            });
+            esperarFinSincReportesBackground();
+        } else {
+            MAIN.sincronizandoReportes = true;
+            $.mobile.loading( "show", {
+                text: "Enviando reportes pendientes ...",
+                textVisible: true,
+                theme: "b",
+                textonly: true
+            });
+            controladorSincronizacion.enviarReportesPendientes(
+                continuarSiguientePantalla,
+                continuarSiguientePantalla
+            );
+        }
+    }
+
+    function esperarFinSincReportesBackground() {
+        if (MAIN.sincronizandoReportes) {
+            setTimeout(function(){
+                esperarFinSincReportesBackground();
+            },2500);
+        } else {
+            continuarSiguientePantalla();
+        }
     }
 
     function impedirAcceso() {

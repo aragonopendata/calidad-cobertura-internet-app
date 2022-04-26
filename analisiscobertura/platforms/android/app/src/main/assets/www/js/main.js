@@ -23,5 +23,11 @@ var MAIN = (function() {
     ret.timeoutTestBajada = 40000;
     ret.timeoutTestSubida = 50000;
 
+    var w;
+
+    if (typeof(w) == "undefined") {
+        w = new Worker("js/controladores/sinc_reportes_worker.js");
+    }
+
     return ret;
 }());
