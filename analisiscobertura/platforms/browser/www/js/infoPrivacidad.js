@@ -49,7 +49,7 @@
 
     function getLocation() {
         //Para que no se me cuele ninguna sincronización en segundo plano mientras determino la posición:
-        MAIN.sincronizandoReportes = true;
+        MAIN.setSincronizandoReportesTrue();
 
         if (navigator.geolocation) {
             $.mobile.loading( "show", {
@@ -100,7 +100,7 @@
                 if(wsResponse.getResponseMessage() == "No se encontraron conincidencias") {
                     //Como el servicio web de obtener municipio no encontró ningún municipio que esté en esa posición sé que el usuario no está en Aragón.
                     //$('#mensaje_error_fuera_de_aragon_info_privacidad').show();
-                    MAIN.sincronizandoReportes = false;
+                    MAIN.setSincronizandoReportesFalse();
                     $("body").overhang({
                         type: "error",
                         message: "Esta aplicación no puede ser utilizada fuera de la Comunidad de Aragón. Disculpe las molestias.",

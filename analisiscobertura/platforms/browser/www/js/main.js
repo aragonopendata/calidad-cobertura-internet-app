@@ -24,7 +24,26 @@ var MAIN = (function() {
     ret.timeoutTestBajada = 40000;
     ret.timeoutTestSubida = 50000;
 
-    ret.sincronizandoReportes = false;
+    //ret.sincronizandoReportes = false; //En vez de usar la variable MAIN.sincronizandoReportes que se inicializa cada vez que se carga el fichero main.js en todas las pantalla, usar una key en localStorage.
+    ret.getSincronizandoReportes = function() {
+        var valAux = sessionStorage.getItem("keySincronizandoReportes");
+        if (valAux && (valAux === "true")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    ret.setSincronizandoReportesTrue = function() {
+        sessionStorage.setItem("keySincronizandoReportes", true);
+    }
+    ret.setSincronizandoReportesFalse = function() {
+        sessionStorage.setItem("keySincronizandoReportes", false);
+    }
+
+    //Por ahora no usamos esta función.
+    ret.realizarCambioDePantalla = function(pantalla) {
+        document.location = pantalla;
+    }
 
     var w;
     var procesoSincOk = function() {
@@ -36,7 +55,6 @@ var MAIN = (function() {
         guardarReporteActEnPersistenciaSihay();
     }
     var guardarReporteActEnPersistenciaSihay = function() {
-        //TODO: HACER.
         //Almaceno el reporte actual en en el persisten storege de reportes pendientes de subida:
         var miArrayDatosCoberturaString = localStorage.getItem(MAIN.keyLSDatosCoberturaPendientesSubida);
         if (miArrayDatosCoberturaString && (miArrayDatosCoberturaString !== "")) {
@@ -56,7 +74,7 @@ var MAIN = (function() {
             localStorage.setItem(MAIN.keyLSDatosCoberturaPendientesSubida, JSON.stringify(arrayDatosCobertura));
             localStorage.removeItem(MAIN.keyLSDatosCoberturaPendientePersistir);
         }
-        MAIN.sincronizandoReportes = false;
+        MAIN.setSincronizandoReportesFalse();
     }
 
     if(typeof(Worker) !== "undefined") {
@@ -64,15 +82,25 @@ var MAIN = (function() {
             w = new Worker("js/controladores/sinc_reportes_worker.js");
         }
         w.onmessage = function(event) {
-            if (MAIN.sincronizandoReportes) {
-                console.log('No ejecutamos sincronización reportes en MAIN porque ya se estaban sincronizando reportes.');
+            if (event.data.toString() === "1") {
+                console.log('Justo al arrancar el worker no hacemos nada.');
             } else {
-                MAIN.sincronizandoReportes = true;
-                console.log('Ejecutando sincronización reportes MAIN.');
-                MAIN.controladores.sincronizadorReportes.enviarReportesPendientes(
-                    procesoSincOk,
-                    procesoSincKo
-                );
+                if (MAIN.getSincronizandoReportes()) {
+                    console.log('No ejecutamos sincronización reportes en MAIN porque ya se estaban sincronizando reportes.');
+                    //A la siguiente sí se ejecuta la sincronización.
+                    MAIN.setSincronizandoReportesFalse();
+                } else {
+                    if (MAIN.controladores.sincronizadorReportes) {
+                        MAIN.setSincronizandoReportesTrue();
+                        console.log('Ejecutando sincronización reportes MAIN.');
+                        MAIN.controladores.sincronizadorReportes.enviarReportesPendientes(
+                            procesoSincOk,
+                            procesoSincKo
+                        );
+                    } else {
+                        MAIN.setSincronizandoReportesFalse();
+                    }
+                }
             }
         };
     }

@@ -83,7 +83,7 @@ function onDeviceReady() {
     });
 
     function continuarSiguientePantalla() {
-        MAIN.sincronizandoReportes = false;
+        MAIN.setSincronizandoReportesFalse();
         var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
         if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
             var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
@@ -108,18 +108,11 @@ function onDeviceReady() {
     function permitirAcceso() {
         //$('#mensaje_error_permiso_gps_bienvenida').hide();
         //Limpiamos mis datos conexión almacenados en el local storage salvo los datos del test de velocidad.
-        if (MAIN.sincronizandoReportes) {
+        if (MAIN.getSincronizandoReportes()) {
             console.log('No ejecutamos sincronización reportes en Bienvenida porque ya se estaban sincronizando reportes.');
-            //TODO: Continuar a la siguiente pantalla cuando MAIN.sincronizandoReportes sea false.
-            $.mobile.loading( "show", {
-                text: "Enviando reportes pendientes ...",
-                textVisible: true,
-                theme: "b",
-                textonly: true
-            });
-            esperarFinSincReportesBackground();
+            continuarSiguientePantalla();
         } else {
-            MAIN.sincronizandoReportes = true;
+            MAIN.setSincronizandoReportesTrue();
             $.mobile.loading( "show", {
                 text: "Enviando reportes pendientes ...",
                 textVisible: true,
@@ -133,8 +126,9 @@ function onDeviceReady() {
         }
     }
 
+    /*
     function esperarFinSincReportesBackground() {
-        if (MAIN.sincronizandoReportes) {
+        if (MAIN.getSincronizandoReportes()) {
             setTimeout(function(){
                 esperarFinSincReportesBackground();
             },2500);
@@ -142,6 +136,7 @@ function onDeviceReady() {
             continuarSiguientePantalla();
         }
     }
+    */
 
     function impedirAcceso() {
         //$('#mensaje_error_permiso_gps_bienvenida').show();

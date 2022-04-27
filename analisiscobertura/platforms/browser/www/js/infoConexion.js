@@ -321,13 +321,13 @@
     */
 
     function getLocation() {
-        MAIN.sincronizandoReportes = true;
+        MAIN.setSincronizandoReportesTrue();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
             ubicacionObtenida = false;
-            MAIN.sincronizandoReportes = false;
+            MAIN.setSincronizandoReportesFalse();
         }
     }
     function showPosition(position) {
@@ -344,7 +344,7 @@
         $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
 		.then(function (wsResponse) {     
 			//alert("login done: " + wsResponse);
-            MAIN.sincronizandoReportes = false;
+            MAIN.setSincronizandoReportesFalse();
             if (wsResponse.getResponseType() == ws.OK) {
 
 				var resp = wsResponse.getContent();
@@ -380,7 +380,7 @@
             }
 		})
         .fail(function (wsError){
-            MAIN.sincronizandoReportes = false;
+            MAIN.setSincronizandoReportesFalse();
             console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
             ubicacionObtenida = false;
             if(wsError.getResponseMessage() == "timeout"){

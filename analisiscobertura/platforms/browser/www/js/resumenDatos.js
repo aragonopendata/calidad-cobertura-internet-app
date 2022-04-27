@@ -65,11 +65,11 @@
         //Botón enviar resultados
         $("#id_bot_resumen_enviar_resultados").on(MAIN.clickEvent, function (){
             console.log('Boton enviar resultados pulsado.');
-            if (MAIN.sincronizandoReportes) {
+            if (MAIN.getSincronizandoReportes()) {
                 console.log('No enviamos el reporte actual en Resumen Datos porque ya se estaban sincronizando reportes.');
                 document.location="datosEnviadosKO.html";
             } else {
-                MAIN.sincronizandoReportes = true;
+                MAIN.setSincronizandoReportesTrue();
                 $.mobile.loading( "show", {
                     text: "Enviando datos ...",
                     textVisible: true,
@@ -94,7 +94,7 @@
                 }
                 $.when( ws.registrarDatosCobertura(misDatosCobertura) )
                 .then(function (wsResponse) {     
-                    MAIN.sincronizandoReportes = false;
+                    MAIN.setSincronizandoReportesFalse();
                     //alert("login done: " + wsResponse);
                     $.mobile.loading( "hide" );
                     if (wsResponse.getResponseType() == ws.OK) {
@@ -111,7 +111,7 @@
                     }
                 })
                 .fail(function (wsError){
-                    MAIN.sincronizandoReportes = false;
+                    MAIN.setSincronizandoReportesFalse();
                     $.mobile.loading( "hide" );
                     console.log("registrarDatosCobertura Error: " + wsError);
                     

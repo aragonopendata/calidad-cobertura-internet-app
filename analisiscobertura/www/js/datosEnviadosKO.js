@@ -5,7 +5,7 @@
 
         //Si en este momento se están enviando los reportes en segundo plano, en vez de aquí "guardaUltimoReporteCobertura",
         // activo una variable booleana en MAIN para que una vez que termine MAIN de sincronizar reportes, almaene el reporte actual en los pendiente de subida.
-        if (MAIN.sincronizandoReportes) {
+        if (MAIN.getSincronizandoReportes()) {
             console.log('En datosEnviadosKO no guardo el reporte actual porque se estaban sincronizando reportes.');
             var misDatosCoberturaStringAux = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
             if (misDatosCoberturaStringAux && (misDatosCoberturaStringAux !== "")) {

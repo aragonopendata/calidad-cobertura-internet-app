@@ -82,7 +82,7 @@
             console.log('Página testVelocidad lista.');
             
             //Durante el test de velocidad no vamos a querer que se suba en ningún momento los reportes pendientes para no afectar a los resultados del test de velocidad.
-            MAIN.sincronizandoReportes = true;
+            MAIN.setSincronizandoReportesTrue();
 
             var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
             misDatosCobertura = JSON.parse(misDatosCoberturaString);
@@ -199,6 +199,7 @@
                 }
                 
                 localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+                MAIN.setSincronizandoReportesFalse();
                 document.location="resumenDatos.html";
             });
     
@@ -962,6 +963,7 @@
         }
     
         function volverAtras() {
+            MAIN.setSincronizandoReportesFalse();
             document.location="infoTestVelocidad.html";
         }
         
