@@ -116,7 +116,7 @@ MAIN.ws = (function(){
                 data: JSON.stringify(dataToSend),
                 success: success,
                 error: error,
-                timeout:50000,
+                timeout:30000,
                 headers: (headers ? headers : getDefaultHeaders()),
 
             });

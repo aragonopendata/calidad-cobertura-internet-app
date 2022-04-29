@@ -2,8 +2,13 @@
 
     var ws = MAIN.ws;
 
+    var localizacionDetenidaPorTimeout = false;
+    var usuarioAdvertidoActivarLocalizacion = false;
+
     $(document).ready(function () {
         console.log('Página info privacidad lista.');
+        localizacionDetenidaPorTimeout = false;
+        usuarioAdvertidoActivarLocalizacion = false;
         
         //Botón más información
         $("#id_bot_mas_informacion_info_privacidad").on(MAIN.clickEvent, function (){
@@ -47,7 +52,28 @@
         });
     });
 
+    function contarTimeoutLocalizacion() {
+        setTimeout(function(){
+            console.log('Se acabó el timeout para localizar el dispositivo.');
+            localizacionDetenidaPorTimeout = true;
+            //Advierto una vez al usuario de que active la localización y si sigue sin localizar voy a la pantalla de infoConexion.
+            if (usuarioAdvertidoActivarLocalizacion) {
+                document.location="infoConexion.html";
+            } else {
+                usuarioAdvertidoActivarLocalizacion = true;
+                $("body").overhang({
+                    type: "error",
+                    message: "No ha sido posible obtener la posición aproximada. Por favor compruebe que tiene la localización activada y vuelva a intentarlo.",
+                    closeConfirm: true
+                });
+            }
+
+        }, MAIN.timeoutLocalizacion);
+    }
+
     function getLocation() {
+        localizacionDetenidaPorTimeout = false;
+        contarTimeoutLocalizacion();
         //Para que no se me cuele ninguna sincronización en segundo plano mientras determino la posición:
         MAIN.setSincronizandoReportesTrue();
 
@@ -65,78 +91,80 @@
         }
     }
     function showPosition(position) {
-        miLatitud = position.coords.latitude;
-        miLongitud = position.coords.longitude;
+        if (!localizacionDetenidaPorTimeout) {
+            miLatitud = position.coords.latitude;
+            miLongitud = position.coords.longitude;
 
-        console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
+            console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
 
-        if (MAIN.entorno === "DEV") {
-            miLatitud = 42.09441;
-            miLongitud = -0.35527;
-        }
-
-        $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
-		.then(function (wsResponse) {     
-			//alert("login done: " + wsResponse);
-            if (wsResponse.getResponseType() == ws.OK) {
-                $.mobile.loading( "hide" );
-
-				var resp = wsResponse.getContent();
-
-                miMunicipio = resp.nombreMunicipio;
-                miINE = resp.ineMunicipio;
-                miProvincia = resp.provincia;
-                miCoordenadaX = resp.coordenadax;
-                miCoordenadaY = resp.coordenaday;
-
-                console.log('Municipio de Aragón en el que estoy: ' + miMunicipio);
-                //Como estoy en un municipio de Aragón sí dejo usar la aplicación.
-                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
-                document.location="infoConexion.html";
+            if (MAIN.entorno === "DEV") {
+                miLatitud = 42.09441;
+                miLongitud = -0.35527;
             }
-            else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
-                $.mobile.loading( "hide" );
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error controlado.');
-                if(wsResponse.getResponseMessage() == "No se encontraron conincidencias") {
-                    //Como el servicio web de obtener municipio no encontró ningún municipio que esté en esa posición sé que el usuario no está en Aragón.
-                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').show();
-                    MAIN.setSincronizandoReportesFalse();
-                    $("body").overhang({
-                        type: "error",
-                        message: "Esta aplicación no puede ser utilizada fuera de la Comunidad de Aragón. Disculpe las molestias.",
-                        closeConfirm: true
-                    });
-                } else {
+
+            $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
+            .then(function (wsResponse) {     
+                //alert("login done: " + wsResponse);
+                if (wsResponse.getResponseType() == ws.OK) {
+                    $.mobile.loading( "hide" );
+
+                    var resp = wsResponse.getContent();
+
+                    miMunicipio = resp.nombreMunicipio;
+                    miINE = resp.ineMunicipio;
+                    miProvincia = resp.provincia;
+                    miCoordenadaX = resp.coordenadax;
+                    miCoordenadaY = resp.coordenaday;
+
+                    console.log('Municipio de Aragón en el que estoy: ' + miMunicipio);
+                    //Como estoy en un municipio de Aragón sí dejo usar la aplicación.
+                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                    document.location="infoConexion.html";
+                }
+                else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
+                    $.mobile.loading( "hide" );
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error controlado.');
+                    if(wsResponse.getResponseMessage() == "No se encontraron conincidencias") {
+                        //Como el servicio web de obtener municipio no encontró ningún municipio que esté en esa posición sé que el usuario no está en Aragón.
+                        //$('#mensaje_error_fuera_de_aragon_info_privacidad').show();
+                        MAIN.setSincronizandoReportesFalse();
+                        $("body").overhang({
+                            type: "error",
+                            message: "Esta aplicación no puede ser utilizada fuera de la Comunidad de Aragón. Disculpe las molestias.",
+                            closeConfirm: true
+                        });
+                    } else {
+                        //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
+                        //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                        document.location="infoConexion.html";
+                    }
+                }
+                else{
+                    $.mobile.loading( "hide" );
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
                     //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
                     //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                     document.location="infoConexion.html";
                 }
-            }
-            else{
+            })
+            .fail(function (wsError){
                 $.mobile.loading( "hide" );
-            	console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
-                //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
-                document.location="infoConexion.html";
-            }
-		})
-        .fail(function (wsError){
-            $.mobile.loading( "hide" );
-            console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
-            if(wsError.getResponseMessage() == "timeout"){
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
-                //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
-                document.location="infoConexion.html";
-            }
-            else{
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
-                //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
-                //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
-                document.location="infoConexion.html";
-            }
+                console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
+                if(wsError.getResponseMessage() == "timeout"){
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
+                    //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
+                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                    document.location="infoConexion.html";
+                }
+                else{
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
+                    //Ha fallado el servicio web. Dejo usar la aplicación porque no puedo demostrar que no esté en Aragón.
+                    //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
+                    document.location="infoConexion.html";
+                }
 
-        });
+            });
+        }
     }
 
     function volverAtras() {

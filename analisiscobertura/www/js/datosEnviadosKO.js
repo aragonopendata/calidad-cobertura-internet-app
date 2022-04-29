@@ -22,6 +22,8 @@
                 guardaUltimoReporteCobertura(arrayDatosCoberturaNuevo);
             }
         }
+        //Borro el reporte actual del localStorage par empezar el siguiente reporte desde cero.
+        localStorage.removeItem(MAIN.keyLocalStorageDatosCobertura);
 
         //Botón finalizar
         $("#id_bot_finalizar_envio_ko").on(MAIN.clickEvent, function (){

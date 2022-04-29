@@ -366,6 +366,8 @@
                     ubicacionObtenida = true;
                     ubicacionCapturadaManualmente = false;
                 } else {
+                    $("#labelValorUbicacion").val("- Desconocida -");
+                    $('#labelValorUbicacion').prop('disabled', false);
                     ubicacionObtenida = false;
                 }
             }
@@ -498,6 +500,7 @@
             }
             ubicacionObtenida = true;
         } else {
+            $("#labelValorUbicacion").val("- Desconocida -");
             $('#labelValorUbicacion').prop('disabled', false);
             ubicacionObtenida = false;
         }

@@ -12,22 +12,28 @@
         if (misDatosCobertura.velocidadBajada) {
             var velocidadBajadaNumero = Number(misDatosCobertura.velocidadBajada);
             $("#id_valor_resumen_velocidad_descarga").text(velocidadBajadaNumero.toFixed(2) + " Mbps");
-            if ((misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 90)) {
+            $('#div_resumen_velocidad_descarga').show();
+            if ((misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 200)) {
                 misDatosCobertura.tipoRed = "5G";
             }
         } else {
             $("#id_valor_resumen_velocidad_descarga").text("Desconocido");
+            $('#div_resumen_velocidad_descarga').hide();
         }
         if (misDatosCobertura.velocidadSubida) {
             var velocidadSubidaNumero = Number(misDatosCobertura.velocidadSubida);
             $("#id_valor_resumen_velocidad_subida").text(velocidadSubidaNumero.toFixed(2) + " Mbps");
+            $('#div_resumen_velocidad_subida').show();
         } else {
             $("#id_valor_resumen_velocidad_subida").text("Desconocido");
+            $('#div_resumen_velocidad_subida').hide();
         }
         if (misDatosCobertura.latencia) {
             $("#id_valor_resumen_ping").text(misDatosCobertura.latencia + " ms");
+            $('#div_resumen_ping').show();
         } else {
             $("#id_valor_resumen_ping").text("Desconocido");
+            $('#div_resumen_ping').hide();
         }
 
         var textoMunicipio = misDatosCobertura.municipio;
@@ -45,22 +51,49 @@
             }
         }
         $("#id_valor_resumen_ubicacion").text(textoMunicipio);
-        $("#id_valor_resumen_modelo_so").text(misDatosCobertura.modelo + " - " + misDatosCobertura.so);
+        if (textoMunicipio === "Desconocido") {
+            $('#div_resumen_ubicacion').hide();
+        } else {
+            $('#div_resumen_ubicacion').show();
+        }
+        if (((misDatosCobertura.modelo === "") && (misDatosCobertura.so === "")) || ((misDatosCobertura.modelo === "Desconocido") && (misDatosCobertura.so === "Desconocido"))) {
+            $("#id_valor_resumen_modelo_so").text("Desconocido");
+            $('#div_resumen_modelo_so').hide();
+        } else {
+            $("#id_valor_resumen_modelo_so").text(misDatosCobertura.modelo + " - " + misDatosCobertura.so);
+            $('#div_resumen_modelo_so').show();
+        }
         $("#id_valor_resumen_tipo_red").text(misDatosCobertura.tipoRed);
+        if (misDatosCobertura.tipoRed === "Desconocido") {
+            $('#div_resumen_tipo_red').hide();
+        } else {
+            $('#div_resumen_tipo_red').show();
+        }
         $("#id_valor_resumen_operador").text(misDatosCobertura.operador);
+        if (misDatosCobertura.operador === "Desconocido") {
+            $('#div_resumen_operador').hide();
+        } else {
+            $('#div_resumen_operador').show();
+        }
         if (misDatosCobertura.rangoIntensidadSenial === "0") {
             $("#id_valor_resumen_intensidad_senial").text("Sin señal");
+            $('#div_resumen_intensidad_senial').show();
         } else if (misDatosCobertura.rangoIntensidadSenial === "-1") {
             $("#id_valor_resumen_intensidad_senial").text("Desconocido");
+            $('#div_resumen_intensidad_senial').hide();
         } else {
             $("#id_valor_resumen_intensidad_senial").text(misDatosCobertura.valorIntensidadSenial);
+            $('#div_resumen_intensidad_senial').show();
         }
 
+        //Modificado 29/04/2022: Ya no se quiere mostrar el botón Revisar datos.
         //Botón revisar datos
+        /*
         $("#id_bot_resumen_revisar_datos").on(MAIN.clickEvent, function (){
             console.log('Boton revisar datos pulsado.');
             document.location="infoConexion.html";
         });
+        */
 
         //Botón enviar resultados
         $("#id_bot_resumen_enviar_resultados").on(MAIN.clickEvent, function (){

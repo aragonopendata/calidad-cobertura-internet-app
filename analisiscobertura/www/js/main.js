@@ -14,12 +14,13 @@ var MAIN = (function() {
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    //ret.entorno = "DEV";
-    ret.entorno = "PRUEBAS_ARAGON";
+    ret.entorno = "DEV";
+    //ret.entorno = "PRUEBAS_ARAGON";
     //ret.entorno = "PROD";
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
     ret.keyLSDatosCoberturaPendientePersistir = "keyLSDatosCoberturaPendientePersistir"; //Último reporte de de datos de cobertura capturado guardado en esta otra key porque está pendiente de ser guardado en "keyLSDatosCoberturaPendientesSubida".
+    ret.timeoutLocalizacion = 30000; //Medio minuto.
     ret.timeoutTestDeVelocidad = 210000; //tres minutos y medio.
     ret.timeoutTestBajada = 40000;
     ret.timeoutTestSubida = 50000;
