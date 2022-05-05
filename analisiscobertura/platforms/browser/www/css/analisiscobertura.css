@@ -554,6 +554,15 @@ h1 {
   width: 4rem;
 }
 
+#ACAI .ue-text {
+  display: block;
+  text-align: center;
+  padding-top: 0.5rem;
+  max-width: 100px;
+  font-size: 0.8rem;
+  width: 4rem;
+}
+
 #ACAI .gda-logo {
   background: url(../img/gda.svg) no-repeat right center;
   background-size: 100% 5.8rem;

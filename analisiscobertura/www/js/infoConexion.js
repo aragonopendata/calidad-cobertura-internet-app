@@ -107,29 +107,33 @@
             }
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
-            var networkState = navigator.connection.type;
-
-            setTimeout(function(){
+            var networkState = "Desconocido";
+            if (navigator.connection) {
                 networkState = navigator.connection.type;
-                if (networkState === "unknown") {
-                    networkState = "Desconocido";
-                } else if (networkState === "cellular") {
-                    networkState = "Móvil";
-                } else if (networkState === "ethernet") {
-                    networkState = "Cable";
-                } else if (networkState === "none") {
-                    networkState = "Sin conexión";
-                }
-
-                console.log('Connection type: ' + networkState);
-                miTipoRed = networkState;
-                $("#inputTipoRed").val(miTipoRed);
-                if ((!networkState) || (networkState === "Desconocido")) {
-                    $('#divInputTipoRed').hide();
-                } else {
-                    $('#divInputTipoRed').show();
-                }
-            }, 1000);
+                setTimeout(function(){
+                    networkState = navigator.connection.type;
+                    if (networkState === "unknown") {
+                        networkState = "Desconocido";
+                    } else if (networkState === "cellular") {
+                        networkState = "Móvil";
+                    } else if (networkState === "ethernet") {
+                        networkState = "Cable";
+                    } else if (networkState === "none") {
+                        networkState = "Sin conexión";
+                    }
+    
+                    console.log('Connection type: ' + networkState);
+                    miTipoRed = networkState;
+                    $("#inputTipoRed").val(miTipoRed);
+                    if ((!networkState) || (networkState === "Desconocido")) {
+                        $('#divInputTipoRed').hide();
+                    } else {
+                        $('#divInputTipoRed').show();
+                    }
+                }, 1000);
+            } else {
+                $('#divInputTipoRed').hide();
+            }
             
             //Coger la intensidad de la señal con el plugin.
             if (plataforma === MAIN.utils.platformDetector.ANDROID) {

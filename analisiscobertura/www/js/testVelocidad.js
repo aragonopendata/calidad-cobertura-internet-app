@@ -73,6 +73,7 @@
         var miLatenciaResultado = 0;
         
         var misDatosCobertura;
+        var miTipoRed;
 
         var solicitadoDetenerTest = false;
         var testDetenidoPorTimeout = false;
@@ -182,24 +183,9 @@
             //Botón confirmar
             $("#id_bot_confirmar_test_velocidad").on(MAIN.clickEvent, function (){
                 console.log('Boton Confirmar pulsado.');
-                if (miVelocidadDescargaResultado > 0) {
-                    misDatosCobertura.velocidadBajada = miVelocidadDescargaResultado;
-                } else {
-                    misDatosCobertura.velocidadBajada = null;
-                }
-                if (miVelocidadSubidaResultado > 0) {
-                    misDatosCobertura.velocidadSubida = miVelocidadSubidaResultado;
-                } else {
-                    misDatosCobertura.velocidadSubida = null;
-                }
-                if (miLatenciaResultado > 0) {
-                    misDatosCobertura.latencia = miLatenciaResultado;
-                } else {
-                    misDatosCobertura.latencia = null;
-                }
                 
-                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
-                MAIN.setSincronizandoReportesFalse();
+                guardarResultados();
+
                 document.location="resumenDatos.html";
             });
     
@@ -208,6 +194,25 @@
                 console.log('Boton atrás pulsado.');
                 volverAtras();
             });
+
+            //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
+            var networkState = navigator.connection.type;
+
+            setTimeout(function(){
+                networkState = navigator.connection.type;
+                if (networkState === "unknown") {
+                    networkState = "Desconocido";
+                } else if (networkState === "cellular") {
+                    networkState = "Móvil";
+                } else if (networkState === "ethernet") {
+                    networkState = "Cable";
+                } else if (networkState === "none") {
+                    networkState = "Sin conexión";
+                }
+
+                console.log('Connection type en TestVelocidad: ' + networkState);
+                miTipoRed = networkState;
+            }, 1000);
 
             //Empiezo el test nada más acceder a la pantalla.
             gauge_download.refresh(0);
@@ -237,6 +242,29 @@
                     detenerTest();
                 }
             }, MAIN.timeoutTestDeVelocidad);
+        }
+
+        function guardarResultados() {
+            if (miVelocidadDescargaResultado > 0) {
+                misDatosCobertura.velocidadBajada = miVelocidadDescargaResultado;
+            } else {
+                misDatosCobertura.velocidadBajada = null;
+            }
+            if (miVelocidadSubidaResultado > 0) {
+                misDatosCobertura.velocidadSubida = miVelocidadSubidaResultado;
+            } else {
+                misDatosCobertura.velocidadSubida = null;
+            }
+            if (miLatenciaResultado > 0) {
+                misDatosCobertura.latencia = miLatenciaResultado;
+            } else {
+                misDatosCobertura.latencia = null;
+            }
+
+            misDatosCobertura.tipoRed = miTipoRed;
+
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+            MAIN.setSincronizandoReportesFalse();
         }
     
     
@@ -963,8 +991,8 @@
         }
     
         function volverAtras() {
-            MAIN.setSincronizandoReportesFalse();
-            document.location="infoTestVelocidad.html";
+            guardarResultados();
+            document.location="infoConexion.html";
         }
         
         
