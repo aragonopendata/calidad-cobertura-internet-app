@@ -13,7 +13,7 @@
             var velocidadBajadaNumero = Number(misDatosCobertura.velocidadBajada);
             $("#id_valor_resumen_velocidad_descarga").text(velocidadBajadaNumero.toFixed(2) + " Mbps");
             $('#div_resumen_velocidad_descarga').show();
-            if ((misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 200)) {
+            if ((!MAIN.esVersionWeb) && (misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 300)) {
                 misDatosCobertura.tipoRed = "5G";
             }
         } else {

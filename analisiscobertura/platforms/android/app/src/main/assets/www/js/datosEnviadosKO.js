@@ -3,15 +3,27 @@
     $(document).ready(function () {
         console.log('Página datos enviados KO lista.');
 
-        //Almaceno el reporte actual en en el persisten storege de reportes pendientes de subida:
-        var miArrayDatosCoberturaString = localStorage.getItem(MAIN.keyLSDatosCoberturaPendientesSubida);
-        if (miArrayDatosCoberturaString && (miArrayDatosCoberturaString !== "")) {
-            var arrayDatosCoberturaAux = JSON.parse(miArrayDatosCoberturaString);
-            guardaUltimoReporteCobertura(arrayDatosCoberturaAux);
+        //Si en este momento se están enviando los reportes en segundo plano, en vez de aquí "guardaUltimoReporteCobertura",
+        // activo una variable booleana en MAIN para que una vez que termine MAIN de sincronizar reportes, almaene el reporte actual en los pendiente de subida.
+        if (MAIN.getSincronizandoReportes()) {
+            console.log('En datosEnviadosKO no guardo el reporte actual porque se estaban sincronizando reportes.');
+            var misDatosCoberturaStringAux = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
+            if (misDatosCoberturaStringAux && (misDatosCoberturaStringAux !== "")) {
+                localStorage.setItem(MAIN.keyLSDatosCoberturaPendientePersistir, misDatosCoberturaStringAux);
+            }
         } else {
-            var arrayDatosCoberturaNuevo = new Array();
-            guardaUltimoReporteCobertura(arrayDatosCoberturaNuevo);
+            //Almaceno el reporte actual en en el persisten storege de reportes pendientes de subida:
+            var miArrayDatosCoberturaString = localStorage.getItem(MAIN.keyLSDatosCoberturaPendientesSubida);
+            if (miArrayDatosCoberturaString && (miArrayDatosCoberturaString !== "")) {
+                var arrayDatosCoberturaAux = JSON.parse(miArrayDatosCoberturaString);
+                guardaUltimoReporteCobertura(arrayDatosCoberturaAux);
+            } else {
+                var arrayDatosCoberturaNuevo = new Array();
+                guardaUltimoReporteCobertura(arrayDatosCoberturaNuevo);
+            }
         }
+        //Borro el reporte actual del localStorage par empezar el siguiente reporte desde cero.
+        localStorage.removeItem(MAIN.keyLocalStorageDatosCobertura);
 
         //Botón finalizar
         $("#id_bot_finalizar_envio_ko").on(MAIN.clickEvent, function (){

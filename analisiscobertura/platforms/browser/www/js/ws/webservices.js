@@ -1,18 +1,23 @@
 MAIN.ws = (function(){
     var ret = {};
     
+    /*
     var urlWS = "";
 
     if (MAIN.entorno === "DEV") {
         urlWS = "https://wsdevcobertura.itsoft.es/api";
     }
-    if (MAIN.entorno === "PRUEBAS_ARAGON") {
+    if (MAIN.entorno === "DEV_ARAGON") {
         urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
     }
-    if (MAIN.entorno === "PROD") {
+    if (MAIN.entorno === "PRE_ARAGON") {
+        urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api/";
+    }
+    if (MAIN.entorno === "PROD_ARAGON") {
         //urlWS = "https://miv-aodei2a-01.aragon.local:4000/api";
         urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";
     }
+    */
 
     /*SERVICIOS WEB*/
     var postObtenerMunicipioPorCoordenadas = "/obtenerMunicipioPorCoordenadas";
@@ -38,7 +43,7 @@ MAIN.ws = (function(){
         console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
 
         var request = {'latitud': latTexto, 'longitud': lonTexto};
-        $.when( postJSON(request, urlWS + postObtenerMunicipioPorCoordenadas, getDefaultHeaders(), WSResponse) )
+        $.when( postJSON(request, MAIN.urlWS + postObtenerMunicipioPorCoordenadas, getDefaultHeaders(), WSResponse) )
         .then(function (wsResponse){
             //alert("wsResponse login: " + wsResponse);
             def.resolve(wsResponse);
@@ -55,7 +60,7 @@ MAIN.ws = (function(){
 
         var def = $.Deferred();
 
-        $.when( postJSON(datosCobertura, urlWS + postRegistrarDatosCobertura, getDefaultHeaders(), WSResponse) )
+        $.when( postJSON(datosCobertura, MAIN.urlWS + postRegistrarDatosCobertura, getDefaultHeaders(), WSResponse) )
         .then(function (wsResponse){
             //alert("wsResponse login: " + wsResponse);
             def.resolve(wsResponse);

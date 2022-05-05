@@ -30,6 +30,15 @@ function onDeviceReady() {
     //document.getElementById('deviceready').classList.add('ready');
     //$('#mensaje_error_permiso_gps_bienvenida').hide();
 
+    //Si estoy ejecutando la en un movil la web en el browser, le sugiero al usuario que se descargue la App.
+    if (MAIN.utils.platformDetector.isMobile() && MAIN.esVersionWeb) {
+        $("body").overhang({
+            type: "warn",
+            message: "Para una mejor experiencia, por favor descargue la App.",
+            closeConfirm: true
+        });
+    }
+
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){
         console.log('Boton Empezar pulsado.');
         if(cordova.plugins && cordova.plugins.permissions){

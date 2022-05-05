@@ -136,7 +136,7 @@
             }
             
             //Coger la intensidad de la señal con el plugin.
-            if (plataforma === MAIN.utils.platformDetector.ANDROID) {
+            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
                 window.SignalStrength.dbm(
                     function(measuredDbm){
                         console.log('current dBm is: ' + measuredDbm);
@@ -339,7 +339,7 @@
 
         console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
 
-        if (MAIN.entorno === "DEV") {
+        if (MAIN.localizacionParaDebug) {
             miLatitud = 42.09441;
             miLongitud = -0.35527;
         }

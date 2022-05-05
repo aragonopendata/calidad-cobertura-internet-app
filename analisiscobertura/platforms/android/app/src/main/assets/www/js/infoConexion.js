@@ -107,29 +107,33 @@
             }
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
-            var networkState = navigator.connection.type;
-
-            setTimeout(function(){
+            var networkState = "Desconocido";
+            if (navigator.connection) {
                 networkState = navigator.connection.type;
-                if (networkState === "unknown") {
-                    networkState = "Desconocido";
-                } else if (networkState === "cellular") {
-                    networkState = "Móvil";
-                } else if (networkState === "ethernet") {
-                    networkState = "Cable";
-                } else if (networkState === "none") {
-                    networkState = "Sin conexión";
-                }
-
-                console.log('Connection type: ' + networkState);
-                miTipoRed = networkState;
-                $("#inputTipoRed").val(miTipoRed);
-                if ((!networkState) || (networkState === "Desconocido")) {
-                    $('#divInputTipoRed').hide();
-                } else {
-                    $('#divInputTipoRed').show();
-                }
-            }, 1000);
+                setTimeout(function(){
+                    networkState = navigator.connection.type;
+                    if (networkState === "unknown") {
+                        networkState = "Desconocido";
+                    } else if (networkState === "cellular") {
+                        networkState = "Móvil";
+                    } else if (networkState === "ethernet") {
+                        networkState = "Cable";
+                    } else if (networkState === "none") {
+                        networkState = "Sin conexión";
+                    }
+    
+                    console.log('Connection type: ' + networkState);
+                    miTipoRed = networkState;
+                    $("#inputTipoRed").val(miTipoRed);
+                    if ((!networkState) || (networkState === "Desconocido")) {
+                        $('#divInputTipoRed').hide();
+                    } else {
+                        $('#divInputTipoRed').show();
+                    }
+                }, 1000);
+            } else {
+                $('#divInputTipoRed').hide();
+            }
             
             //Coger la intensidad de la señal con el plugin.
             if (plataforma === MAIN.utils.platformDetector.ANDROID) {
@@ -153,7 +157,6 @@
                 $('#divInputIntensidad').hide();
             }
 
-            //TODO: Coger el operador con un plugin.
             miOperador = "Desconocido";
             $("#inputOperador").val("Desconocido");
             if ((!miOperador) || (miOperador === "Desconocido")) {
@@ -321,11 +324,13 @@
     */
 
     function getLocation() {
+        MAIN.setSincronizandoReportesTrue();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
             ubicacionObtenida = false;
+            MAIN.setSincronizandoReportesFalse();
         }
     }
     function showPosition(position) {
@@ -334,7 +339,7 @@
 
         console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
 
-        if (MAIN.entorno === "DEV") {
+        if (MAIN.localizacionParaDebug) {
             miLatitud = 42.09441;
             miLongitud = -0.35527;
         }
@@ -342,6 +347,7 @@
         $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
 		.then(function (wsResponse) {     
 			//alert("login done: " + wsResponse);
+            MAIN.setSincronizandoReportesFalse();
             if (wsResponse.getResponseType() == ws.OK) {
 
 				var resp = wsResponse.getContent();
@@ -364,6 +370,8 @@
                     ubicacionObtenida = true;
                     ubicacionCapturadaManualmente = false;
                 } else {
+                    $("#labelValorUbicacion").val("- Desconocida -");
+                    $('#labelValorUbicacion').prop('disabled', false);
                     ubicacionObtenida = false;
                 }
             }
@@ -377,6 +385,7 @@
             }
 		})
         .fail(function (wsError){
+            MAIN.setSincronizandoReportesFalse();
             console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
             ubicacionObtenida = false;
             if(wsError.getResponseMessage() == "timeout"){
@@ -495,6 +504,7 @@
             }
             ubicacionObtenida = true;
         } else {
+            $("#labelValorUbicacion").val("- Desconocida -");
             $('#labelValorUbicacion').prop('disabled', false);
             ubicacionObtenida = false;
         }

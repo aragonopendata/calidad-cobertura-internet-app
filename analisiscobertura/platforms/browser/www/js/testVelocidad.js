@@ -92,8 +92,8 @@
             
             //Cargamos las URL que vienen del JSON.
             //var miEvento = eventoCompleto.dameEvento(evento.configuracionEvento);
-            uploadURL = "https://wsdevcobertura.itsoft.es/api/testVelocidadSubida"; //miEvento.urlSubidaServidor1 //Configurar URL
-            uploadURL2 = "https://wsdevcobertura.itsoft.es/api/testVelocidadSubida"; //miEvento.urlSubidaServidor2; //Configurar URL
+            uploadURL = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor1 //Configurar URL
+            uploadURL2 = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor2; //Configurar URL
             testFilesArsis[0] = "https://d.itsoft.es/aragon/filedownload1.txt"; //miEvento.urlDescargaFichero1Servidor1; //Configurar URL
             //testFilesArsis[1] = "https://d.itsoft.es/aragon/filedownload2.txt"; //miEvento.urlDescargaFichero2Servidor1; //Configurar URL
             //testFilesArsis[2] = "https://d.itsoft.es/aragon/filedownload3.txt"; //miEvento.urlDescargaFichero3Servidor1; //Configurar URL
@@ -784,9 +784,9 @@
                 }
             };
         
-            console.log("FICHERO TEST LATENCIA SUBIDA SERV 1: " + uploadURL);
+            console.log("FICHERO TEST LATENCIA SUBIDA SERV 1: " + testFilesArsis[0]);
             startLatencyUpload = (new Date()).getTime();
-            client.open("HEAD", uploadURL + "?n=" + Math.random()); //static file
+            client.open("HEAD", testFilesArsis[0] + "?n=" + Math.random()); //static file
             client.send();
         }
         
@@ -810,9 +810,9 @@
                 }
             };
         
-            console.log("FICHERO TEST LATENCIA SUBIDA SERV 2: " + uploadURL2);
+            console.log("FICHERO TEST LATENCIA SUBIDA SERV 2: " + testFilesOne[0]);
             startLatencyUpload2 = (new Date()).getTime();
-            client.open("HEAD", uploadURL2 + "?n=" + Math.random()); //static file
+            client.open("HEAD", testFilesOne[0] + "?n=" + Math.random()); //static file
             client.send();
         }
         

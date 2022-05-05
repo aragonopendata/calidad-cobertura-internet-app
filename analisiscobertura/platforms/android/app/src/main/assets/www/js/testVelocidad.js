@@ -48,7 +48,7 @@
         var uploadURL2 = '';
         var uploadTime = 0;
         var numberUploadTest = 2;
-        var uploadSize=3246084; //Bytes
+        var uploadSize=12870630; //Bytes
         var gauge_upload;
         var sizeBuffSubida = 0;
         var timeBuffSubida = 0;
@@ -73,6 +73,7 @@
         var miLatenciaResultado = 0;
         
         var misDatosCobertura;
+        var miTipoRed;
 
         var solicitadoDetenerTest = false;
         var testDetenidoPorTimeout = false;
@@ -80,6 +81,10 @@
     //*** INICIALIZACION ***//
         $(document).on("pageinit", '#id_test_velocidad', function() {
             console.log('Página testVelocidad lista.');
+            
+            //Durante el test de velocidad no vamos a querer que se suba en ningún momento los reportes pendientes para no afectar a los resultados del test de velocidad.
+            MAIN.setSincronizandoReportesTrue();
+
             var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
             misDatosCobertura = JSON.parse(misDatosCoberturaString);
     
@@ -87,8 +92,8 @@
             
             //Cargamos las URL que vienen del JSON.
             //var miEvento = eventoCompleto.dameEvento(evento.configuracionEvento);
-            uploadURL = "https://wwwdownloaditsoftstorage.file.core.windows.net/aragon"; //miEvento.urlSubidaServidor1 //Configurar URL
-            uploadURL2 = "https://wwwdownloaditsoftstorage.file.core.windows.net/aragon"; //miEvento.urlSubidaServidor2; //Configurar URL
+            uploadURL = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor1 //Configurar URL
+            uploadURL2 = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor2; //Configurar URL
             testFilesArsis[0] = "https://d.itsoft.es/aragon/filedownload1.txt"; //miEvento.urlDescargaFichero1Servidor1; //Configurar URL
             //testFilesArsis[1] = "https://d.itsoft.es/aragon/filedownload2.txt"; //miEvento.urlDescargaFichero2Servidor1; //Configurar URL
             //testFilesArsis[2] = "https://d.itsoft.es/aragon/filedownload3.txt"; //miEvento.urlDescargaFichero3Servidor1; //Configurar URL
@@ -178,23 +183,9 @@
             //Botón confirmar
             $("#id_bot_confirmar_test_velocidad").on(MAIN.clickEvent, function (){
                 console.log('Boton Confirmar pulsado.');
-                if (miVelocidadDescargaResultado > 0) {
-                    misDatosCobertura.velocidadBajada = miVelocidadDescargaResultado;
-                } else {
-                    misDatosCobertura.velocidadBajada = null;
-                }
-                if (miVelocidadSubidaResultado > 0) {
-                    misDatosCobertura.velocidadSubida = miVelocidadSubidaResultado;
-                } else {
-                    misDatosCobertura.velocidadSubida = null;
-                }
-                if (miLatenciaResultado > 0) {
-                    misDatosCobertura.latencia = miLatenciaResultado;
-                } else {
-                    misDatosCobertura.latencia = null;
-                }
                 
-                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+                guardarResultados();
+
                 document.location="resumenDatos.html";
             });
     
@@ -203,6 +194,25 @@
                 console.log('Boton atrás pulsado.');
                 volverAtras();
             });
+
+            //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
+            var networkState = navigator.connection.type;
+
+            setTimeout(function(){
+                networkState = navigator.connection.type;
+                if (networkState === "unknown") {
+                    networkState = "Desconocido";
+                } else if (networkState === "cellular") {
+                    networkState = "Móvil";
+                } else if (networkState === "ethernet") {
+                    networkState = "Cable";
+                } else if (networkState === "none") {
+                    networkState = "Sin conexión";
+                }
+
+                console.log('Connection type en TestVelocidad: ' + networkState);
+                miTipoRed = networkState;
+            }, 1000);
 
             //Empiezo el test nada más acceder a la pantalla.
             gauge_download.refresh(0);
@@ -232,6 +242,29 @@
                     detenerTest();
                 }
             }, MAIN.timeoutTestDeVelocidad);
+        }
+
+        function guardarResultados() {
+            if (miVelocidadDescargaResultado > 0) {
+                misDatosCobertura.velocidadBajada = miVelocidadDescargaResultado;
+            } else {
+                misDatosCobertura.velocidadBajada = null;
+            }
+            if (miVelocidadSubidaResultado > 0) {
+                misDatosCobertura.velocidadSubida = miVelocidadSubidaResultado;
+            } else {
+                misDatosCobertura.velocidadSubida = null;
+            }
+            if (miLatenciaResultado > 0) {
+                misDatosCobertura.latencia = miLatenciaResultado;
+            } else {
+                misDatosCobertura.latencia = null;
+            }
+
+            misDatosCobertura.tipoRed = miTipoRed;
+
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+            MAIN.setSincronizandoReportesFalse();
         }
     
     
@@ -751,9 +784,9 @@
                 }
             };
         
-            console.log("FICHERO TEST LATENCIA SUBIDA SERV 1: " + uploadURL);
+            console.log("FICHERO TEST LATENCIA SUBIDA SERV 1: " + testFilesArsis[0]);
             startLatencyUpload = (new Date()).getTime();
-            client.open("HEAD", uploadURL + "?n=" + Math.random()); //static file
+            client.open("HEAD", testFilesArsis[0] + "?n=" + Math.random()); //static file
             client.send();
         }
         
@@ -777,9 +810,9 @@
                 }
             };
         
-            console.log("FICHERO TEST LATENCIA SUBIDA SERV 2: " + uploadURL2);
+            console.log("FICHERO TEST LATENCIA SUBIDA SERV 2: " + testFilesOne[0]);
             startLatencyUpload2 = (new Date()).getTime();
-            client.open("HEAD", uploadURL2 + "?n=" + Math.random()); //static file
+            client.open("HEAD", testFilesOne[0] + "?n=" + Math.random()); //static file
             client.send();
         }
         
@@ -958,7 +991,8 @@
         }
     
         function volverAtras() {
-            document.location="infoTestVelocidad.html";
+            guardarResultados();
+            document.location="infoConexion.html";
         }
         
         
