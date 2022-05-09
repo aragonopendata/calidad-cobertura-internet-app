@@ -45,6 +45,12 @@
         });
         */
 
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
+
         //No se puede editar ninguna de las opciones y todas se cumplimentarán automáticamente (salvo la Ubicación en caso de que no se pueda obtener):
         $('#inputModeloSO').prop('disabled', true);
         $('#inputTipoRed').prop('disabled', true);
@@ -136,7 +142,7 @@
             }
             
             //Coger la intensidad de la señal con el plugin.
-            if (plataforma === MAIN.utils.platformDetector.ANDROID) {
+            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
                 window.SignalStrength.dbm(
                     function(measuredDbm){
                         console.log('current dBm is: ' + measuredDbm);
@@ -190,18 +196,19 @@
             }
         });
 
-        //Input ubicación. Si está disabled no funciona el evento click, por lo que si no está disabled que es cunado no tiene ubicación sí entraría.
+        //Input ubicación.
         $("#labelValorUbicacion").on(MAIN.clickEvent, function (){
             console.log('Label ubicación pulsado.');
-            /*
-            if (!($("#labelValorUbicacion").prop("disabled"))) {
+            //Si está disabled no dejo entrar a la pantalla de ubicación manual.
+            if ($("#labelValorUbicacion").prop("disabled")) {
+                console.log('Label ubicación disabled. No dejo entrar a ubicación manual.');
+            } else {
+                console.log('Label ubicación enabled. Sí dejo entrar a ubicación manual.');
+                miOperador = $("#inputOperador").val();
+                var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaUbicacionManual));
                 document.location="ubicacionManual.html";
             }
-            */
-            miOperador = $("#inputOperador").val();
-            var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaUbicacionManual));
-            document.location="ubicacionManual.html";
         });
 
         //Botón resultados
@@ -452,10 +459,12 @@
                         $("#inputIntensidad").val("Desconocido");
                         miValorIntensidad = "";
                         miRangoIntensidad = "-1";
+                        $('#divInputIntensidad').hide();
                     } else {
                         miValorIntensidad = measuredDbm;
                         miRangoIntensidad = "";
                         $("#inputIntensidad").val(miValorIntensidad);
+                        $('#divInputIntensidad').show();
                     }
                 }
             )

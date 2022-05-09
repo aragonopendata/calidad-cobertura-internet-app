@@ -11,6 +11,12 @@
         localizacionDetenidaPorTimeout = false;
         localizacionCompletada = false;
         usuarioAdvertidoActivarLocalizacion = false;
+
+        //TODO: Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
         
         //Botón más información
         $("#id_bot_mas_informacion_info_privacidad").on(MAIN.clickEvent, function (){

@@ -3,12 +3,20 @@
     var ws = MAIN.ws;
 
     var localizacionDetenidaPorTimeout = false;
+    var localizacionCompletada = false;
     var usuarioAdvertidoActivarLocalizacion = false;
 
     $(document).ready(function () {
         console.log('Página info privacidad lista.');
         localizacionDetenidaPorTimeout = false;
+        localizacionCompletada = false;
         usuarioAdvertidoActivarLocalizacion = false;
+
+        //TODO: Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
         
         //Botón más información
         $("#id_bot_mas_informacion_info_privacidad").on(MAIN.clickEvent, function (){
@@ -22,7 +30,7 @@
 
             //Compruebo si tengo el modo avión activo. Si lo tengo activo ya no dejo segir diciendo al usuario que que lo quite.
             var plataforma = MAIN.utils.platformDetector.getPlatform();
-            if (plataforma === MAIN.utils.platformDetector.ANDROID) {
+            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
                 window.SignalStrength.checkAirPlaneModeOn(
                     function(estado){
                         console.log('Estado modo avión: ' + estado);
@@ -55,18 +63,20 @@
     function contarTimeoutLocalizacion() {
         setTimeout(function(){
             console.log('Se acabó el timeout para localizar el dispositivo.');
-            localizacionDetenidaPorTimeout = true;
-            //Advierto una vez al usuario de que active la localización y si sigue sin localizar voy a la pantalla de infoConexion.
-            if (usuarioAdvertidoActivarLocalizacion) {
-                document.location="infoConexion.html";
-            } else {
-                $.mobile.loading( "hide" );
-                usuarioAdvertidoActivarLocalizacion = true;
-                $("body").overhang({
-                    type: "error",
-                    message: "No ha sido posible obtener la posición aproximada. Por favor compruebe que tiene la localización activada y vuelva a intentarlo.",
-                    closeConfirm: true
-                });
+            if (!localizacionCompletada) {
+                localizacionDetenidaPorTimeout = true;
+                //Advierto una vez al usuario de que active la localización y si sigue sin localizar voy a la pantalla de infoConexion.
+                if (usuarioAdvertidoActivarLocalizacion) {
+                    document.location="infoConexion.html";
+                } else {
+                    $.mobile.loading( "hide" );
+                    usuarioAdvertidoActivarLocalizacion = true;
+                    $("body").overhang({
+                        type: "error",
+                        message: "No ha sido posible obtener la posición aproximada. Por favor compruebe que tiene la localización activada y vuelva a intentarlo.",
+                        closeConfirm: true
+                    });
+                }
             }
 
         }, MAIN.timeoutLocalizacion);
@@ -74,6 +84,7 @@
 
     function getLocation() {
         localizacionDetenidaPorTimeout = false;
+        localizacionCompletada = false;
         contarTimeoutLocalizacion();
         //Para que no se me cuele ninguna sincronización en segundo plano mientras determino la posición:
         MAIN.setSincronizandoReportesTrue();
@@ -88,6 +99,7 @@
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
+            localizacionCompletada = true;
             document.location="infoConexion.html";
         }
     }
@@ -106,6 +118,7 @@
             $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
             .then(function (wsResponse) {     
                 //alert("login done: " + wsResponse);
+                localizacionCompletada = true;
                 if (wsResponse.getResponseType() == ws.OK) {
                     $.mobile.loading( "hide" );
 
@@ -149,6 +162,7 @@
                 }
             })
             .fail(function (wsError){
+                localizacionCompletada = true;
                 $.mobile.loading( "hide" );
                 console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
                 if(wsError.getResponseMessage() == "timeout"){

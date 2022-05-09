@@ -30,6 +30,33 @@ function onDeviceReady() {
     //document.getElementById('deviceready').classList.add('ready');
     //$('#mensaje_error_permiso_gps_bienvenida').hide();
 
+    //Si estoy ejecutando la en un movil la web en el browser, le sugiero al usuario que se descargue la App.
+    if (MAIN.utils.platformDetector.isMobile() && MAIN.esVersionWeb) {
+        /*
+        $("body").overhang({
+            type: "warn",
+            message: "Para una mejor experiencia, por favor descargue la App.",
+            closeConfirm: true
+        });
+        */
+
+        //TODO:
+        var linkDescargaApp = '<a href="https://opendata.aragon.es/servicios/cobertura" target="_blank">descargue la App</a>';
+        var mensajeDescargaApp = 'Para una mejor experiencia, por favor '
+        $("body").overhang({
+            type: "warn",
+            message: mensajeDescargaApp + linkDescargaApp,
+            html: true,
+            closeConfirm: true
+          });
+    }
+
+    //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+    document.addEventListener("backbutton", function (e) {
+        console.log('Boton físico de atrás pulsado.');
+        e.preventDefault();
+    }, false );
+
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){
         console.log('Boton Empezar pulsado.');
         if(cordova.plugins && cordova.plugins.permissions){

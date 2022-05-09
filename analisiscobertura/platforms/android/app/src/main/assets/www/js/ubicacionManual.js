@@ -7,6 +7,12 @@
     $(document).ready(function () {
         console.log('Página ubicación manual lista.');
 
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
+
         var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
         misDatosCobertura = JSON.parse(misDatosCoberturaString);
 

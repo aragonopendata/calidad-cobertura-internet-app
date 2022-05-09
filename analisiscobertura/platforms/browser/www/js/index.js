@@ -32,11 +32,23 @@ function onDeviceReady() {
 
     //Si estoy ejecutando la en un movil la web en el browser, le sugiero al usuario que se descargue la App.
     if (MAIN.utils.platformDetector.isMobile() && MAIN.esVersionWeb) {
+        /*
         $("body").overhang({
             type: "warn",
             message: "Para una mejor experiencia, por favor descargue la App.",
             closeConfirm: true
         });
+        */
+
+        //TODO:
+        var linkDescargaApp = '<a href="https://opendata.aragon.es/servicios/cobertura" target="_blank">descargue la App</a>';
+        var mensajeDescargaApp = 'Para una mejor experiencia, por favor '
+        $("body").overhang({
+            type: "warn",
+            message: mensajeDescargaApp + linkDescargaApp,
+            html: true,
+            closeConfirm: true
+          });
     }
 
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){

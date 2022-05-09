@@ -3,6 +3,12 @@
     $(document).ready(function () {
         console.log('Página datos enviados OK lista.');
 
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
+
         //Borro el reporte actual del localStorage par empezar el siguiente reporte desde cero.
         localStorage.removeItem(MAIN.keyLocalStorageDatosCobertura);
 

@@ -81,6 +81,12 @@
     //*** INICIALIZACION ***//
         $(document).on("pageinit", '#id_test_velocidad', function() {
             console.log('Página testVelocidad lista.');
+
+            //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+            document.addEventListener("backbutton", function (e) {
+                console.log('Boton físico de atrás pulsado.');
+                e.preventDefault();
+            }, false );
             
             //Durante el test de velocidad no vamos a querer que se suba en ningún momento los reportes pendientes para no afectar a los resultados del test de velocidad.
             MAIN.setSincronizandoReportesTrue();
