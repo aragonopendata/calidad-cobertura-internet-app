@@ -12,7 +12,7 @@
         localizacionCompletada = false;
         usuarioAdvertidoActivarLocalizacion = false;
 
-        //TODO: Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
         document.addEventListener("backbutton", function (e) {
             console.log('Boton físico de atrás pulsado.');
             e.preventDefault();

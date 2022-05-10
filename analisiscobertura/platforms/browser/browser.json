@@ -9,6 +9,18 @@
         "parents": {
           "/*": []
         }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "NSLocationWhenInUseUsageDescription": [
+            {
+              "xml": "<string>Se necesita la localización para determinar su posición aproximada.</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ]
+        }
       }
     }
   },

@@ -20,11 +20,11 @@ var MAIN = (function() {
     //ret.entorno = "DEV";
     //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
 
-    //ret.entorno = "DEV_ARAGON";
-    //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
+    ret.entorno = "DEV_ARAGON";
+    ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
 
-    ret.entorno = "PRE_ARAGON";
-    ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
+    //ret.entorno = "PRE_ARAGON";
+    //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
 
     //ret.entorno = "PROD_ARAGON";
     //ret.urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";

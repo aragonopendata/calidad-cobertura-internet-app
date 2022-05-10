@@ -20,7 +20,7 @@
             var velocidadBajadaNumero = Number(misDatosCobertura.velocidadBajada);
             $("#id_valor_resumen_velocidad_descarga").text(velocidadBajadaNumero.toFixed(2) + " Mbps");
             $('#div_resumen_velocidad_descarga').show();
-            if ((!MAIN.esVersionWeb) && (misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 300)) {
+            if ((!MAIN.esVersionWeb) && (misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 400)) {
                 misDatosCobertura.tipoRed = "5G";
             }
         } else {
@@ -131,6 +131,9 @@
                 }
                 if (misDatosCobertura.latencia) {
                     misDatosCobertura.latencia = misDatosCobertura.latencia.toString();
+                }
+                if (misDatosCobertura.valorIntensidadSenial) {
+                    misDatosCobertura.valorIntensidadSenial = misDatosCobertura.valorIntensidadSenial.toString();
                 }
                 $.when( ws.registrarDatosCobertura(misDatosCobertura) )
                 .then(function (wsResponse) {     

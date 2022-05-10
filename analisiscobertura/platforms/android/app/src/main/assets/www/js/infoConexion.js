@@ -135,32 +135,52 @@
                         $('#divInputTipoRed').hide();
                     } else {
                         $('#divInputTipoRed').show();
+
+                        //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
+                        // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
+                        if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
+                            if (miTipoRed.toUpperCase() === "WIFI") {
+                                window.SignalStrength.wifidbm(
+                                    function(measuredDbm){
+                                        console.log('current wifi dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            $("#inputIntensidad").val("Desconocido");
+                                            miValorIntensidad = "";
+                                            miRangoIntensidad = "-1";
+                                            $('#divInputIntensidad').hide();
+                                        } else {
+                                            miValorIntensidad = measuredDbm;
+                                            miRangoIntensidad = "";
+                                            $("#inputIntensidad").val(miValorIntensidad);
+                                            $('#divInputIntensidad').show();
+                                        }
+                                    }
+                                )
+                            } else {
+                                window.SignalStrength.dbm(
+                                    function(measuredDbm){
+                                        console.log('current mobile dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            medirIntensidadSenialConDelaiy();
+                                        } else {
+                                            miValorIntensidad = measuredDbm;
+                                            miRangoIntensidad = "";
+                                            $("#inputIntensidad").val(miValorIntensidad);
+                                            $('#divInputIntensidad').show();
+                                        }
+                                    }
+                                )
+                            }
+                        } else {
+                            $("#inputIntensidad").val("Desconocido");
+                            miValorIntensidad = "";
+                            miRangoIntensidad = "-1";
+                            $('#divInputIntensidad').hide();
+                        }
                     }
                 }, 1000);
             } else {
                 $('#divInputTipoRed').hide();
-            }
-            
-            //Coger la intensidad de la señal con el plugin.
-            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                window.SignalStrength.dbm(
-                    function(measuredDbm){
-                        console.log('current dBm is: ' + measuredDbm);
-                        if (measuredDbm == -1) {
-                            medirIntensidadSenialConDelaiy();
-                        } else {
-                            miValorIntensidad = measuredDbm;
-                            miRangoIntensidad = "";
-                            $("#inputIntensidad").val(miValorIntensidad);
-                            $('#divInputIntensidad').show();
-                        }
-                    }
-                )
-            } else {
-                $("#inputIntensidad").val("Desconocido");
-                miValorIntensidad = "";
-                miRangoIntensidad = "-1";
-                $('#divInputIntensidad').hide();
             }
 
             miOperador = "Desconocido";

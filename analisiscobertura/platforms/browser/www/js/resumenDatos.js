@@ -5,6 +5,13 @@
 
     $(document).ready(function () {
         console.log('Página resumenDatos lista.');
+
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
+
         var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
         misDatosCobertura = JSON.parse(misDatosCoberturaString);
 
@@ -13,7 +20,7 @@
             var velocidadBajadaNumero = Number(misDatosCobertura.velocidadBajada);
             $("#id_valor_resumen_velocidad_descarga").text(velocidadBajadaNumero.toFixed(2) + " Mbps");
             $('#div_resumen_velocidad_descarga').show();
-            if ((!MAIN.esVersionWeb) && (misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 300)) {
+            if ((!MAIN.esVersionWeb) && (misDatosCobertura.tipoRed === "Desconocido") && (MAIN.utils.platformDetector.isMobile()) && (velocidadBajadaNumero > 400)) {
                 misDatosCobertura.tipoRed = "5G";
             }
         } else {

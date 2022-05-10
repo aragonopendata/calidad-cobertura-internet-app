@@ -40,7 +40,7 @@ function onDeviceReady() {
         });
         */
 
-        //TODO:
+        //FIXME: Poner la URL de descarga de la App cuando se conozca.
         var linkDescargaApp = '<a href="https://opendata.aragon.es/servicios/cobertura" target="_blank">descargue la App</a>';
         var mensajeDescargaApp = 'Para una mejor experiencia, por favor '
         $("body").overhang({

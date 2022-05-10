@@ -132,6 +132,9 @@
                 if (misDatosCobertura.latencia) {
                     misDatosCobertura.latencia = misDatosCobertura.latencia.toString();
                 }
+                if (misDatosCobertura.valorIntensidadSenial) {
+                    misDatosCobertura.valorIntensidadSenial = misDatosCobertura.valorIntensidadSenial.toString();
+                }
                 $.when( ws.registrarDatosCobertura(misDatosCobertura) )
                 .then(function (wsResponse) {     
                     MAIN.setSincronizandoReportesFalse();

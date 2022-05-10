@@ -6,12 +6,6 @@
   "version": "es.aragon.analisiscobertura",
   "description": "Analisis de cobertura",
   "author": "Apache Cordova Team",
-  "icons": [
-    {
-      "src": "res/icon/icon.png",
-      "type": "image/png",
-      "sizes": "undefinedxundefined"
-    }
-  ],
+  "icons": [],
   "start_url": "index.html"
 }

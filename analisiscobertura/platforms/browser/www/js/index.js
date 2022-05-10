@@ -40,7 +40,7 @@ function onDeviceReady() {
         });
         */
 
-        //TODO:
+        //FIXME: Poner la URL de descarga de la App cuando se conozca.
         var linkDescargaApp = '<a href="https://opendata.aragon.es/servicios/cobertura" target="_blank">descargue la App</a>';
         var mensajeDescargaApp = 'Para una mejor experiencia, por favor '
         $("body").overhang({
@@ -50,6 +50,12 @@ function onDeviceReady() {
             closeConfirm: true
           });
     }
+
+    //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+    document.addEventListener("backbutton", function (e) {
+        console.log('Boton físico de atrás pulsado.');
+        e.preventDefault();
+    }, false );
 
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){
         console.log('Boton Empezar pulsado.');

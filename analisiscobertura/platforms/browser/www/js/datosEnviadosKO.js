@@ -3,6 +3,12 @@
     $(document).ready(function () {
         console.log('Página datos enviados KO lista.');
 
+        //Bloqueamos el botón físico de atrás para que no se haga un history.back.
+        document.addEventListener("backbutton", function (e) {
+            console.log('Boton físico de atrás pulsado.');
+            e.preventDefault();
+        }, false );
+
         //Si en este momento se están enviando los reportes en segundo plano, en vez de aquí "guardaUltimoReporteCobertura",
         // activo una variable booleana en MAIN para que una vez que termine MAIN de sincronizar reportes, almaene el reporte actual en los pendiente de subida.
         if (MAIN.getSincronizandoReportes()) {
