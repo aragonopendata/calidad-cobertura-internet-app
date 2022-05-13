@@ -64,47 +64,38 @@
                 <!-- FIN MAPA -->
 
                 <form id="formDatosConexion" class="ifta">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                    <div class="group">
+                                    <label id="labelCampoUbicacion" class="small ifta-label">Ubicación</label>
+                                    <!--<label id="labelValorUbicacion" class="label-valor-ubicacion">- Desconocida -</label>-->
+                                    <input id="labelValorUbicacion" type="text" class="ifta-field" placeholder="- Desconocida -" />
+                                    </div>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                                <div class="group">
-                                <label id="labelCampoUbicacion" class="small ifta-label">Ubicación</label>
-                                <!--<label id="labelValorUbicacion" class="label-valor-ubicacion">- Desconocida -</label>-->
-                                <input id="labelValorUbicacion" type="text" class="ifta-field" placeholder="- Desconocida -" />
-                                </div>
-
-                                <div id="divInputModeloSO" class="group">
-                                <label class="small ifta-label" for="inputModeloSO">Modelo - Sistema Operativo</label>
-                                <input type="text" class="ifta-field" id="inputModeloSO" placeholder="" />
-                                </div>
-                                
-                                <div id="divInputTipoRed" class="group">
-                                <label class="small ifta-label" for="inputTipoRed">Tipo de red</label>
-                                <input type="text" class="ifta-field" id="inputTipoRed" placeholder="- Ejemplo: 5G -" />
-                                </div>
-                    
-                                <div id="divInputOperador" class="group">
-                                <label class="small ifta-label" for="inputOperador">Operador</label>
-                                <input type="text" class="ifta-field" id="inputOperador" placeholder="- Desconocido -" />
-                                </div>
-                    
-                                <div id="divInputIntensidad" class="group">
-                                <label class="small ifta-label" for="inputIntensidad">Intensidad de la señal</label>
-                                <input type="text" class="ifta-field" id="inputIntensidad" placeholder="- Ejemplo: Alta -" />
-                                </div>
-                    
-                                <!--<div class="col-xs-12">
-                                <button data-theme="b" type="submit" id="submitForm" class="btn btn-primary btn-block mt-3 aumentado">Iniciar TEST</button>
-                                </div>-->
-
+                                    <div id="divInputModeloSO" class="group">
+                                    <label class="small ifta-label" for="inputModeloSO">Modelo - Sistema Operativo</label>
+                                    <input type="text" class="ifta-field" id="inputModeloSO" placeholder="" />
+                                    </div>
+                                    
+                                    <div id="divInputTipoRed" class="group">
+                                    <label class="small ifta-label" for="inputTipoRed">Tipo de red</label>
+                                    <input type="text" class="ifta-field" id="inputTipoRed" placeholder="- Ejemplo: 5G -" />
+                                    </div>
+                        
+                                    <div id="divInputOperador" class="group">
+                                    <label class="small ifta-label" for="inputOperador">Operador</label>
+                                    <input type="text" class="ifta-field" id="inputOperador" placeholder="- Desconocido -" />
+                                    </div>
+                        
+                                    <div id="divInputIntensidad" class="group">
+                                    <label class="small ifta-label" for="inputIntensidad">Intensidad de la señal</label>
+                                    <input type="text" class="ifta-field" id="inputIntensidad" placeholder="- Ejemplo: Alta -" />
+                                    </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- <div class="botonPie">
-                    <button class="ui-btn ui-corner-all" style="width: 100%;">Iniciar TEST</button>
-                </div> -->
+                </form>
 
             </div>
             <!-- /content -->
@@ -115,7 +106,7 @@
             </div>
             <!-- /footer -->
 
-            </form>
+            <div class="ui-loader-background"> </div>
 
         </div>
         <!-- /page -->

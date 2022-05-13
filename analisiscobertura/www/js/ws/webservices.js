@@ -145,7 +145,8 @@ MAIN.ws = (function(){
             "Server":"Microsoft-IIS/7.5",
             "X-AspNet-Version":"2.0.50727",
             "X-Powered-By":"ASP.NET",
-            "Content-Type": "application/json; charset=utf-8"
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Bearer SAB73SFOfxOp9t2e6GbU5A33EEBCB6277B68E7E72523F4776EB6"
         };
     }
     

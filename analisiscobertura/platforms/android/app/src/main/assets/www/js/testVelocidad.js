@@ -610,6 +610,7 @@
                                 timeStart = (new Date()).getTime();
                             },
                             timeout: MAIN.timeoutTestBajada,
+                            headers: getDefaultHeaders(),
                             success: function(data, textStatus, jqXHR) {
                                 console.log( "Success uploadFile!");
                             
@@ -702,6 +703,18 @@
             }
     
         }//function onStartUpload(dataFile)
+
+        function getDefaultHeaders() {
+            return {
+                "Cache-Control": "private",
+                "Vary":"Accept-Encoding",
+                "Server":"Microsoft-IIS/7.5",
+                "X-AspNet-Version":"2.0.50727",
+                "X-Powered-By":"ASP.NET",
+                "Content-Type": "text/html; charset=utf-8",
+                "Authorization": "Bearer SAB73SFOfxOp9t2e6GbU5A33EEBCB6277B68E7E72523F4776EB6"
+            };
+        }
         
         
         //** Latencia **/

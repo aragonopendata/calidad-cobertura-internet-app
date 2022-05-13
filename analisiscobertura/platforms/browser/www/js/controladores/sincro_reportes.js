@@ -103,6 +103,9 @@ MAIN.controladores.sincronizadorReportes = (function() {
         if (reporte.latencia) {
             reporte.latencia = reporte.latencia.toString();
         }
+        if (reporte.valorIntensidadSenial) {
+            reporte.valorIntensidadSenial = reporte.valorIntensidadSenial.toString();
+        }
         /*
         var datosCoberturaEnviar = new DatosCobertura(
             reporte.timestamp,

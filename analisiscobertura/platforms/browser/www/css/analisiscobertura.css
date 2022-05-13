@@ -173,7 +173,8 @@ body .ui-header {
 .claim {
   font-style: italic;
   font-weight: 600;
-  padding: 1rem 2rem;
+  font-size: 0.8em;
+  padding: 0.4rem 2rem;
   max-width: 480px;
   margin: 0 auto;
   background: #333333;
@@ -397,6 +398,7 @@ h1 {
   max-width: 100%;
   left: 0;
   background-color: #fff;
+  margin-top: -1.2rem;
 }
 
 #ACAI .contentPrincipal .container {
@@ -525,12 +527,12 @@ h1 {
 }
 #ACAI .content-feder .tituloParrafo{
   text-align: center;
-  padding: 1.4rem 1rem;
+  padding: 0.2rem 1rem;
 }
 
 #ACAI .parrafo.logotipos {
   max-width: 480px;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -581,6 +583,7 @@ h1 {
 #ACAI .ceda {
   padding-bottom: 1.8rem;
   text-align: center;
+  font-size: 0.8em;
 }
 
 /*
@@ -614,6 +617,10 @@ body .ui-content {
   body .ui-content {
     left: 0;
   }
+}
+
+body .content-test-velocidad {
+  position: fixed;
 }
 
 body .ui-header .ui-title {

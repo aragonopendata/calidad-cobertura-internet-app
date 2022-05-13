@@ -22,9 +22,13 @@
     var ws = MAIN.ws;
     var ubicacionObtenida = false;
     var ubicacionCapturadaManualmente = false;
+    var localizacionDetenidaPorTimeout = false;
+    var localizacionCompletada = false;
 
     $(document).ready(function () {
         console.log('Página infoConexion lista.');
+        localizacionDetenidaPorTimeout = false;
+        localizacionCompletada = false;
 
         //Modificado 12/04/2022: Ahora el Operador ya no es un desplegable, ahora es un input.
         //Configuramos el desplegable de Operador:
@@ -133,34 +137,68 @@
                     $("#inputTipoRed").val(miTipoRed);
                     if ((!networkState) || (networkState === "Desconocido")) {
                         $('#divInputTipoRed').hide();
+                        $("#inputIntensidad").val("Desconocido");
+                        miValorIntensidad = "";
+                        miRangoIntensidad = "-1";
+                        $('#divInputIntensidad').hide();
                     } else {
                         $('#divInputTipoRed').show();
+
+                        //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
+                        // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
+                        if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
+                            if (miTipoRed.toUpperCase() === "WIFI") {
+                                window.SignalStrength.wifidbm(
+                                    function(measuredDbm){
+                                        console.log('current wifi dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            $("#inputIntensidad").val("Desconocido");
+                                            miValorIntensidad = "";
+                                            miRangoIntensidad = "-1";
+                                            $('#divInputIntensidad').hide();
+                                        } else {
+                                            //Si los dbm nos vienen en positivo los paso a negativos.
+                                            if (measuredDbm > 0) {
+                                                miValorIntensidad = measuredDbm * (-1);
+                                            } else {
+                                                miValorIntensidad = measuredDbm;
+                                            }
+                                            miRangoIntensidad = "";
+                                            $("#inputIntensidad").val(miValorIntensidad);
+                                            $('#divInputIntensidad').show();
+                                        }
+                                    }
+                                )
+                            } else {
+                                window.SignalStrength.dbm(
+                                    function(measuredDbm){
+                                        console.log('current mobile dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            medirIntensidadSenialConDelaiy();
+                                        } else {
+                                            //Si los dbm nos vienen en positivo los paso a negativos.
+                                            if (measuredDbm > 0) {
+                                                miValorIntensidad = measuredDbm * (-1);
+                                            } else {
+                                                miValorIntensidad = measuredDbm;
+                                            }
+                                            miRangoIntensidad = "";
+                                            $("#inputIntensidad").val(miValorIntensidad);
+                                            $('#divInputIntensidad').show();
+                                        }
+                                    }
+                                )
+                            }
+                        } else {
+                            $("#inputIntensidad").val("Desconocido");
+                            miValorIntensidad = "";
+                            miRangoIntensidad = "-1";
+                            $('#divInputIntensidad').hide();
+                        }
                     }
                 }, 1000);
             } else {
                 $('#divInputTipoRed').hide();
-            }
-            
-            //Coger la intensidad de la señal con el plugin.
-            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                window.SignalStrength.dbm(
-                    function(measuredDbm){
-                        console.log('current dBm is: ' + measuredDbm);
-                        if (measuredDbm == -1) {
-                            medirIntensidadSenialConDelaiy();
-                        } else {
-                            miValorIntensidad = measuredDbm;
-                            miRangoIntensidad = "";
-                            $("#inputIntensidad").val(miValorIntensidad);
-                            $('#divInputIntensidad').show();
-                        }
-                    }
-                )
-            } else {
-                $("#inputIntensidad").val("Desconocido");
-                miValorIntensidad = "";
-                miRangoIntensidad = "-1";
-                $('#divInputIntensidad').hide();
             }
 
             miOperador = "Desconocido";
@@ -330,79 +368,108 @@
     }
     */
 
+    function contarTimeoutLocalizacion() {
+        setTimeout(function(){
+            console.log('Se acabó el timeout para localizar el dispositivo.');
+            if (!localizacionCompletada) {
+                localizacionDetenidaPorTimeout = true;
+                $.mobile.loading( "hide" );
+            }
+
+        }, MAIN.timeoutLocalizacion);
+    }
+
     function getLocation() {
+        localizacionDetenidaPorTimeout = false;
+        localizacionCompletada = false;
+        contarTimeoutLocalizacion();
         MAIN.setSincronizandoReportesTrue();
         if (navigator.geolocation) {
+            $.mobile.loading( "show", {
+                text: "Recopilando datos ...",
+                textVisible: true,
+                theme: "b",
+                textonly: true
+            });
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
             console.log("Geolocation is not supported by this browser.");
             ubicacionObtenida = false;
+            localizacionCompletada = true;
             MAIN.setSincronizandoReportesFalse();
         }
     }
     function showPosition(position) {
-        miLatitud = position.coords.latitude;
-        miLongitud = position.coords.longitude;
+        if (!localizacionDetenidaPorTimeout) {
+            miLatitud = position.coords.latitude;
+            miLongitud = position.coords.longitude;
 
-        console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
+            console.log("Posición obtenida: Latitud: " + miLatitud + " Longitud: " + miLongitud);
 
-        if (MAIN.localizacionParaDebug) {
-            miLatitud = 42.09441;
-            miLongitud = -0.35527;
-        }
+            if (MAIN.localizacionParaDebug) {
+                miLatitud = 42.09441;
+                miLongitud = -0.35527;
+            }
 
-        $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
-		.then(function (wsResponse) {     
-			//alert("login done: " + wsResponse);
-            MAIN.setSincronizandoReportesFalse();
-            if (wsResponse.getResponseType() == ws.OK) {
+            $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
+            .then(function (wsResponse) {     
+                //alert("login done: " + wsResponse);
+                localizacionCompletada = true;
+                MAIN.setSincronizandoReportesFalse();
+                if (wsResponse.getResponseType() == ws.OK) {
+                    $.mobile.loading( "hide" );
 
-				var resp = wsResponse.getContent();
+                    var resp = wsResponse.getContent();
 
-                miMunicipio = resp.nombreMunicipio;
-                miINE = resp.ineMunicipio;
-                miProvincia = resp.provincia;
-                miCoordenadaX = resp.coordenadax;
-                miCoordenadaY = resp.coordenaday;
+                    miMunicipio = resp.nombreMunicipio;
+                    miINE = resp.ineMunicipio;
+                    miProvincia = resp.provincia;
+                    miCoordenadaX = resp.coordenadax;
+                    miCoordenadaY = resp.coordenaday;
 
-                //Si no se han recibido bien todos los campos del servicio web no pinto la posición como correcta.
-                if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
-                    console.log('Municipio en el que estoy: ' + miMunicipio);
+                    //Si no se han recibido bien todos los campos del servicio web no pinto la posición como correcta.
+                    if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
+                        console.log('Municipio en el que estoy: ' + miMunicipio);
 
-                    pintarMapa();
+                        pintarMapa();
 
-                    //Actualizo el label de ubicación.
-                    $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
-                    $('#labelValorUbicacion').prop('disabled', true);
-                    ubicacionObtenida = true;
-                    ubicacionCapturadaManualmente = false;
-                } else {
-                    $("#labelValorUbicacion").val("- Desconocida -");
-                    $('#labelValorUbicacion').prop('disabled', false);
+                        //Actualizo el label de ubicación.
+                        $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
+                        $('#labelValorUbicacion').prop('disabled', true);
+                        ubicacionObtenida = true;
+                        ubicacionCapturadaManualmente = false;
+                    } else {
+                        $("#labelValorUbicacion").val("- Desconocida -");
+                        $('#labelValorUbicacion').prop('disabled', false);
+                        ubicacionObtenida = false;
+                    }
+                }
+                else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
+                    $.mobile.loading( "hide" );
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas.');
                     ubicacionObtenida = false;
                 }
-            }
-            else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas.');
+                else{
+                    $.mobile.loading( "hide" );
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
+                    ubicacionObtenida = false;
+                }
+            })
+            .fail(function (wsError){
+                localizacionCompletada = true;
+                $.mobile.loading( "hide" );
+                MAIN.setSincronizandoReportesFalse();
+                console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
                 ubicacionObtenida = false;
-            }
-            else{
-            	console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
-                ubicacionObtenida = false;
-            }
-		})
-        .fail(function (wsError){
-            MAIN.setSincronizandoReportesFalse();
-            console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
-            ubicacionObtenida = false;
-            if(wsError.getResponseMessage() == "timeout"){
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
-            }
-            else{
-                console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
-            }
+                if(wsError.getResponseMessage() == "timeout"){
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
+                }
+                else{
+                    console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
+                }
 
-        });
+            });
+        }
     }
 
     function pintarMapa() {
@@ -461,7 +528,12 @@
                         miRangoIntensidad = "-1";
                         $('#divInputIntensidad').hide();
                     } else {
-                        miValorIntensidad = measuredDbm;
+                        //Si los dbm nos vienen en positivo los paso a negativos.
+                        if (measuredDbm > 0) {
+                            miValorIntensidad = measuredDbm * (-1);
+                        } else {
+                            miValorIntensidad = measuredDbm;
+                        }
                         miRangoIntensidad = "";
                         $("#inputIntensidad").val(miValorIntensidad);
                         $('#divInputIntensidad').show();

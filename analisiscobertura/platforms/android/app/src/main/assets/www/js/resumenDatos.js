@@ -89,7 +89,7 @@
             $("#id_valor_resumen_intensidad_senial").text("Desconocido");
             $('#div_resumen_intensidad_senial').hide();
         } else {
-            $("#id_valor_resumen_intensidad_senial").text(misDatosCobertura.valorIntensidadSenial);
+            $("#id_valor_resumen_intensidad_senial").text(misDatosCobertura.valorIntensidadSenial + " dbm");
             $('#div_resumen_intensidad_senial').show();
         }
 
