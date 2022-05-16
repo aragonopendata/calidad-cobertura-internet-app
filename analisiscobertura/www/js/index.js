@@ -117,6 +117,10 @@ function onDeviceReady() {
             datosCoberturaAux.timestamp = "";
             datosCoberturaAux.coordenadax = 0;
             datosCoberturaAux.coordenaday = 0;
+            datosCoberturaAux.coordenadax5000 = 0;
+            datosCoberturaAux.coordenaday5000 = 0;
+            datosCoberturaAux.coordenadax20000 = 0;
+            datosCoberturaAux.coordenaday20000 = 0;
             datosCoberturaAux.municipio = "";
             datosCoberturaAux.ine = "";
             datosCoberturaAux.modelo = "";

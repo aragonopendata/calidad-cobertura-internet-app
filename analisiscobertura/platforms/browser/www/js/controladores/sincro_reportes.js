@@ -93,6 +93,18 @@ MAIN.controladores.sincronizadorReportes = (function() {
         if (!reporte.coordenaday) {
             reporte.coordenaday = null;
         }
+        if (!reporte.coordenadax5000) {
+            reporte.coordenadax5000 = null;
+        }
+        if (!reporte.coordenaday5000) {
+            reporte.coordenaday5000 = null;
+        }
+        if (!reporte.coordenadax20000) {
+            reporte.coordenadax20000 = null;
+        }
+        if (!reporte.coordenaday20000) {
+            reporte.coordenaday20000 = null;
+        }
         //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
         if (reporte.velocidadBajada) {
             reporte.velocidadBajada = reporte.velocidadBajada.toString();
@@ -106,26 +118,7 @@ MAIN.controladores.sincronizadorReportes = (function() {
         if (reporte.valorIntensidadSenial) {
             reporte.valorIntensidadSenial = reporte.valorIntensidadSenial.toString();
         }
-        /*
-        var datosCoberturaEnviar = new DatosCobertura(
-            reporte.timestamp,
-            reporte.coordenadax,
-            reporte.coordenaday,
-            reporte.municipio,
-            reporte.ine,
-            reporte.modelo,
-            reporte.so,
-            reporte.tipoRed,
-            reporte.operador,
-            reporte.valorIntensidadSenial,
-            reporte.rangoIntensidadSenial,
-            reporte.velocidadBajada,
-            reporte.velocidadSubida,
-            reporte.latencia,
-            reporte.datosConexionLimpiados,
-            reporte.ubicacionManual
-        );
-        */
+        
         return ws.registrarDatosCobertura(reporte).
 		done(
 			function(){

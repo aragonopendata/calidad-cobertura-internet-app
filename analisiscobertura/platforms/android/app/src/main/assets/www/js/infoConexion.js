@@ -485,7 +485,9 @@
         //attribution = getFondoLabel()+base_attribution;
         mapOL = new ol.Map({        
             target: 'map',
-            view: new ol.View(options)
+            view: new ol.View(options),
+            controls: [],
+            interactions: []
         }); 
     
         var layerAragonFoto =new ol.layer.Tile({

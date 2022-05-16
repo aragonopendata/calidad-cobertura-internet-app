@@ -122,6 +122,18 @@
                 if (!misDatosCobertura.coordenaday) {
                     misDatosCobertura.coordenaday = null;
                 }
+                if (!misDatosCobertura.coordenadax5000) {
+                    misDatosCobertura.coordenadax5000 = null;
+                }
+                if (!misDatosCobertura.coordenaday5000) {
+                    misDatosCobertura.coordenaday5000 = null;
+                }
+                if (!misDatosCobertura.coordenadax20000) {
+                    misDatosCobertura.coordenadax20000 = null;
+                }
+                if (!misDatosCobertura.coordenaday20000) {
+                    misDatosCobertura.coordenaday20000 = null;
+                }
                 //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
                 if (misDatosCobertura.velocidadBajada) {
                     misDatosCobertura.velocidadBajada = misDatosCobertura.velocidadBajada.toString();
