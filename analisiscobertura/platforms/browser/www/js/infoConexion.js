@@ -202,7 +202,13 @@
                     }
                 }, 1000);
             } else {
+                miTipoRed = networkState;
+                $("#inputTipoRed").val(miTipoRed);
+                $("#inputIntensidad").val("Desconocido");
+                miValorIntensidad = "";
+                miRangoIntensidad = "-1";
                 $('#divInputTipoRed').hide();
+                $('#divInputIntensidad').hide();
             }
 
             miOperador = "Desconocido";

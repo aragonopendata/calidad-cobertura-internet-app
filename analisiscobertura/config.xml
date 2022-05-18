@@ -25,6 +25,8 @@
         <icon src="res/android/xxxhdpi.png" density="xxxhdpi" />
     </platform>
     <platform name="ios">
+		<preference name="scheme" value="app" />
+		<preference name="hostname" value="localhost" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
 		<!-- iOS 8.0+ -->

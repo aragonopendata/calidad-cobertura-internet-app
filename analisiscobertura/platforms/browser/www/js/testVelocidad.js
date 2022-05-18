@@ -202,23 +202,26 @@
             });
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
-            var networkState = navigator.connection.type;
-
-            setTimeout(function(){
+            var networkState = "Desconocido";
+            if (navigator.connection) {
                 networkState = navigator.connection.type;
-                if (networkState === "unknown") {
-                    networkState = "Desconocido";
-                } else if (networkState === "cellular") {
-                    networkState = "Móvil";
-                } else if (networkState === "ethernet") {
-                    networkState = "Cable";
-                } else if (networkState === "none") {
-                    networkState = "Sin conexión";
-                }
 
-                console.log('Connection type en TestVelocidad: ' + networkState);
-                miTipoRed = networkState;
-            }, 1000);
+                setTimeout(function(){
+                    networkState = navigator.connection.type;
+                    if (networkState === "unknown") {
+                        networkState = "Desconocido";
+                    } else if (networkState === "cellular") {
+                        networkState = "Móvil";
+                    } else if (networkState === "ethernet") {
+                        networkState = "Cable";
+                    } else if (networkState === "none") {
+                        networkState = "Sin conexión";
+                    }
+
+                    console.log('Connection type en TestVelocidad: ' + networkState);
+                    miTipoRed = networkState;
+                }, 1000);
+            }
 
             //Empiezo el test nada más acceder a la pantalla.
             gauge_download.refresh(0);
