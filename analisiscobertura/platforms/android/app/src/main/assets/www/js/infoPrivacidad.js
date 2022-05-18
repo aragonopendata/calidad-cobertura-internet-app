@@ -124,13 +124,13 @@
 
                     var resp = wsResponse.getContent();
 
-                    miMunicipio = resp.nombreMunicipio;
-                    miINE = resp.ineMunicipio;
-                    miProvincia = resp.provincia;
-                    miCoordenadaX = resp.coordenadax;
-                    miCoordenadaY = resp.coordenaday;
+                    var miMunicipioAux = resp.nombreMunicipio;
+                    var miINE = resp.ineMunicipio;
+                    var miProvincia = resp.provincia;
+                    var miCoordenadaX = resp.coordenadax;
+                    var miCoordenadaY = resp.coordenaday;
 
-                    console.log('Municipio de Aragón en el que estoy: ' + miMunicipio);
+                    console.log('Municipio de Aragón en el que estoy: ' + miMunicipioAux);
                     //Como estoy en un municipio de Aragón sí dejo usar la aplicación.
                     //$('#mensaje_error_fuera_de_aragon_info_privacidad').hide();
                     document.location="infoConexion.html";

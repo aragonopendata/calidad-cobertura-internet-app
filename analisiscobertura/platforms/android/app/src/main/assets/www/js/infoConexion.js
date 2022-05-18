@@ -5,6 +5,10 @@
     var miLongitud;
     var miCoordenadaX;
     var miCoordenadaY;
+    var miCoordenadaX5000;
+    var miCoordenadaY5000;
+    var miCoordenadaX20000;
+    var miCoordenadaY20000;
     var miMunicipio;
     var miProvincia;
     var miINE;
@@ -219,7 +223,7 @@
 
                 miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
 
-                var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+                var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
 
                 localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaBotTestVel));
                 document.location="infoTestVelocidad.html";
@@ -243,7 +247,7 @@
             } else {
                 console.log('Label ubicación enabled. Sí dejo entrar a ubicación manual.');
                 miOperador = $("#inputOperador").val();
-                var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+                var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
                 localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaUbicacionManual));
                 document.location="ubicacionManual.html";
             }
@@ -261,6 +265,10 @@
                     datosCoberturaAux.timestamp = miTimestamp;
                     datosCoberturaAux.coordenadax = miCoordenadaX;
                     datosCoberturaAux.coordenaday = miCoordenadaY;
+                    datosCoberturaAux.coordenadax5000 = miCoordenadaX5000;
+                    datosCoberturaAux.coordenaday5000 = miCoordenadaY5000;
+                    datosCoberturaAux.coordenadax20000 = miCoordenadaX20000;
+                    datosCoberturaAux.coordenaday20000 = miCoordenadaY20000;
                     datosCoberturaAux.municipio = miMunicipio;
                     datosCoberturaAux.ine = miINE;
                     datosCoberturaAux.modelo = miModelo;
@@ -426,6 +434,10 @@
                     miProvincia = resp.provincia;
                     miCoordenadaX = resp.coordenadax;
                     miCoordenadaY = resp.coordenaday;
+                    miCoordenadaX5000 = resp.coordenadax5000;
+                    miCoordenadaY5000 = resp.coordenaday5000;
+                    miCoordenadaX20000 = resp.coordenadax20000;
+                    miCoordenadaY20000 = resp.coordenaday20000;
 
                     //Si no se han recibido bien todos los campos del servicio web no pinto la posición como correcta.
                     if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
@@ -552,6 +564,10 @@
         miTimestamp = datosCoberturaObjeto.timestamp;
         miCoordenadaX = datosCoberturaObjeto.coordenadax;
         miCoordenadaY = datosCoberturaObjeto.coordenaday;
+        miCoordenadaX5000 = datosCoberturaObjeto.coordenadax5000;
+        miCoordenadaY5000 = datosCoberturaObjeto.coordenaday5000;
+        miCoordenadaX20000 = datosCoberturaObjeto.coordenadax20000;
+        miCoordenadaY20000 = datosCoberturaObjeto.coordenaday20000;
         miMunicipio = datosCoberturaObjeto.municipio;
         miINE = datosCoberturaObjeto.ine;
         miModelo = datosCoberturaObjeto.modelo;
