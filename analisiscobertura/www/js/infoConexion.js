@@ -59,6 +59,8 @@
             e.preventDefault();
         }, false );
 
+        document.addEventListener("online", onOnline, false);
+
         //No se puede editar ninguna de las opciones y todas se cumplimentarán automáticamente (salvo la Ubicación en caso de que no se pueda obtener):
         $('#inputModeloSO').prop('disabled', true);
         $('#inputTipoRed').prop('disabled', true);
@@ -121,95 +123,7 @@
             }
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
-            var networkState = "Desconocido";
-            if (navigator.connection) {
-                networkState = navigator.connection.type;
-                setTimeout(function(){
-                    networkState = navigator.connection.type;
-                    if (networkState === "unknown") {
-                        networkState = "Desconocido";
-                    } else if (networkState === "cellular") {
-                        networkState = "Móvil";
-                    } else if (networkState === "ethernet") {
-                        networkState = "Cable";
-                    } else if (networkState === "none") {
-                        networkState = "Sin conexión";
-                    }
-    
-                    console.log('Connection type: ' + networkState);
-                    miTipoRed = networkState;
-                    $("#inputTipoRed").val(miTipoRed);
-                    if ((!networkState) || (networkState === "Desconocido")) {
-                        $('#divInputTipoRed').hide();
-                        $("#inputIntensidad").val("Desconocido");
-                        miValorIntensidad = "";
-                        miRangoIntensidad = "-1";
-                        $('#divInputIntensidad').hide();
-                    } else {
-                        $('#divInputTipoRed').show();
-
-                        //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
-                        // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
-                        if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                            if (miTipoRed.toUpperCase() === "WIFI") {
-                                window.SignalStrength.wifidbm(
-                                    function(measuredDbm){
-                                        console.log('current wifi dBm is: ' + measuredDbm);
-                                        if (measuredDbm == -1) {
-                                            $("#inputIntensidad").val("Desconocido");
-                                            miValorIntensidad = "";
-                                            miRangoIntensidad = "-1";
-                                            $('#divInputIntensidad').hide();
-                                        } else {
-                                            //Si los dbm nos vienen en positivo los paso a negativos.
-                                            if (measuredDbm > 0) {
-                                                miValorIntensidad = measuredDbm * (-1);
-                                            } else {
-                                                miValorIntensidad = measuredDbm;
-                                            }
-                                            miRangoIntensidad = "";
-                                            $("#inputIntensidad").val(miValorIntensidad);
-                                            $('#divInputIntensidad').show();
-                                        }
-                                    }
-                                )
-                            } else {
-                                window.SignalStrength.dbm(
-                                    function(measuredDbm){
-                                        console.log('current mobile dBm is: ' + measuredDbm);
-                                        if (measuredDbm == -1) {
-                                            medirIntensidadSenialConDelaiy();
-                                        } else {
-                                            //Si los dbm nos vienen en positivo los paso a negativos.
-                                            if (measuredDbm > 0) {
-                                                miValorIntensidad = measuredDbm * (-1);
-                                            } else {
-                                                miValorIntensidad = measuredDbm;
-                                            }
-                                            miRangoIntensidad = "";
-                                            $("#inputIntensidad").val(miValorIntensidad);
-                                            $('#divInputIntensidad').show();
-                                        }
-                                    }
-                                )
-                            }
-                        } else {
-                            $("#inputIntensidad").val("Desconocido");
-                            miValorIntensidad = "";
-                            miRangoIntensidad = "-1";
-                            $('#divInputIntensidad').hide();
-                        }
-                    }
-                }, 1000);
-            } else {
-                miTipoRed = networkState;
-                $("#inputTipoRed").val(miTipoRed);
-                $("#inputIntensidad").val("Desconocido");
-                miValorIntensidad = "";
-                miRangoIntensidad = "-1";
-                $('#divInputTipoRed').hide();
-                $('#divInputIntensidad').hide();
-            }
+            onOnline();
 
             miOperador = "Desconocido";
             $("#inputOperador").val("Desconocido");
@@ -381,6 +295,102 @@
     	popConfirmDialog($.t("comunes.titulo_dlg_advert"), $.t("reportes.pregunta_sin_gps_reportar"), self.continuarEnvioReportePorGPSFallo, arrayCamposAux, self.cancelarEnvioReportePorGPSFallo);
     }
     */
+
+    function onOnline() {
+        // Handle the online event
+        var networkState = "Desconocido";
+        if (navigator.connection) {
+            networkState = navigator.connection.type;
+            setTimeout(function(){
+                networkState = navigator.connection.type;
+                if (networkState === "unknown") {
+                    networkState = "Desconocido";
+                } else if (networkState === "cellular") {
+                    networkState = "Móvil";
+                } else if (networkState === "ethernet") {
+                    networkState = "Cable";
+                } else if (networkState === "none") {
+                    networkState = "Sin conexión";
+                }
+
+                console.log('Connection type: ' + networkState);
+                miTipoRed = networkState;
+                $("#inputTipoRed").val(miTipoRed);
+                if ((!networkState) || (networkState === "Desconocido")) {
+                    $('#divInputTipoRed').hide();
+                    $("#inputIntensidad").val("Desconocido");
+                    miValorIntensidad = "";
+                    miRangoIntensidad = "-1";
+                    $('#divInputIntensidad').hide();
+                } else {
+                    $('#divInputTipoRed').show();
+
+                    //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
+                    // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
+                    if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
+                        if (miTipoRed.toUpperCase() === "WIFI") {
+                            window.SignalStrength.wifidbm(
+                                function(measuredDbm){
+                                    console.log('current wifi dBm is: ' + measuredDbm);
+                                    if (measuredDbm == -1) {
+                                        $("#inputIntensidad").val("Desconocido");
+                                        miValorIntensidad = "";
+                                        miRangoIntensidad = "-1";
+                                        $('#divInputIntensidad').hide();
+                                    } else {
+                                        //Si los dbm nos vienen en positivo los paso a negativos.
+                                        if (measuredDbm > 0) {
+                                            miValorIntensidad = measuredDbm * (-1);
+                                        } else {
+                                            miValorIntensidad = measuredDbm;
+                                        }
+                                        miRangoIntensidad = "";
+                                        $("#inputIntensidad").val(miValorIntensidad);
+                                        $('#divInputIntensidad').show();
+                                    }
+                                }
+                            )
+                        } else {
+                            window.SignalStrength.dbm(
+                                function(measuredDbm){
+                                    console.log('current mobile dBm is: ' + measuredDbm);
+                                    if (measuredDbm == -1) {
+                                        medirIntensidadSenialConDelaiy();
+                                    } else {
+                                        //Si los dbm nos vienen en positivo los paso a negativos.
+                                        if (measuredDbm > 0) {
+                                            miValorIntensidad = measuredDbm * (-1);
+                                        } else {
+                                            miValorIntensidad = measuredDbm;
+                                        }
+                                        miRangoIntensidad = "";
+                                        $("#inputIntensidad").val(miValorIntensidad);
+                                        $('#divInputIntensidad').show();
+                                    }
+                                }
+                            )
+                        }
+                    } else {
+                        $("#inputIntensidad").val("Desconocido");
+                        miValorIntensidad = "";
+                        miRangoIntensidad = "-1";
+                        $('#divInputIntensidad').hide();
+                    }
+                }
+            }, 1000);
+        } else {
+            miTipoRed = networkState;
+            $("#inputTipoRed").val(miTipoRed);
+            $("#inputIntensidad").val("Desconocido");
+            miValorIntensidad = "";
+            miRangoIntensidad = "-1";
+
+            $('#divInputTipoRed').hide();
+            $('#divInputIntensidad').hide();
+        }
+
+
+    }
 
     function contarTimeoutLocalizacion() {
         setTimeout(function(){

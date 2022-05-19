@@ -87,7 +87,10 @@
                 console.log('Boton físico de atrás pulsado.');
                 e.preventDefault();
             }, false );
-            
+
+            document.addEventListener("online", onOnline, false);
+
+
             //Durante el test de velocidad no vamos a querer que se suba en ningún momento los reportes pendientes para no afectar a los resultados del test de velocidad.
             MAIN.setSincronizandoReportesTrue();
 
@@ -202,28 +205,8 @@
             });
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
-            var networkState = "Desconocido";
-            if (navigator.connection) {
-                networkState = navigator.connection.type;
+            onOnline();
 
-                setTimeout(function(){
-                    networkState = navigator.connection.type;
-                    if (networkState === "unknown") {
-                        networkState = "Desconocido";
-                    } else if (networkState === "cellular") {
-                        networkState = "Móvil";
-                    } else if (networkState === "ethernet") {
-                        networkState = "Cable";
-                    } else if (networkState === "none") {
-                        networkState = "Sin conexión";
-                    }
-
-                    console.log('Connection type en TestVelocidad: ' + networkState);
-                    miTipoRed = networkState;
-                }, 1000);
-            } else {
-                miTipoRed = networkState;
-            }
 
             //Empiezo el test nada más acceder a la pantalla.
             gauge_download.refresh(0);
@@ -239,6 +222,31 @@
             contarTimeoutTestVelocidad();
             calculate();
         });
+
+        function onOnline() {
+            var networkState = "Desconocido";
+            if (navigator.connection) {
+                networkState = navigator.connection.type;
+
+                setTimeout(function(){
+                    networkState = navigator.connection.type;
+                    if (networkState === "unknown") {
+                        networkState = "Desconocido";
+                    } else if (networkState === "cellular") {
+                        networkState = "Móvil";
+                    } else if (networkState === "ethernet") {
+                        networkState = "Cable";
+                    } else if (networkState === "none") {
+                        networkState = "Sin conexión";
+                    }
+    
+                    console.log('Connection type en TestVelocidad: ' + networkState);
+                    miTipoRed = networkState;
+                }, 1000);
+            } else {
+                miTipoRed = networkState;
+            }
+        }
 
         //Al empezar un test de velocidad llamo a esta función para si se acaba el tiempo se de por finalizado el test.
         function contarTimeoutTestVelocidad() {
