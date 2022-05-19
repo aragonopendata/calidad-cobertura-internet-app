@@ -14,14 +14,14 @@ var MAIN = (function() {
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    ret.localizacionParaDebug = false; //FIXME: Poner a false cuando se generen versiones para Aragón.
+    ret.localizacionParaDebug = true; //FIXME: Poner a false cuando se generen versiones para Aragón.
     ret.esVersionWeb = false; //FIXME: Poner a true si generamos la versión Browser. Poner a false si generamos la versión de la App para Android o iOS.
 
-    //ret.entorno = "DEV";
-    //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
+    ret.entorno = "DEV";
+    ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
 
-    ret.entorno = "DEV_ARAGON";
-    ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
+    //ret.entorno = "DEV_ARAGON";
+    //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
 
     //ret.entorno = "PRE_ARAGON";
     //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
@@ -91,31 +91,35 @@ var MAIN = (function() {
     }
 
     if(typeof(Worker) !== "undefined") {
-        if (typeof(w) == "undefined") {
-            w = new Worker("js/controladores/sinc_reportes_worker.js");
-        }
-        w.onmessage = function(event) {
-            if (event.data.toString() === "1") {
-                console.log('Justo al arrancar el worker no hacemos nada.');
-            } else {
-                if (MAIN.getSincronizandoReportes()) {
-                    console.log('No ejecutamos sincronización reportes en MAIN porque ya se estaban sincronizando reportes.');
-                    //A la siguiente sí se ejecuta la sincronización.
-                    MAIN.setSincronizandoReportesFalse();
+        try {
+            if (typeof(w) == "undefined") {
+                w = new Worker("js/controladores/sinc_reportes_worker.js");
+            }
+            w.onmessage = function(event) {
+                if (event.data.toString() === "1") {
+                    console.log('Justo al arrancar el worker no hacemos nada.');
                 } else {
-                    if (MAIN.controladores.sincronizadorReportes) {
-                        MAIN.setSincronizandoReportesTrue();
-                        console.log('Ejecutando sincronización reportes MAIN.');
-                        MAIN.controladores.sincronizadorReportes.enviarReportesPendientes(
-                            procesoSincOk,
-                            procesoSincKo
-                        );
-                    } else {
+                    if (MAIN.getSincronizandoReportes()) {
+                        console.log('No ejecutamos sincronización reportes en MAIN porque ya se estaban sincronizando reportes.');
+                        //A la siguiente sí se ejecuta la sincronización.
                         MAIN.setSincronizandoReportesFalse();
+                    } else {
+                        if (MAIN.controladores.sincronizadorReportes) {
+                            MAIN.setSincronizandoReportesTrue();
+                            console.log('Ejecutando sincronización reportes MAIN.');
+                            MAIN.controladores.sincronizadorReportes.enviarReportesPendientes(
+                                procesoSincOk,
+                                procesoSincKo
+                            );
+                        } else {
+                            MAIN.setSincronizandoReportesFalse();
+                        }
                     }
                 }
-            }
-        };
+            };
+        } catch (error) {
+            console.error("No se ha podido inicializar el worker!");
+        }
     }
 
     return ret;
