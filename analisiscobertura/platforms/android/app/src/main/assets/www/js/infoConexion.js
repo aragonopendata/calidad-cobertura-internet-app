@@ -95,33 +95,6 @@
             }
             getLocation();
 
-            var plataforma = MAIN.utils.platformDetector.getPlatform();
-            if (plataforma === MAIN.utils.platformDetector.ANDROID) {
-                miModelo = MAIN.utils.platformDetector.getModel();
-                miSO = "Android";
-            } else if (plataforma === MAIN.utils.platformDetector.IOS) {
-                miModelo = "iPhone";
-                miSO = "iOS";
-            } else if (plataforma === MAIN.utils.platformDetector.WINDOWS) {
-                miModelo = "PC";
-                miSO = "Windows";
-            } else if (plataforma === MAIN.utils.platformDetector.OSX) {
-                miModelo = "Mac";
-                miSO = "OSX";
-            } else if (plataforma === MAIN.utils.platformDetector.LINUX) {
-                miModelo = "Linux";
-                miSO = "Linux";
-            } else {
-                miModelo = "";
-                miSO = "";
-            }
-            $("#inputModeloSO").val(miModelo + " - " + miSO);
-            if (((!miModelo) || (miModelo === "")) && ((!miSO) || (miSO === ""))) {
-                $('#divInputModeloSO').hide();
-            } else {
-                $('#divInputModeloSO').show();
-            }
-
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             onOnline();
 
@@ -298,6 +271,33 @@
 
     function onOnline() {
         // Handle the online event
+        var plataforma = MAIN.utils.platformDetector.getPlatform();
+        if (plataforma === MAIN.utils.platformDetector.ANDROID) {
+            miModelo = MAIN.utils.platformDetector.getModel();
+            miSO = "Android";
+        } else if (plataforma === MAIN.utils.platformDetector.IOS) {
+            miModelo = "iPhone";
+            miSO = "iOS";
+        } else if (plataforma === MAIN.utils.platformDetector.WINDOWS) {
+            miModelo = "PC";
+            miSO = "Windows";
+        } else if (plataforma === MAIN.utils.platformDetector.OSX) {
+            miModelo = "Mac";
+            miSO = "OSX";
+        } else if (plataforma === MAIN.utils.platformDetector.LINUX) {
+            miModelo = "Linux";
+            miSO = "Linux";
+        } else {
+            miModelo = "";
+            miSO = "";
+        }
+        $("#inputModeloSO").val(miModelo + " - " + miSO);
+        if (((!miModelo) || (miModelo === "")) && ((!miSO) || (miSO === ""))) {
+            $('#divInputModeloSO').hide();
+        } else {
+            $('#divInputModeloSO').show();
+        }
+
         var networkState = "Desconocido";
         if (navigator.connection) {
             networkState = navigator.connection.type;

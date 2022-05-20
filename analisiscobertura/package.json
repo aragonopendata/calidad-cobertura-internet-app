@@ -33,9 +33,9 @@
       "cordova-plugin-network-information": {}
     },
     "platforms": [
-      "browser",
       "android",
-      "ios"
+      "ios",
+      "browser"
     ]
   }
 }

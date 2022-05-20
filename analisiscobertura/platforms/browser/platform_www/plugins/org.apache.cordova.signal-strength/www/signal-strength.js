@@ -12,6 +12,13 @@ cordova.define("org.apache.cordova.signal-strength.signal-strength", function(re
     }, "SignalStrength", "checkAirPlaneModeOn", []);
 
   };
+  
+  this.wifidbm = function(callback) {
+      return cordova.exec(callback, function(err) {
+        callback(0);
+      }, "SignalStrength", "wifidbm", []);
+
+  };
 }
 
 window.SignalStrength = new SignalStrength()
