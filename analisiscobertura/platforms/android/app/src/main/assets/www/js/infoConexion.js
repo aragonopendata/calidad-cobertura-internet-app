@@ -28,6 +28,10 @@
     var ubicacionCapturadaManualmente = false;
     var localizacionDetenidaPorTimeout = false;
     var localizacionCompletada = false;
+    var IR_A_NINGUN_SITIO = "IrNingunSitio";
+    var IR_A_TEST_VELOCIDAD = "IrTestVelocidad";
+    var IR_A_RESUMEN_DATOS = "IrResumenDatos";
+    var dondeIrGlobal = "";
 
     $(document).ready(function () {
         console.log('Página infoConexion lista.');
@@ -93,7 +97,7 @@
                 $('#id_bot_resultados_info_conexion').hide();
             $('#submitForm').text("Iniciar test de velocidad");
             }
-            getLocation();
+            getLocation(IR_A_NINGUN_SITIO);
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             onOnline();
@@ -110,16 +114,12 @@
         $("#submitForm").on(MAIN.clickEvent, function (event){
             console.log('Botón submitForm pulsado.');
             if (ubicacionObtenida) {
-                miOperador = $("#inputOperador").val();
-
-                console.log("He hecho submit: " + miModelo + " - " + miTipoRed + " - " + miOperador + " - " + miValorIntensidad);
-
-                miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
-
-                var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
-
-                localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaBotTestVel));
-                document.location="infoTestVelocidad.html";
+                //Modificado 23/05/2022: Antes de salir de la pantalla, si la ubicación capturada es manual, intento volver a obtener la ubicación real.
+                if (ubicacionCapturadaManualmente) {
+                    getLocation(IR_A_TEST_VELOCIDAD);
+                } else {
+                    irATestVelocidad();
+                }
             } else {
                 console.log('Ubicación no obtenida.');
                 event.preventDefault();
@@ -150,31 +150,12 @@
         $("#id_bot_resultados_info_conexion").on(MAIN.clickEvent, function (event){
             console.log('Boton resultados pulsado.');
             if (ubicacionObtenida) {
-                //Actualizo los datos por si he camnbiado algo manualmente:
-                var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
-                if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
-                    var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
-                    miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date()); //Actualizo la fecha de captura de datos.
-                    datosCoberturaAux.timestamp = miTimestamp;
-                    datosCoberturaAux.coordenadax = miCoordenadaX;
-                    datosCoberturaAux.coordenaday = miCoordenadaY;
-                    datosCoberturaAux.coordenadax5000 = miCoordenadaX5000;
-                    datosCoberturaAux.coordenaday5000 = miCoordenadaY5000;
-                    datosCoberturaAux.coordenadax20000 = miCoordenadaX20000;
-                    datosCoberturaAux.coordenaday20000 = miCoordenadaY20000;
-                    datosCoberturaAux.municipio = miMunicipio;
-                    datosCoberturaAux.ine = miINE;
-                    datosCoberturaAux.modelo = miModelo;
-                    datosCoberturaAux.so = miSO;
-                    datosCoberturaAux.tipoRed = miTipoRed;
-                    miOperador = $("#inputOperador").val();
-                    datosCoberturaAux.operador = miOperador;
-                    datosCoberturaAux.valorIntensidadSenial = miValorIntensidad;
-                    datosCoberturaAux.rangoIntensidadSenial = miRangoIntensidad;
-                    datosCoberturaAux.ubicacionManual = ubicacionCapturadaManualmente;
-                    localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+                //Modificado 23/05/2022: Antes de salir de la pantalla, si la ubicación capturada es manual, intento volver a obtener la ubicación real.
+                if (ubicacionCapturadaManualmente) {
+                    getLocation(IR_A_RESUMEN_DATOS);
+                } else {
+                    irAResumenDatos();
                 }
-                document.location="resumenDatos.html";
             } else {
                 event.preventDefault();
                 $("body").overhang({
@@ -191,6 +172,47 @@
             volverAtras();
         });
     });
+
+    function irATestVelocidad() {
+        miOperador = $("#inputOperador").val();
+
+        console.log("He hecho submit: " + miModelo + " - " + miTipoRed + " - " + miOperador + " - " + miValorIntensidad);
+
+        miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
+
+        var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+
+        localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaBotTestVel));
+        document.location="infoTestVelocidad.html";
+    }
+
+    function irAResumenDatos() {
+        //Actualizo los datos por si he camnbiado algo manualmente:
+        var misDatosCoberturaString = localStorage.getItem(MAIN.keyLocalStorageDatosCobertura);
+        if (misDatosCoberturaString && (misDatosCoberturaString !== "")) {
+            var datosCoberturaAux = JSON.parse(misDatosCoberturaString);
+            miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date()); //Actualizo la fecha de captura de datos.
+            datosCoberturaAux.timestamp = miTimestamp;
+            datosCoberturaAux.coordenadax = miCoordenadaX;
+            datosCoberturaAux.coordenaday = miCoordenadaY;
+            datosCoberturaAux.coordenadax5000 = miCoordenadaX5000;
+            datosCoberturaAux.coordenaday5000 = miCoordenadaY5000;
+            datosCoberturaAux.coordenadax20000 = miCoordenadaX20000;
+            datosCoberturaAux.coordenaday20000 = miCoordenadaY20000;
+            datosCoberturaAux.municipio = miMunicipio;
+            datosCoberturaAux.ine = miINE;
+            datosCoberturaAux.modelo = miModelo;
+            datosCoberturaAux.so = miSO;
+            datosCoberturaAux.tipoRed = miTipoRed;
+            miOperador = $("#inputOperador").val();
+            datosCoberturaAux.operador = miOperador;
+            datosCoberturaAux.valorIntensidadSenial = miValorIntensidad;
+            datosCoberturaAux.rangoIntensidadSenial = miRangoIntensidad;
+            datosCoberturaAux.ubicacionManual = ubicacionCapturadaManualmente;
+            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(datosCoberturaAux));
+        }
+        document.location="resumenDatos.html";
+    }
 
     //Usar esto si la función getLocation no funciona en el móvil:
     /*
@@ -297,7 +319,7 @@
         } else {
             $('#divInputModeloSO').show();
         }
-
+        
         var networkState = "Desconocido";
         if (navigator.connection) {
             networkState = navigator.connection.type;
@@ -398,12 +420,19 @@
             if (!localizacionCompletada) {
                 localizacionDetenidaPorTimeout = true;
                 $.mobile.loading( "hide" );
+
+                if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                    irAResumenDatos();
+                } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                    irATestVelocidad();
+                }
             }
 
         }, MAIN.timeoutLocalizacion);
     }
 
-    function getLocation() {
+    function getLocation(dondeIr) {
+        dondeIrGlobal = dondeIr;
         localizacionDetenidaPorTimeout = false;
         localizacionCompletada = false;
         contarTimeoutLocalizacion();
@@ -421,6 +450,11 @@
             ubicacionObtenida = false;
             localizacionCompletada = true;
             MAIN.setSincronizandoReportesFalse();
+            if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                irAResumenDatos();
+            } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                irATestVelocidad();
+            }
         }
     }
     function showPosition(position) {
@@ -459,28 +493,52 @@
                     if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
                         console.log('Municipio en el que estoy: ' + miMunicipio);
 
-                        pintarMapa();
+                        //pintarMapa();
 
                         //Actualizo el label de ubicación.
                         $("#labelValorUbicacion").val(miMunicipio + " (" + miProvincia + ")");
                         $('#labelValorUbicacion').prop('disabled', true);
                         ubicacionObtenida = true;
                         ubicacionCapturadaManualmente = false;
+
+                        if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                            irAResumenDatos();
+                        } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                            irATestVelocidad();
+                        } else if (dondeIrGlobal === IR_A_NINGUN_SITIO) {
+                            pintarMapa();
+                        }
                     } else {
                         $("#labelValorUbicacion").val("- Desconocida -");
                         $('#labelValorUbicacion').prop('disabled', false);
                         ubicacionObtenida = false;
+
+                        if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                            irAResumenDatos();
+                        } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                            irATestVelocidad();
+                        }
                     }
                 }
                 else if(wsResponse.getResponseType() == ws.ERROR_CONTROLADO){
                     $.mobile.loading( "hide" );
                     console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas.');
                     ubicacionObtenida = false;
+                    if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                        irAResumenDatos();
+                    } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                        irATestVelocidad();
+                    }
                 }
                 else{
                     $.mobile.loading( "hide" );
                     console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Error desconocido.');
                     ubicacionObtenida = false;
+                    if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                        irAResumenDatos();
+                    } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                        irATestVelocidad();
+                    }
                 }
             })
             .fail(function (wsError){
@@ -494,6 +552,12 @@
                 }
                 else{
                     console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Fail.');
+                }
+
+                if (dondeIrGlobal === IR_A_RESUMEN_DATOS) {
+                    irAResumenDatos();
+                } else if (dondeIrGlobal === IR_A_TEST_VELOCIDAD) {
+                    irATestVelocidad();
                 }
 
             });
@@ -541,7 +605,7 @@
         //var bbox_miposicion = [763500, 4681500, 764000, 4682000]; //Abizanda
         var miNumeroCoordenadaX = MAIN.utils.stringUtils.parseInteger(miCoordenadaX);
         var miNumeroCoordenadaY = MAIN.utils.stringUtils.parseInteger(miCoordenadaY);
-        var bbox_miposicion = [miNumeroCoordenadaX, miNumeroCoordenadaY, miNumeroCoordenadaX + 500, miNumeroCoordenadaY + 500];
+        var bbox_miposicion = [miNumeroCoordenadaX - 250, miNumeroCoordenadaY - 250, miNumeroCoordenadaX + 250, miNumeroCoordenadaY + 250];
 
         mapOL.getView().fit(bbox_miposicion, mapOL.getSize());
         //FIN MAPA

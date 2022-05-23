@@ -621,6 +621,7 @@ body .ui-content {
 
 body .content-test-velocidad {
   position: fixed;
+  width: 100%;
 }
 
 body .ui-header .ui-title {
