@@ -73,7 +73,7 @@
                     usuarioAdvertidoActivarLocalizacion = true;
                     $("body").overhang({
                         type: "error",
-                        message: "No ha sido posible obtener la posición aproximada. Por favor compruebe que tiene la localización activada y vuelva a intentarlo.",
+                        message: "No ha sido posible obtener la posición aproximada. Por favor compruebe que tiene la localización activada y vuelva a intentarlo pulsando el botón Acepto.",
                         closeConfirm: true
                     });
                 }

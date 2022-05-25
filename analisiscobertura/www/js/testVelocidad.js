@@ -48,7 +48,7 @@
         var uploadURL2 = '';
         var uploadTime = 0;
         var numberUploadTest = 2;
-        var uploadSize=12870630; //Bytes
+        var uploadSize=10233547; //Bytes
         var gauge_upload;
         var sizeBuffSubida = 0;
         var timeBuffSubida = 0;
@@ -1008,6 +1008,19 @@
         function testDetenido() {
             if (testDetenidoPorTimeout) {
                 $('#id_test_velocidad_estado').text("Test detenido porque se superó el tiempo máximo para hacerlo.");
+                //Añadido 24/05/2022: Las velocidades que no se hayan rellenado se ponen a 0,1 Mbps.
+                if (miVelocidadDescargaResultado > 0) {
+                    //Se deja como estaba.
+                } else {
+                    miVelocidadDescargaResultado = 0.1;
+                }
+                if (miVelocidadSubidaResultado > 0) {
+                    //Se deja como estaba.
+                } else {
+                    miVelocidadSubidaResultado = 0.1;
+                }
+                //Añadido 24/05/2022: Si el test de velocidad se detiene por timeout vuelvo a habilitar el botón de confirmar el test para que el usuario pueda continuar.
+                $('#id_bot_confirmar_test_velocidad').prop('disabled', false);
             } else {
                 $('#id_test_velocidad_estado').text("Test detenido");
             }

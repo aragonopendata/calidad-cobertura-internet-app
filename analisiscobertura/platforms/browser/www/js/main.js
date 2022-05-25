@@ -14,17 +14,17 @@ var MAIN = (function() {
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    ret.localizacionParaDebug = true; //FIXME: Poner a false cuando se generen versiones para Aragón.
+    ret.localizacionParaDebug = false; //FIXME: Poner a false cuando se generen versiones para Aragón.
     ret.esVersionWeb = true; //FIXME: Poner a true si generamos la versión Browser. Poner a false si generamos la versión de la App para Android o iOS.
 
-    ret.entorno = "DEV";
-    ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
+    //ret.entorno = "DEV";
+    //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
 
     //ret.entorno = "DEV_ARAGON";
     //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
 
-    //ret.entorno = "PRE_ARAGON";
-    //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
+    ret.entorno = "PRE_ARAGON";
+    ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
 
     //ret.entorno = "PROD_ARAGON";
     //ret.urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";
@@ -33,7 +33,7 @@ var MAIN = (function() {
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
     ret.keyLSDatosCoberturaPendientePersistir = "keyLSDatosCoberturaPendientePersistir"; //Último reporte de de datos de cobertura capturado guardado en esta otra key porque está pendiente de ser guardado en "keyLSDatosCoberturaPendientesSubida".
     ret.timeoutLocalizacion = 30000; //Medio minuto.
-    ret.timeoutTestDeVelocidad = 210000; //tres minutos y medio.
+    ret.timeoutTestDeVelocidad = 80000; //Un minuto y 20 segundos.
     ret.timeoutTestBajada = 40000;
     ret.timeoutTestSubida = 50000;
 

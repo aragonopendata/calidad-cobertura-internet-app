@@ -458,11 +458,14 @@ h1 {
   position: relative;
 }*/
 
+/*
+background-size: 348px 180px;
+*/
 #ACAI .envolvente {
   max-width: 535px;
   margin: 0 auto;
   background: url(../img/cuerda.png) no-repeat 57px top;
-  background-size: 348px 180px;
+  background-size: calc(100% - 136px) calc(100% - 5px);
   padding-bottom: 2rem;
 }
 
