@@ -114,6 +114,8 @@ MAIN.controladores.sincronizadorReportes = (function() {
         }
         if (reporte.latencia) {
             reporte.latencia = reporte.latencia.toString();
+        } else {
+            reporte.latencia = "";
         }
         if (reporte.valorIntensidadSenial) {
             reporte.valorIntensidadSenial = reporte.valorIntensidadSenial.toString();

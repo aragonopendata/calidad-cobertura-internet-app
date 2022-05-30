@@ -74,6 +74,8 @@
         
         var misDatosCobertura;
         var miTipoRed;
+        var miValorIntensidad;
+        var miRangoIntensidad;
 
         var solicitadoDetenerTest = false;
         var testDetenidoPorTimeout = false;
@@ -166,6 +168,9 @@
     
             $('#id_test_velocidad_button_start').on(MAIN.clickEvent,function() {
                 //console.log( "START TEST!" );
+                //Si repetimos el test vamos a intentar detectar de nuevo el tipo de conexión con navigator.connection.type
+                onOnline();
+
                 $('#id_bot_detener_test_velocidad').show();
                 solicitadoDetenerTest = false;
                 $('#id_bot_confirmar_test_velocidad').prop('disabled', true);
@@ -177,6 +182,9 @@
                 timeBuffSubida=0;
                 velocidadMediaDescarga = 0;
                 velocidadMediaSubida = 0;
+                miVelocidadDescargaResultado = 0;
+                miVelocidadSubidaResultado = 0;
+                miLatenciaResultado = 0;
                 actualServer = ARSIS;
                 errorArsis=0;
                 contarTimeoutTestVelocidad();
@@ -242,10 +250,82 @@
     
                     console.log('Connection type en TestVelocidad: ' + networkState);
                     miTipoRed = networkState;
+
+                    if ((!networkState) || (networkState === "Desconocido" || (networkState === "Sin conexión"))) {
+                        miValorIntensidad = "";
+                        miRangoIntensidad = "-1";
+                    } else {
+                        //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
+                        // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
+                        var plataforma = MAIN.utils.platformDetector.getPlatform();
+                        if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
+                            if (miTipoRed.toUpperCase() === "WIFI") {
+                                window.SignalStrength.wifidbm(
+                                    function(measuredDbm){
+                                        console.log('current wifi dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            miValorIntensidad = "";
+                                            miRangoIntensidad = "-1";
+                                        } else {
+                                            //Si los dbm nos vienen en positivo los paso a negativos.
+                                            if (measuredDbm > 0) {
+                                                miValorIntensidad = measuredDbm * (-1);
+                                            } else {
+                                                miValorIntensidad = measuredDbm;
+                                            }
+                                            miRangoIntensidad = "";
+                                        }
+                                    }
+                                )
+                            } else {
+                                window.SignalStrength.dbm(
+                                    function(measuredDbm){
+                                        console.log('current mobile dBm is: ' + measuredDbm);
+                                        if (measuredDbm == -1) {
+                                            medirIntensidadSenialConDelaiy();
+                                        } else {
+                                            //Si los dbm nos vienen en positivo los paso a negativos.
+                                            if (measuredDbm > 0) {
+                                                miValorIntensidad = measuredDbm * (-1);
+                                            } else {
+                                                miValorIntensidad = measuredDbm;
+                                            }
+                                            miRangoIntensidad = "";
+                                        }
+                                    }
+                                )
+                            }
+                        } else {
+                            miValorIntensidad = "";
+                            miRangoIntensidad = "-1";
+                        }
+                    }
                 }, 1000);
             } else {
                 miTipoRed = networkState;
             }
+        }
+
+        function medirIntensidadSenialConDelaiy() {
+            setTimeout(function(){
+                window.SignalStrength.dbm(
+                    function(measuredDbm){
+                        console.log('current dBm is: ' + measuredDbm);
+                        if (measuredDbm == -1) {
+                            miValorIntensidad = "";
+                            miRangoIntensidad = "-1";
+                        } else {
+                            //Si los dbm nos vienen en positivo los paso a negativos.
+                            if (measuredDbm > 0) {
+                                miValorIntensidad = measuredDbm * (-1);
+                            } else {
+                                miValorIntensidad = measuredDbm;
+                            }
+                            miRangoIntensidad = "";
+                        }
+                    }
+                )
+            }, 2000);
         }
 
         //Al empezar un test de velocidad llamo a esta función para si se acaba el tiempo se de por finalizado el test.
@@ -281,6 +361,8 @@
             }
 
             misDatosCobertura.tipoRed = miTipoRed;
+            misDatosCobertura.valorIntensidadSenial = miValorIntensidad;
+            misDatosCobertura.rangoIntensidadSenial = miRangoIntensidad;
 
             localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
             MAIN.setSincronizandoReportesFalse();
@@ -996,13 +1078,17 @@
 
         function detenerTest() {
             if (testDetenidoPorTimeout) {
-                $('#id_test_velocidad_estado').text("Se ha excedido el tiempo máxmimo para hacer el test. Deteniendo test.");
+                $('#id_test_velocidad_estado').text("Se ha excedido el tiempo máximo para hacer el test. Deteniendo test.");
+                $('#id_test_velocidad_loader').hide();
+                $('#id_bot_detener_test_velocidad').hide();
+                solicitadoDetenerTest = true;
+                testDetenido();
             } else {
                 $('#id_test_velocidad_estado').text("Deteniendo test");
+                $('#id_test_velocidad_loader').hide();
+                $('#id_bot_detener_test_velocidad').hide();
+                solicitadoDetenerTest = true;
             }
-            $('#id_test_velocidad_loader').hide();
-            $('#id_bot_detener_test_velocidad').hide();
-            solicitadoDetenerTest = true;
         }
 
         function testDetenido() {

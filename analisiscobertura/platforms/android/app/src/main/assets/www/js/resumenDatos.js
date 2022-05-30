@@ -143,6 +143,8 @@
                 }
                 if (misDatosCobertura.latencia) {
                     misDatosCobertura.latencia = misDatosCobertura.latencia.toString();
+                } else {
+                    misDatosCobertura.latencia = "";
                 }
                 if (misDatosCobertura.valorIntensidadSenial) {
                     misDatosCobertura.valorIntensidadSenial = misDatosCobertura.valorIntensidadSenial.toString();
