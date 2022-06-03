@@ -105,10 +105,10 @@
             //var miEvento = eventoCompleto.dameEvento(evento.configuracionEvento);
             uploadURL = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor1 //Configurar URL
             uploadURL2 = MAIN.urlWS + "/testVelocidadSubida"; //miEvento.urlSubidaServidor2; //Configurar URL
-            testFilesArsis[0] = "https://d.itsoft.es/aragon/filedownload1.txt"; //miEvento.urlDescargaFichero1Servidor1; //Configurar URL
+            testFilesArsis[0] = MAIN.urlFicheroTestVelBajada; //miEvento.urlDescargaFichero1Servidor1; //Configurar URL
             //testFilesArsis[1] = "https://d.itsoft.es/aragon/filedownload2.txt"; //miEvento.urlDescargaFichero2Servidor1; //Configurar URL
             //testFilesArsis[2] = "https://d.itsoft.es/aragon/filedownload3.txt"; //miEvento.urlDescargaFichero3Servidor1; //Configurar URL
-            testFilesOne[0] = "https://d.itsoft.es/aragon/filedownload1.txt"; //miEvento.urlDescargaFichero1Servidor2; //Configurar URL
+            testFilesOne[0] = MAIN.urlFicheroTestVelBajada; //miEvento.urlDescargaFichero1Servidor2; //Configurar URL
             //testFilesOne[1] = "https://d.itsoft.es/aragon/filedownload2.txt"; //miEvento.urlDescargaFichero2Servidor2; //Configurar URL
             //testFilesOne[2] = "https://d.itsoft.es/aragon/filedownload3.txt"; //miEvento.urlDescargaFichero3Servidor2; //Configurar URL
             
