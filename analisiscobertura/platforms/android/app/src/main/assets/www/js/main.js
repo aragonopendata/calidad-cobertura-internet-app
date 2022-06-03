@@ -20,11 +20,11 @@ var MAIN = (function() {
     //ret.entorno = "DEV";
     //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
 
-    ret.entorno = "DEV_ARAGON";
-    ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
+    //ret.entorno = "DEV_ARAGON";
+    //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
 
-    //ret.entorno = "PRE_ARAGON";
-    //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
+    ret.entorno = "PRE_ARAGON";
+    ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
 
     //ret.entorno = "PROD_ARAGON";
     //ret.urlWS = "https://miv-aodei2a-01.aragon.local:4000/ws-cobertura/api";
@@ -32,8 +32,9 @@ var MAIN = (function() {
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
     ret.keyLSDatosCoberturaPendientePersistir = "keyLSDatosCoberturaPendientePersistir"; //Último reporte de de datos de cobertura capturado guardado en esta otra key porque está pendiente de ser guardado en "keyLSDatosCoberturaPendientesSubida".
-    ret.timeoutLocalizacion = 30000; //Medio minuto.
-    ret.timeoutTestDeVelocidad = 80000; //Un minuto y 20 segundos.
+    ret.timeoutLocalizacion = 20000; //20 segundos.
+    ret.timeoutTestDeVelocidad = 60000; //Un minuto.
+    ret.timeoutTestDeVelocidadSinConexion = 10000; //10 segundos.
     ret.timeoutTestBajada = 40000;
     ret.timeoutTestSubida = 50000;
 

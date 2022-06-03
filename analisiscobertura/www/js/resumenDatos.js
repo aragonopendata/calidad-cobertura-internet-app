@@ -24,16 +24,18 @@
                 misDatosCobertura.tipoRed = "5G";
             }
         } else {
-            $("#id_valor_resumen_velocidad_descarga").text("Desconocido");
-            $('#div_resumen_velocidad_descarga').hide();
+            //Modificado 01/06/2022: Si no se ha podido obtener pongo el texto "No se ha podido completar el test de velocidad" y lo muestro.
+            $("#id_valor_resumen_velocidad_descarga").text("No se ha podido completar el test de velocidad");
+            $('#div_resumen_velocidad_descarga').show();
         }
         if (misDatosCobertura.velocidadSubida) {
             var velocidadSubidaNumero = Number(misDatosCobertura.velocidadSubida);
             $("#id_valor_resumen_velocidad_subida").text(velocidadSubidaNumero.toFixed(2) + " Mbps");
             $('#div_resumen_velocidad_subida').show();
         } else {
-            $("#id_valor_resumen_velocidad_subida").text("Desconocido");
-            $('#div_resumen_velocidad_subida').hide();
+            //Modificado 01/06/2022: Si no se ha podido obtener pongo el texto "No se ha podido completar el test de velocidad" y lo muestro.
+            $("#id_valor_resumen_velocidad_subida").text("No se ha podido completar el test de velocidad");
+            $('#div_resumen_velocidad_subida').show();
         }
         if (misDatosCobertura.latencia) {
             $("#id_valor_resumen_ping").text(misDatosCobertura.latencia + " ms");
@@ -137,9 +139,13 @@
                 //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
                 if (misDatosCobertura.velocidadBajada) {
                     misDatosCobertura.velocidadBajada = misDatosCobertura.velocidadBajada.toString();
+                } else {
+                    misDatosCobertura.velocidadBajada = "0.1";
                 }
                 if (misDatosCobertura.velocidadSubida) {
                     misDatosCobertura.velocidadSubida = misDatosCobertura.velocidadSubida.toString();
+                } else {
+                    misDatosCobertura.velocidadSubida = "0.1";
                 }
                 if (misDatosCobertura.latencia) {
                     misDatosCobertura.latencia = misDatosCobertura.latencia.toString();

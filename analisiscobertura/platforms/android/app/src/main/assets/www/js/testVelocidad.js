@@ -331,6 +331,11 @@
         //Al empezar un test de velocidad llamo a esta función para si se acaba el tiempo se de por finalizado el test.
         function contarTimeoutTestVelocidad() {
             testDetenidoPorTimeout = false;
+            //Modificado 01/06/2022: Si se detecta que no hay conexión, el timeout del test de velocidad se pone a 10 segundos.
+            var timeoutVelocidad = MAIN.timeoutTestDeVelocidad;
+            if (!MAIN.utils.connectivityManager.isOnline()) {
+                timeoutVelocidad = MAIN.timeoutTestDeVelocidadSinConexion;
+            }
             setTimeout(function(){
                 //Si el botón de confirmar el test de velocidad no está deshabilitado en que el test ha terminado y por lo tanto aunque acabe el timeout no tendrá efecto
                 if (!($("#id_bot_confirmar_test_velocidad").prop("disabled"))) {
@@ -340,7 +345,7 @@
                     testDetenidoPorTimeout = true;
                     detenerTest();
                 }
-            }, MAIN.timeoutTestDeVelocidad);
+            }, timeoutVelocidad);
         }
 
         function guardarResultados() {
@@ -1094,7 +1099,8 @@
         function testDetenido() {
             if (testDetenidoPorTimeout) {
                 $('#id_test_velocidad_estado').text("Test detenido porque se superó el tiempo máximo para hacerlo.");
-                //Añadido 24/05/2022: Las velocidades que no se hayan rellenado se ponen a 0,1 Mbps.
+                //Añadido 24/05/2022 (YA NO SE HACE): Las velocidades que no se hayan rellenado se ponen a 0,1 Mbps.
+                /*
                 if (miVelocidadDescargaResultado > 0) {
                     //Se deja como estaba.
                 } else {
@@ -1105,6 +1111,7 @@
                 } else {
                     miVelocidadSubidaResultado = 0.1;
                 }
+                */
                 //Añadido 24/05/2022: Si el test de velocidad se detiene por timeout vuelvo a habilitar el botón de confirmar el test para que el usuario pueda continuar.
                 $('#id_bot_confirmar_test_velocidad').prop('disabled', false);
             } else {

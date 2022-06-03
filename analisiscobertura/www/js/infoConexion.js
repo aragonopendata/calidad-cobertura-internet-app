@@ -115,11 +115,15 @@
             console.log('Botón submitForm pulsado.');
             if (ubicacionObtenida) {
                 //Modificado 23/05/2022: Antes de salir de la pantalla, si la ubicación capturada es manual, intento volver a obtener la ubicación real.
+                //Modificado 01/06/2022: Ya no se hace esta comprobación:
+                /*
                 if (ubicacionCapturadaManualmente) {
                     getLocation(IR_A_TEST_VELOCIDAD);
                 } else {
                     irATestVelocidad();
                 }
+                */
+                irATestVelocidad();
             } else {
                 console.log('Ubicación no obtenida.');
                 event.preventDefault();
@@ -151,11 +155,15 @@
             console.log('Boton resultados pulsado.');
             if (ubicacionObtenida) {
                 //Modificado 23/05/2022: Antes de salir de la pantalla, si la ubicación capturada es manual, intento volver a obtener la ubicación real.
+                //Modificado 01/06/2022: Ya no se hace esta comprobación.
+                /*
                 if (ubicacionCapturadaManualmente) {
                     getLocation(IR_A_RESUMEN_DATOS);
                 } else {
                     irAResumenDatos();
                 }
+                */
+                irAResumenDatos();
             } else {
                 event.preventDefault();
                 $("body").overhang({

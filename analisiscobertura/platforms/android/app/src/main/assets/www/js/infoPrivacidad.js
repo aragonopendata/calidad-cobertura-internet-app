@@ -38,7 +38,7 @@
                             console.log('¡DESACTIVA MODO AVIÓN, POR FAVOR!');
                             $("body").overhang({
                                 type: "error",
-                                message: "Tiene activado el modo avión. Por favor, para usar esta aplicación desactivelo.",
+                                message: "Tiene activado el modo avión. Por favor, para usar esta aplicación desactívelo.",
                                 closeConfirm: true
                             });
                         } else {
