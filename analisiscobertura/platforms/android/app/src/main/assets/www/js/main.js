@@ -14,7 +14,7 @@ var MAIN = (function() {
 
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
-    ret.localizacionParaDebug = false; //FIXME: Poner a false cuando se generen versiones para Aragón.
+    ret.localizacionParaDebug = true; //FIXME: Poner a false cuando se generen versiones para Aragón.
     ret.esVersionWeb = false; //FIXME: Poner a true si generamos la versión Browser. Poner a false si generamos la versión de la App para Android o iOS.
 
     //ret.entorno = "DEV";
