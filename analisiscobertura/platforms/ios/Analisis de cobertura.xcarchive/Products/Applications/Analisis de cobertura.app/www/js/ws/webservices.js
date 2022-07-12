@@ -129,9 +129,10 @@ MAIN.ws = (function(){
         } else {
             var response = new respConstructor(ret.ERROR_CONECTIVIDAD, "No hay conectividad", null, null);
             response.getResponseType = function(){
-                //return ret.ERROR_CONECTIVIDAD;
-                def.reject(ret.ERROR_CONECTIVIDAD);
+                return ret.ERROR_CONECTIVIDAD;
+                //def.reject(ret.ERROR_CONECTIVIDAD);
             };
+            def.reject(response);
         }  
 
         return def.promise();

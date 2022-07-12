@@ -108,12 +108,18 @@ MAIN.controladores.sincronizadorReportes = (function() {
         //Antes de enviar los resultados paso la velocidadBajada, velocidadSubida y ping a string:
         if (reporte.velocidadBajada) {
             reporte.velocidadBajada = reporte.velocidadBajada.toString();
+        } else {
+            reporte.velocidadBajada = "0.1";
         }
         if (reporte.velocidadSubida) {
             reporte.velocidadSubida = reporte.velocidadSubida.toString();
+        } else {
+            reporte.velocidadSubida = "0.1";
         }
         if (reporte.latencia) {
             reporte.latencia = reporte.latencia.toString();
+        } else {
+            reporte.latencia = "";
         }
         if (reporte.valorIntensidadSenial) {
             reporte.valorIntensidadSenial = reporte.valorIntensidadSenial.toString();

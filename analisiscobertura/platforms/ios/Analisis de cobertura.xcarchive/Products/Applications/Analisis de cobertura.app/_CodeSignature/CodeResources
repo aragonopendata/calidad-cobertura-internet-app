@@ -38,7 +38,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		j+Qaq2Nj7vWJ8TlbY1XMNQ47uWc=
+		93nNiy82CcMPt7650D+dIhXoaBM=
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		ucITrBRwLafxHyB8vfC5PrQlFFo=
+		Dlh6RBZCEEXdhhLUu+w1G2s+VXE=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>www/css/analisiscobertura.css</key>
 		<data>
-		gAqsmJ1ihgVzLFBFaN6mqCdHOEs=
+		pGEfkuTtBHhC6l9zRgnNww8vN+s=
 		</data>
 		<key>www/css/app-cobertura-aragon.css</key>
 		<data>
@@ -290,15 +290,15 @@
 		</data>
 		<key>www/datosEnviadosKO.html</key>
 		<data>
-		qbZ2ypLawobu4TSwZ5P0/30+5wA=
+		H6e3WN/LWfZlTkS+ODfxTwKl0V0=
 		</data>
 		<key>www/datosEnviadosOK.html</key>
 		<data>
-		u4n7bWQ62FyKjWTizj6Y2BL4ZWA=
+		yTxZMewHwpPybNUDac3+V3f2tj8=
 		</data>
 		<key>www/file.txt</key>
 		<data>
-		Ad65pKb8OVqfpONGPhzgTcsG9dk=
+		BlU5a1ReIYcx3nByQB67pCrM6eo=
 		</data>
 		<key>www/img/ACAI-logo.svg</key>
 		<data>
@@ -406,19 +406,19 @@
 		</data>
 		<key>www/index.html</key>
 		<data>
-		AQqo2RISGn9VpzbDHlis3YQhqls=
+		Z+sD7pzfTZ1lj6kBnEqqlmtxzfI=
 		</data>
 		<key>www/infoConexion.html</key>
 		<data>
-		0WcxTG1FWFSNRS8+gN2sDe2F1Ao=
+		8hqdQPw30CPyrTR+5sZsoIJ3GGY=
 		</data>
 		<key>www/infoPrivacidad.html</key>
 		<data>
-		VufNfzyohTZDusb6mnpU15pPGX4=
+		LOG2B8oOw66dw6gNmNC2EBV/WkY=
 		</data>
 		<key>www/infoTestVelocidad.html</key>
 		<data>
-		LVRhkFZZUiDzgoHLoc11b0Toqco=
+		wT5jCgT84cQmeh65VeDNot0MVCo=
 		</data>
 		<key>www/js/constantes/constantes.js</key>
 		<data>
@@ -430,7 +430,7 @@
 		</data>
 		<key>www/js/controladores/sincro_reportes.js</key>
 		<data>
-		RMEOlVlzh6Bpu1C27CLirTEouLI=
+		kqQBuF/bwE5wHTauCeAuwYeBOjY=
 		</data>
 		<key>www/js/datosEnviadosKO.js</key>
 		<data>
@@ -446,11 +446,11 @@
 		</data>
 		<key>www/js/infoConexion.js</key>
 		<data>
-		NLM52WJZ4IECYo3HOCfJ0kp0vWg=
+		1Bp7zcb6X6ZDHbgHFWdxsXeZTGc=
 		</data>
 		<key>www/js/infoPrivacidad.js</key>
 		<data>
-		RmdfMXI37nCCUbQ2UsJgRR9Ibo8=
+		Utsm26DWmkI1xF88y19bdXBC5V0=
 		</data>
 		<key>www/js/infoTestVelocidad.js</key>
 		<data>
@@ -510,7 +510,7 @@
 		</data>
 		<key>www/js/main.js</key>
 		<data>
-		vRVp7EjnhELxfmEncqyaUUZwj84=
+		b6t1WoHSUzsZuxi17CgphhIcSBk=
 		</data>
 		<key>www/js/modelo/DatosCobertura.js</key>
 		<data>
@@ -518,11 +518,11 @@
 		</data>
 		<key>www/js/resumenDatos.js</key>
 		<data>
-		OTq8m0kbvwHWepjhcZgJaFx1tNg=
+		0qlNRbNXpLUvjCez+sq+lJcQao8=
 		</data>
 		<key>www/js/testVelocidad.js</key>
 		<data>
-		5HUuwJ03RYx0f8dC/EHl6TDK8SA=
+		oKorLF0KD082AY4DY+As9Hux9lI=
 		</data>
 		<key>www/js/ubicacionManual.js</key>
 		<data>
@@ -578,7 +578,7 @@
 		</data>
 		<key>www/js/ws/webservices.js</key>
 		<data>
-		Z7BkoyLTn3M3r3gnPcXLxKLIhYw=
+		Jfxw0VZ6ZWkieSpgfYcT18Z4rpY=
 		</data>
 		<key>www/plugins/cordova-plugin-network-information/www/Connection.js</key>
 		<data>
@@ -590,15 +590,15 @@
 		</data>
 		<key>www/resumenDatos.html</key>
 		<data>
-		rSs2MtntAsLQeOdyysFZal1W4nk=
+		E5Gr7tPNwHkG6V9ulUdR2By7dPI=
 		</data>
 		<key>www/testVelocidad.html</key>
 		<data>
-		jppawjBkSmpffIgiPCk5LdzYoV4=
+		+HL2ggRTr/oOSLGDMpb6srKsHzU=
 		</data>
 		<key>www/ubicacionManual.html</key>
 		<data>
-		R7ryFLaKpT0LtcrOIBjJWexwxc0=
+		flK6RE8yuRh9/Rt8bfO4ZPh/Vr8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -670,7 +670,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dHWtcGqvEWHAQ+ptWB1daGtkFgBVcb93XUiVofDpnsg=
+			ght0qLphDU8NyR1tkiLwMX2xPg8JvhQy8CQ+qvBjb3Q=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
@@ -747,7 +747,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BlVbMSbRbcI3RFNESPvMYWpmUankLQimFLXU4FuxSUA=
+			p6+fTzvcNIkR5vQ++ufEfS6i9vQaWZnySeyFbfTmYEM=
 			</data>
 		</dict>
 		<key>www/css/app-cobertura-aragon.css</key>
@@ -1090,21 +1090,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jr+9heH+u4haTj4zb8Nl6XfzMtT0D9MMKM52hbqc3rI=
+			6Xdn5wsU1OkcUZZw8vQrBec25KUNOc74wf0VFJCQUWA=
 			</data>
 		</dict>
 		<key>www/datosEnviadosOK.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			S/Zxz8pTVBxzn7hbNoogNqPkvSkFKCJt8XB8hP2g1S4=
+			Rxbx/92aBi1fdyxMx5OO4smHyuNLSzD55Le5pLwL4z0=
 			</data>
 		</dict>
 		<key>www/file.txt</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Dva65jvFUt4FL7wjzq0Z2E82ojwtiYigSkILIV1lcHo=
+			GGloyPqMyurGpQOGZAsc6xqHOMXvllraCicXUhpgCjs=
 			</data>
 		</dict>
 		<key>www/img/ACAI-logo.svg</key>
@@ -1293,28 +1293,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			R9GXi0V4aQ8iN3yejiA7rz4kQbQbBFmU5KgYBlGByK8=
+			xmtEBbL3HbqtBeT5y+FdPlKmE9vA41EjUf4+8SK2f0Q=
 			</data>
 		</dict>
 		<key>www/infoConexion.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uimZMj2idcWV4/gT8u1Lrw0MBy/qQFd6mWyj97rMyEU=
+			t+/1n5PbYWkPT9nVgiCRzVsOkhc3ZbcdxtpzG/LZZgQ=
 			</data>
 		</dict>
 		<key>www/infoPrivacidad.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6m9U3dNFAMbwZdZbPw1eqpi6V6xxFyZ5bsrcbyFV/ns=
+			0MVB3EqqV+S9J+t8kbYoqlxDVKjUlbudAVrNmIXQcS4=
 			</data>
 		</dict>
 		<key>www/infoTestVelocidad.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jWwUxqLwy6Xw4qXtTiU4rQtMd18GKm7fzPbiX0X1cpU=
+			i8dUdNYU5yvTyNjeoATgkk6OHyi/ISuZbj8o2M/oswo=
 			</data>
 		</dict>
 		<key>www/js/constantes/constantes.js</key>
@@ -1335,7 +1335,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eeAqXVhWb+1UI6SbNvulhl4NsTv3oUkCykj3//jqJNs=
+			KB5YgOEGon/t7vhyJ0jgTFcpidCMt95GShjFRh6bfVA=
 			</data>
 		</dict>
 		<key>www/js/datosEnviadosKO.js</key>
@@ -1363,14 +1363,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JHw7op4DTkpXD1uVk9eznjbGiA3TofigobJmnY16Hqc=
+			zOVKp+69kZxz8K0ECvE3Nr5Cz1Yb/7NuyI6+a3d2LTE=
 			</data>
 		</dict>
 		<key>www/js/infoPrivacidad.js</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wyW4E5siQNuA2gu20fl4joENEFqzjF/E00eOhtZddm0=
+			bzapUsCNfwgEDgP1RSYFohWd8dO072OYbQ+HxHzzcx0=
 			</data>
 		</dict>
 		<key>www/js/infoTestVelocidad.js</key>
@@ -1475,7 +1475,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			K8n2fCHI3jmR7m+od1bJdQLkOiJ/jVhiWbFGn8/TdYU=
+			sDNZq6i8s6JeIN4WbMDkpzXIqRUXBrJEqgpt8JLvkq0=
 			</data>
 		</dict>
 		<key>www/js/modelo/DatosCobertura.js</key>
@@ -1489,14 +1489,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xHEKgScqQ6NoJfPM7ft2XdnhsbCr47DgVwuKzx0YvL4=
+			FPput4S6ErD18+j25Uo7vRvKxCoUgGI0QFC0CKOB5jI=
 			</data>
 		</dict>
 		<key>www/js/testVelocidad.js</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SZKwvNQ0BXFSgNcbwcCzwynzcpWvFS49dA+PFcenHtk=
+			u4Jn/ilrIFfJ/mG15EY5FXu4imaAK5MYWqFRw0gsxdw=
 			</data>
 		</dict>
 		<key>www/js/ubicacionManual.js</key>
@@ -1594,7 +1594,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fsdDjy0pjFuiGn7ElaKosMy79AzXjkDU9M+ERR4sh3U=
+			ZaIi+SnR1iZT3DH0yQQ86rtBibWm8VOMT11bhOOEcHc=
 			</data>
 		</dict>
 		<key>www/plugins/cordova-plugin-network-information/www/Connection.js</key>
@@ -1615,21 +1615,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pgOrNbEiKSbGiM5l8S1Zht8aNwjMalfrU3HF6LJTEV4=
+			iD9B5139Ds45srUf/DCcl3EUZVEX2e8RUqbiDziJJ/c=
 			</data>
 		</dict>
 		<key>www/testVelocidad.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IKiqMxTlKFMdhVSCtP9t/9iPciWF6JQM4VNS2dJhqn4=
+			rtqj/i65XvumT36AjFJDbJ+A7in0c6du7iTWm/KKKlE=
 			</data>
 		</dict>
 		<key>www/ubicacionManual.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Shv8eN5rePYOHbp0LunUzIW61TgosrLqpzv/1lo9bvA=
+			d4IbNpqQcBonzqETpC2W7h5yfdu/Rx8jmrZ0VqnAibE=
 			</data>
 		</dict>
 	</dict>
