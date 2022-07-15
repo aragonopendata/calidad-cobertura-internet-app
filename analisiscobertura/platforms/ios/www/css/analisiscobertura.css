@@ -349,7 +349,9 @@ h1 {
   box-shadow: inset 0 0 0 1px #9e9e9e5c;
   /* border: solid 1px #7b7c7d5c; */
   text-shadow: none;
-  color: #88939f;
+  /*color: #88939f;*/
+  color: #626d7a;
+
   opacity: 1;
 }
 .ui-input-text input.ifta-field[type="text"]:disabled::placeholder {
