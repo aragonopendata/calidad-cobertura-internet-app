@@ -344,6 +344,11 @@ h1 {
   color: #85909C;
   font-weight: 500;
 }
+
+.ui-input-text input.ifta-field::placeholder{
+  color: #626d7a;
+}
+
 .ui-input-text input.ifta-field[type="text"]:disabled {
   background: linear-gradient(0deg, #ffffff7a, transparent);
   box-shadow: inset 0 0 0 1px #9e9e9e5c;
