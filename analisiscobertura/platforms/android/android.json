@@ -53,7 +53,7 @@
         "parents": {
           "NSLocationWhenInUseUsageDescription": [
             {
-              "xml": "<string>Se necesita la localización para determinar su posición aproximada.</string>",
+              "xml": "<string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.\nEste dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"

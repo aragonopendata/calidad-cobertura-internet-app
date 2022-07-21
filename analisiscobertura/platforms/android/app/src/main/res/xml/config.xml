@@ -29,7 +29,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>Se necesita la localización para determinar su posición aproximada.</string>
+        <string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.
+Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
     </edit-config>
     <allow-intent href="market:*" />
     <icon density="ldpi" src="res/android/ldpi.png" />

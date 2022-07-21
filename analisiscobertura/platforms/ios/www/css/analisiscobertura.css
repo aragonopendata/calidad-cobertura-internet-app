@@ -343,6 +343,7 @@ h1 {
   font-size: 1.2rem;
   /* color: #85909C;*/
   color: #626d7a;
+
   font-weight: 500;
 }
 
@@ -357,7 +358,6 @@ h1 {
   text-shadow: none;
   /*color: #88939f;*/
   color: #626d7a;
-
   opacity: 1;
 }
 .ui-input-text input.ifta-field[type="text"]:disabled::placeholder {

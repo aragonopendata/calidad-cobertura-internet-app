@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>1.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -29,13 +29,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.
-Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
 	<key>NSMainNibFile</key>
-	<string></string>
+	<string/>
 	<key>NSMainNibFile~ipad</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>CDVLaunchScreen</string>
 	<key>UIRequiresFullScreen</key>
@@ -53,5 +50,8 @@ Este dato nunca se vincula con información personal del usuario y se guarda de 
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.
+Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
 </dict>
 </plist>
