@@ -14,7 +14,7 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se en
 
 ### Preparacion proyecto:
 
-- Instalar Cordova 10 CLI.
+- Instalar Cordova 12 CLI.
 - Instalar mínimo Android Studio 4.1.1 junto con el SDK de Android.
 
 ### Tests

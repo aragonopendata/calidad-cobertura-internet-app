@@ -341,23 +341,15 @@ h1 {
   box-shadow: inset 0 0 0 1px #9e9e9e;
   background-color: #ffffff;
   font-size: 1.2rem;
-  /* color: #85909C;*/
-  color: #626d7a;
-
+  color: #85909C;
   font-weight: 500;
 }
-
-.ui-input-text input.ifta-field::placeholder{
-  color: #626d7a;
-}
-
 .ui-input-text input.ifta-field[type="text"]:disabled {
   background: linear-gradient(0deg, #ffffff7a, transparent);
   box-shadow: inset 0 0 0 1px #9e9e9e5c;
   /* border: solid 1px #7b7c7d5c; */
   text-shadow: none;
-  /*color: #88939f;*/
-  color: #626d7a;
+  color: #88939f;
   opacity: 1;
 }
 .ui-input-text input.ifta-field[type="text"]:disabled::placeholder {

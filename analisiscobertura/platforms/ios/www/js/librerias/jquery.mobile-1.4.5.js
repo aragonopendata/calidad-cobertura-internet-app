@@ -1428,7 +1428,7 @@ $.mobile.widget = $.Widget;
 
 		defaultHtml: "<div class='" + loaderClass + "'>" +
 			"<span class='ui-icon-loading'></span>" +
-			"loading</h1>" +
+			"<h1></h1>" +
 			"</div>",
 
 		// For non-fixed supportin browsers. Position at y center (if scrollTop supported), above the activeBtn (if defined), or just 100px from top

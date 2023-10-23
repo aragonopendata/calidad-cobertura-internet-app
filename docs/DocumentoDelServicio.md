@@ -1,7 +1,7 @@
 # Documento del servicio
 
 ### Descripción general del servicio:
-Aplicación desarrollada en Cordova 10 para capturar datos de calidad de la conexión a Internet en el territorio de Aragón.
+Aplicación desarrollada en Cordova 12 para capturar datos de calidad de la conexión a Internet en el territorio de Aragón.
 La aplicación captura la posición aproximada dentro de Aragón en la que se encuentra el dispositivo y los siguientes valores significativos de la calidad de la conexión del dispositivo con el que se está usando la aplicación:
 	- Modelo del dispositivo.
 	- Sistema operativo del dispositivo.
@@ -13,7 +13,7 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se encue
 	- Latencia de la conexión.
 	
 ### Tecnologías:
-	- Cordova 10
+	- Cordova 12
 	- JavaScript
 	- HTML
 	- CSS
@@ -22,7 +22,7 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se encue
 	- Android Studio
 	
 ### Componentes del servicio:
-El código fuente de la aplicación está desarrollado creando un proyecto de Cordova 10. El desarrollo se hace mediante HTML, CSS, Javascript, jQuery y jQuerMobile en el directorio analisiscobertura\www y el código que ahí se desarrolla luego se compila usando el Cordova 10 CLI para generar las versiones para navegador web y para Android. Con un solo código fuente se generan las dos versiones. Por último para acceder a funcionalidades específicas de los dispositivos se usan estos plugins de Cordova 10:
+El código fuente de la aplicación está desarrollado creando un proyecto de Cordova 12. El desarrollo se hace mediante HTML, CSS, Javascript, jQuery y jQuerMobile en el directorio analisiscobertura\www y el código que ahí se desarrolla luego se compila usando el Cordova 12 CLI para generar las versiones para navegador web y para Android. Con un solo código fuente se generan las dos versiones. Por último para acceder a funcionalidades específicas de los dispositivos se usan estos plugins de Cordova 12:
 	- cordova-plugin-network-information (https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-network-information/index.html)
 	- cordova-plugin-geolocation (https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-geolocation/index.html)
 	- cordova-plugin-android-permissions (https://www.npmjs.com/package/cordova-plugin-android-permissions)
@@ -31,7 +31,7 @@ El código fuente de la aplicación está desarrollado creando un proyecto de Cordo
 	
 ### Guía de mantenimiento:
 Para poder realizar el mantenimiento del código fuente de esta aplicación es necesario tener instalado en el equipo los siguientes componentes:
-	- Cordova 10 CLI.
+	- Cordova 12 CLI.
 	- Android Studio (mínimo versión 4.1.1) junto con el SDK de Android.
 
 ### Guía de pruebas:
