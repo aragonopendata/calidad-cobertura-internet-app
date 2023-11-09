@@ -1,18 +1,18 @@
 # Documento del servicio
 
-### Descripción general del servicio:
-Aplicación desarrollada en Cordova 12 para capturar datos de calidad de la conexión a Internet en el territorio de Aragón.
-La aplicación captura la posición aproximada dentro de Aragón en la que se encuentra el dispositivo y los siguientes valores significativos de la calidad de la conexión del dispositivo con el que se está usando la aplicación:
+### DescripciÃ³n general del servicio:
+AplicaciÃ³n desarrollada en Cordova 12 para capturar datos de calidad de la conexiÃ³n a Internet en el territorio de AragÃ³n.
+La aplicaciÃ³n captura la posiciÃ³n aproximada dentro de AragÃ³n en la que se encuentra el dispositivo y los siguientes valores significativos de la calidad de la conexiÃ³n del dispositivo con el que se estÃ¡ usando la aplicaciÃ³n:
 	- Modelo del dispositivo.
 	- Sistema operativo del dispositivo.
-	- Tipo de red que está usando el dispositivo (WiFi, 3G, 4G, ...).
-	- Operador de telefonía al que está conectado el dispositivo.
-	- Intensidad de la señal.
-	- Velocidad de bajada de la conexión.
-	- Velocidad de subida de la conexión.
-	- Latencia de la conexión.
+	- Tipo de red que estÃ¡ usando el dispositivo (WiFi, 3G, 4G, ...).
+	- Operador de telefonÃ­a al que estÃ¡ conectado el dispositivo.
+	- Intensidad de la seÃ±al.
+	- Velocidad de bajada de la conexiÃ³n.
+	- Velocidad de subida de la conexiÃ³n.
+	- Latencia de la conexiÃ³n.
 	
-### Tecnologías:
+### TecnologÃ­as:
 	- Cordova 12
 	- JavaScript
 	- HTML
@@ -22,24 +22,24 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se encue
 	- Android Studio
 	
 ### Componentes del servicio:
-El código fuente de la aplicación está desarrollado creando un proyecto de Cordova 12. El desarrollo se hace mediante HTML, CSS, Javascript, jQuery y jQuerMobile en el directorio analisiscobertura\www y el código que ahí se desarrolla luego se compila usando el Cordova 12 CLI para generar las versiones para navegador web y para Android. Con un solo código fuente se generan las dos versiones. Por último para acceder a funcionalidades específicas de los dispositivos se usan estos plugins de Cordova 12:
+El cÃ³digo fuente de la aplicaciÃ³n estÃ¡ desarrollado creando un proyecto de Cordova 12. El desarrollo se hace mediante HTML, CSS, Javascript, jQuery y jQuerMobile en el directorio analisiscobertura\www y el cÃ³digo que ahÃ­ se desarrolla luego se compila usando el Cordova 12 CLI para generar las versiones para navegador web y para Android. Con un solo cÃ³digo fuente se generan las dos versiones. Por Ãºltimo para acceder a funcionalidades especÃ­ficas de los dispositivos se usan estos plugins de Cordova 12:
 	- cordova-plugin-network-information (https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-network-information/index.html)
 	- cordova-plugin-geolocation (https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-geolocation/index.html)
 	- cordova-plugin-android-permissions (https://www.npmjs.com/package/cordova-plugin-android-permissions)
 	- cordova-plugin-signal-strength (https://github.com/petervojtek/cordova-plugin-signal-strength)
 	- cordova-plugin-background-mode (https://github.com/katzer/cordova-plugin-background-mode)
 	
-### Guía de mantenimiento:
-Para poder realizar el mantenimiento del código fuente de esta aplicación es necesario tener instalado en el equipo los siguientes componentes:
+### GuÃ­a de mantenimiento:
+Para poder realizar el mantenimiento del cÃ³digo fuente de esta aplicaciÃ³n es necesario tener instalado en el equipo los siguientes componentes:
 	- Cordova 12 CLI.
-	- Android Studio (mínimo versión 4.1.1) junto con el SDK de Android.
+	- Android Studio (mÃ­nimo versiÃ³n Android Studio Chipmunk | 2021.2.1) junto con el SDK de Android.
 
-### Guía de pruebas:
-	- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión, abrir en el navegador la ruta http://localhost:8000/browser/www/index.html
+### GuÃ­a de pruebas:
+	- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versiÃ³n para navegadores web. Una vez generada la versiÃ³n, abrir en el navegador la ruta http://localhost:8000/browser/www/index.html
 
-	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión se habrá creado un fichero APK en la ruta analisiscobertura\platforms\android\app\build\outputs\apk\debug
+	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versiÃ³n para Android. Una vez generada la versiÃ³n se habrÃ¡ creado un fichero APK en la ruta analisiscobertura\platforms\android\app\build\outputs\apk\debug
 	
-### Guía de despliegue:
-	- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión desplegar el contenido de la carpeta analisiscobertura\platforms\browser\www
+### GuÃ­a de despliegue:
+	- Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versiÃ³n para navegadores web. Una vez generada la versiÃ³n desplegar el contenido de la carpeta analisiscobertura\platforms\browser\www
 	
-	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para Android. Una vez generada la versión, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicación para generar un APK firmado que se pueda desplegar en la Play Store de Google.
+	- Android: Usar el comando "cordova build android" en la ruta raiz del proyecto (analisiscobertura) para generar la versiÃ³n para Android. Una vez generada la versiÃ³n, abrir con Android Studio el proyecto Android Studio que se encuentra en la ruta analisiscobertura\platforms\android y con Android Studio firmar la aplicaciÃ³n para generar un APK firmado que se pueda desplegar en la Play Store de Google.
