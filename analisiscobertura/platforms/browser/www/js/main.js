@@ -15,23 +15,31 @@ var MAIN = (function() {
     ret.clickEvent = ($.support.touch ? "tap" : "click");
 
     ret.localizacionParaDebug = false; //FIXME: Poner a false cuando se generen versiones para Aragón.
-    ret.esVersionWeb = true; //FIXME: Poner a true si generamos la versión Browser. Poner a false si generamos la versión de la App para Android o iOS.
+    ret.esVersionWeb = false; //FIXME: Poner a true si generamos la versión Browser. Poner a false si generamos la versión de la App para Android o iOS.
 
     //ret.entorno = "DEV";
     //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
     //ret.urlFicheroTestVelBajada = "https://d.itsoft.es/aragon/filedownload1.txt";
 
-    //ret.entorno = "DEV_ARAGON";
-    //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/api/api";
-    //ret.urlFicheroTestVelBajada = "https://desopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+
+    ret.entorno = "DEV_ARAGON";
+    ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/ws-cobertura/api";
+    ret.urlFicheroTestVelBajada = "https://desopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+
 
     //ret.entorno = "PRE_ARAGON";
     //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
     //ret.urlFicheroTestVelBajada = "https://preopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
 
-    ret.entorno = "PROD_ARAGON";
-    ret.urlWS = "https://opendataei2a.aragon.es/cobertura/ws-cobertura/api";
-    ret.urlFicheroTestVelBajada = "https://opendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+    //ret.entorno = "PROD_ARAGON";
+    //ret.urlWS = "https://opendataei2a.aragon.es/cobertura/ws-cobertura/api";
+    //ret.urlFicheroTestVelBajada = "https://opendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+
+    //ret.entorno = "DEV";
+    //ret.urlWS = "http://104.199.101.9:8067/ws-cobertura/api";
+    //ret.urlFicheroTestVelBajada = "https://opendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+    
+
 
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.
