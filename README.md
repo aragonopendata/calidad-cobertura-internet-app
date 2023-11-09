@@ -1,6 +1,6 @@
 # App Análisis de cobertura
 
-Aplicación desarrollada en Cordova 10 para capturar datos de calidad de la conexión a Internet en el territorio de Aragón.
+Aplicación desarrollada en Cordova 12 para capturar datos de calidad de la conexión a Internet en el territorio de Aragón.
 La aplicación captura la posición aproximada dentro de Aragón en la que se encuentra el dispositivo y los siguientes valores significativos de la calidad de la conexión del dispositivo con el que se está usando la aplicación:
 	- Modelo del dispositivo.
 	- Sistema operativo del dispositivo.
@@ -15,7 +15,7 @@ La aplicación captura la posición aproximada dentro de Aragón en la que se en
 ### Preparacion proyecto:
 
 - Instalar Cordova 12 CLI.
-- Instalar mínimo Android Studio 4.1.1 junto con el SDK de Android.
+- Instalar mínimo Android Studio Android Studio Chipmunk | 2021.2.1 junto con el SDK de Android.
 
 ### Tests
 - Navegadores Web: Usar el comando "cordova serve" en la ruta raiz del proyecto (analisiscobertura) para generar la versión para navegadores web. Una vez generada la versión abrir en el navegador la ruta http://localhost:8000/browser/www/index.html
