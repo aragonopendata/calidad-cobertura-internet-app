@@ -768,10 +768,9 @@
         $("#id_bot_atras_ubicacion_manual").on(MAIN.clickEvent, function (){
             console.log('Boton atrás pulsado.');
             //En este caso no actualizo los datos de Municipioe INE.
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
-            volverAtras();
+             volverAtras();
         });
-
+        document.addEventListener("backbutton", volverAtras, false);
         //Botón establecer
         $("#id_bot_establecer_ubicacion_manual").on(MAIN.clickEvent, function (){
             console.log('Boton establecer pulsado.');
@@ -782,12 +781,13 @@
             misDatosCobertura.ine = miINE;
             misDatosCobertura.municipio = miMunicipio;
             misDatosCobertura.ubicacionManual = true;
-            localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
+            
             volverAtras();
         });
     });
 
     function volverAtras() {
+    	localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCobertura));
         document.location="infoConexion.html";
     }
 
