@@ -20,6 +20,7 @@
             console.log('Boton atrás pulsado.');
             volverAtras();
         });
+        document.addEventListener("backbutton", volverAtras, false);
     });
 
     function volverAtras() {

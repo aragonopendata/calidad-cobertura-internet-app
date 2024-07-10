@@ -21,6 +21,7 @@ MAIN.ws = (function(){
 
     /*SERVICIOS WEB*/
     var postObtenerMunicipioPorCoordenadas = "/obtenerMunicipioPorCoordenadas";
+    var postObtenerDatosPorCoordenadas = "/obtenerDatosPorCoordenadas";
     var postObtenerCoordenadasPorMunicipio = "/obtenerCoordenadasPorMunicipio";
     var postRegistrarDatosCobertura = "/registrarDatosCobertura";
 
@@ -31,6 +32,30 @@ MAIN.ws = (function(){
     ret.ERROR_CONECTIVIDAD = -997;
     ret.ERROR_TIMEOUT = -998;
     ret.ERROR_CONEXION = -999;
+
+    ret.obtenerDatosPorCoordenadas = function(latitud, longitud, so,modelo, tipoRed) {
+
+        var def = $.Deferred();
+
+        //Convierto la latitud y la longitud a String:
+        var latTexto = latitud.toString();
+        var lonTexto = longitud.toString();
+
+        //console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
+
+        var request = {'latitud': latTexto, 'longitud': lonTexto, 'sSO': so, 'sModelo': modelo, 'sTipoRed': tipoRed};
+        $.when( postJSON(request, MAIN.urlWS + postObtenerDatosPorCoordenadas, getDefaultHeaders(), WSResponse) )
+        .then(function (wsResponse){
+            //alert("wsResponse login: " + wsResponse);
+            def.resolve(wsResponse);
+            })
+        .fail(function (wsError){
+            //alert("wsError login: " + wsError);
+            def.reject(wsError)
+        });
+
+        return def.promise();
+    };
 
     ret.obtenerMunicipioPorCoordenadas = function(latitud, longitud) {
 
