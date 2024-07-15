@@ -334,7 +334,7 @@
         }
         
         var networkState = "Desconocido";
-        if (navigator.connection) {
+        if (navigator.connection && navigator.connection.type) {
             networkState = navigator.connection.type;
           /*  setTimeout(function(){
                 networkState = navigator.connection.type;*/
