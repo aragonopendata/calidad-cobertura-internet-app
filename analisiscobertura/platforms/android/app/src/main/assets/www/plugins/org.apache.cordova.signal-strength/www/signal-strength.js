@@ -6,20 +6,6 @@ function SignalStrength() {
     }, "SignalStrength", "dbm", []);
 
   };
-  
-  this.checkAirPlaneModeOn = function(callback) {
-    return cordova.exec(callback, function(err) {
-      callback(0);
-    }, "SignalStrength", "checkAirPlaneModeOn", []);
-
-  };
-
-  this.wifidbm = function(callback) {
-      return cordova.exec(callback, function(err) {
-        callback(0);
-      }, "SignalStrength", "wifidbm", []);
-
-  };
 }
 
 window.SignalStrength = new SignalStrength()

@@ -79,7 +79,7 @@
             $('#div_resumen_tipo_red').show();
         }
         if (misDatosCobertura.categoriaRed){
-    		if (misDatosCobertura.tipoRed){
+    		if (misDatosCobertura.tipoRed && misDatosCobertura.tipoRed != "Desconocido"){
     			$("#id_valor_resumen_tipo_red").text(misDatosCobertura.tipoRed+" ("+misDatosCobertura.categoriaRed+")");
     		}
     		else{

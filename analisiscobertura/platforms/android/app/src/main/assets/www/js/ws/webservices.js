@@ -21,6 +21,7 @@ MAIN.ws = (function(){
 
     /*SERVICIOS WEB*/
     var postObtenerMunicipioPorCoordenadas = "/obtenerMunicipioPorCoordenadas";
+    var postObtenerDatosPorCoordenadas = "/obtenerDatosPorCoordenadas";
     var postObtenerCoordenadasPorMunicipio = "/obtenerCoordenadasPorMunicipio";
     var postRegistrarDatosCobertura = "/registrarDatosCobertura";
 
@@ -32,6 +33,30 @@ MAIN.ws = (function(){
     ret.ERROR_TIMEOUT = -998;
     ret.ERROR_CONEXION = -999;
 
+    ret.obtenerDatosPorCoordenadas = function(latitud, longitud, so,modelo, tipoRed) {
+
+        var def = $.Deferred();
+
+        //Convierto la latitud y la longitud a String:
+        var latTexto = latitud.toString();
+        var lonTexto = longitud.toString();
+
+        //console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
+
+        var request = {'latitud': latTexto, 'longitud': lonTexto, 'sSO': so, 'sModelo': modelo, 'sTipoRed': tipoRed};
+        $.when( postJSON(request, MAIN.urlWS + postObtenerDatosPorCoordenadas, getDefaultHeaders(), WSResponse) )
+        .then(function (wsResponse){
+            //alert("wsResponse login: " + wsResponse);
+            def.resolve(wsResponse);
+            })
+        .fail(function (wsError){
+            //alert("wsError login: " + wsError);
+            def.reject(wsError)
+        });
+
+        return def.promise();
+    };
+
     ret.obtenerMunicipioPorCoordenadas = function(latitud, longitud) {
 
         var def = $.Deferred();
@@ -40,7 +65,7 @@ MAIN.ws = (function(){
         var latTexto = latitud.toString();
         var lonTexto = longitud.toString();
 
-        console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
+        //console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
 
         var request = {'latitud': latTexto, 'longitud': lonTexto};
         $.when( postJSON(request, MAIN.urlWS + postObtenerMunicipioPorCoordenadas, getDefaultHeaders(), WSResponse) )
@@ -78,7 +103,7 @@ MAIN.ws = (function(){
     /*************************/
     
     function postJSON(dataToSend, url, headers, responseConstructor, password) {
-        console.log("**** WS ("+url+")> " + JSON.stringify(dataToSend));
+        //console.log("**** WS ("+url+")> " + JSON.stringify(dataToSend));
         
         var def = $.Deferred();
 
@@ -90,26 +115,26 @@ MAIN.ws = (function(){
         if(MAIN.utils.connectivityManager.isOnline()) {
 
             var success = function(data, textStatus, jqXHR){
-                console.log("**** WS OK < " + JSON.stringify(data));
-                console.log("Status: " + jqXHR.status + " Error: " + jqXHR.statusText + " Data: "+ JSON.stringify(jqXHR));
+                //console.log("**** WS OK < " + JSON.stringify(data));
+                //console.log("Status: " + jqXHR.status + " Error: " + jqXHR.statusText + " Data: "+ JSON.stringify(jqXHR));
                 var response = new respConstructor(jqXHR.status, jqXHR.statusText, JSON.parse(data), jqXHR.getResponseHeader("content-type") || "");
                 if(response.ok()){
-                    console.log("WS < " + response.toString());
+                    //console.log("WS < " + response.toString());
                 } else {
-                    console.error("WS < " + response.toString());
+                    //console.error("WS < " + response.toString());
                 }
                 def.resolve(response);
                 //callback(response);
             };
 
             var error = function(jqXHR, textStatus, errorThrown) {
-                console.error("**** WS error < " + JSON.stringify(jqXHR));
-                console.log("Status: " + jqXHR.status + " Error: " + errorThrown + " Data: "+ JSON.stringify(jqXHR));
+                //console.error("**** WS error < " + JSON.stringify(jqXHR));
+                //console.log("Status: " + jqXHR.status + " Error: " + errorThrown + " Data: "+ JSON.stringify(jqXHR));
                 var response = new respConstructor(jqXHR.status, jqXHR.statusText, jqXHR.responseText, jqXHR.getResponseHeader("content-type") || "");
                 if(response.ok()){
-                    console.log("WS < " + response.toString());
+                    //console.log("WS < " + response.toString());
                 } else {
-                    console.error("WS < " + response.toString());
+                    //console.error("WS < " + response.toString());
                 }
                 def.reject(response);
                 //callback(response);
@@ -161,7 +186,7 @@ MAIN.ws = (function(){
         var responseMessage = datos ? datos.mensajeRespuesta : descErr;
         var type = contentType;
 
-        console.log("Respuesta del servicio web: codHttp " + responseCode + " responseMessage: " + responseMessage + " contentType: " + type);
+        //console.log("Respuesta del servicio web: codHttp " + responseCode + " responseMessage: " + responseMessage + " contentType: " + type);
         
         var exports = {};
 

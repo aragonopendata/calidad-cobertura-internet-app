@@ -211,7 +211,7 @@
                 console.log('Boton atrás pulsado.');
                 volverAtras();
             });
-
+            document.addEventListener("backbutton", volverAtras, false);
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             onOnline();
 
@@ -259,7 +259,7 @@
                         // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
                         var plataforma = MAIN.utils.platformDetector.getPlatform();
                         if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                            if (miTipoRed.toUpperCase() === "WIFI") {
+                           /* if (miTipoRed.toUpperCase() === "WIFI") {
                                 window.SignalStrength.wifidbm(
                                     function(measuredDbm){
                                         console.log('current wifi dBm is: ' + measuredDbm);
@@ -277,7 +277,7 @@
                                         }
                                     }
                                 )
-                            } else {
+                            } else {*/
                                 window.SignalStrength.dbm(
                                     function(measuredDbm){
                                         console.log('current mobile dBm is: ' + measuredDbm);
@@ -294,7 +294,7 @@
                                         }
                                     }
                                 )
-                            }
+                          //  }
                         } else {
                             miValorIntensidad = "";
                             miRangoIntensidad = "-1";

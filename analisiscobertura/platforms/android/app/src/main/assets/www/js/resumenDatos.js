@@ -78,6 +78,15 @@
         } else {
             $('#div_resumen_tipo_red').show();
         }
+        if (misDatosCobertura.categoriaRed){
+    		if (misDatosCobertura.tipoRed && misDatosCobertura.tipoRed != "Desconocido"){
+    			$("#id_valor_resumen_tipo_red").text(misDatosCobertura.tipoRed+" ("+misDatosCobertura.categoriaRed+")");
+    		}
+    		else{
+    			$("#id_valor_resumen_tipo_red").text(misDatosCobertura.categoriaRed);
+    		}
+    		$('#div_resumen_tipo_red').show();
+    	}
         $("#id_valor_resumen_operador").text(misDatosCobertura.operador);
         if (misDatosCobertura.operador === "Desconocido") {
             $('#div_resumen_operador').hide();
@@ -196,6 +205,7 @@
             console.log('Boton atrás pulsado.');
             volverAtras();
         });
+        document.addEventListener("backbutton", volverAtras, false);
     });
 
     function volverAtras() {

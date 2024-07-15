@@ -23,6 +23,8 @@
     var miVelocidadBajada = null;
     var miVelocidadSubida = null;
     var miLatencia = null;
+    var miCobertura = null;
+    var miCategoriaRed = null;
     var ws = MAIN.ws;
     var ubicacionObtenida = false;
     var ubicacionCapturadaManualmente = false;
@@ -63,7 +65,7 @@
             e.preventDefault();
         }, false );
 
-        document.addEventListener("online", onOnline, false);
+       // document.addEventListener("online", onOnline, false);
 
         //No se puede editar ninguna de las opciones y todas se cumplimentarán automáticamente (salvo la Ubicación en caso de que no se pueda obtener):
         $('#inputModeloSO').prop('disabled', true);
@@ -97,7 +99,7 @@
                 $('#id_bot_resultados_info_conexion').hide();
             $('#submitForm').text("Iniciar test de velocidad");
             }
-            getLocation(IR_A_NINGUN_SITIO);
+            
 
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             onOnline();
@@ -144,7 +146,7 @@
             } else {
                 console.log('Label ubicación enabled. Sí dejo entrar a ubicación manual.');
                 miOperador = $("#inputOperador").val();
-                var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+                var misDatosCoberturaUbicacionManual = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed,miCategoriaRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
                 localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaUbicacionManual));
                 document.location="ubicacionManual.html";
             }
@@ -179,6 +181,7 @@
             console.log('Boton atrás pulsado.');
             volverAtras();
         });
+        document.addEventListener("backbutton", volverAtras, false);
     });
 
     function irATestVelocidad() {
@@ -188,7 +191,7 @@
 
         miTimestamp = MAIN.utils.stringUtils.dateToString_yyyyMMddhhmm_UTC(new Date());
 
-        var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
+        var misDatosCoberturaBotTestVel = new DatosCobertura(miTimestamp, miCoordenadaX, miCoordenadaY, miCoordenadaX5000, miCoordenadaY5000, miCoordenadaX20000, miCoordenadaY20000, miMunicipio, miINE, miModelo, miSO, miTipoRed, miCategoriaRed, miOperador, miValorIntensidad, miRangoIntensidad, miVelocidadBajada, miVelocidadSubida, miLatencia, false, ubicacionCapturadaManualmente);
 
         localStorage.setItem(MAIN.keyLocalStorageDatosCobertura, JSON.stringify(misDatosCoberturaBotTestVel));
         document.location="infoTestVelocidad.html";
@@ -210,6 +213,8 @@
             datosCoberturaAux.municipio = miMunicipio;
             datosCoberturaAux.ine = miINE;
             datosCoberturaAux.modelo = miModelo;
+            datosCoberturaAux.cobertura = miCobertura;
+            datosCoberturaAux.categoriaRed = miCategoriaRed;
             datosCoberturaAux.so = miSO;
             datosCoberturaAux.tipoRed = miTipoRed;
             miOperador = $("#inputOperador").val();
@@ -331,8 +336,8 @@
         var networkState = "Desconocido";
         if (navigator.connection) {
             networkState = navigator.connection.type;
-            setTimeout(function(){
-                networkState = navigator.connection.type;
+          /*  setTimeout(function(){
+                networkState = navigator.connection.type;*/
                 if (networkState === "unknown") {
                     networkState = "Desconocido";
                 } else if (networkState === "cellular") {
@@ -358,7 +363,7 @@
                     //Una vez que sepamos el tipo de conexión coger la intensidad de la señal con el plugin.
                     // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
                     if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                        if (miTipoRed.toUpperCase() === "WIFI") {
+                       /* if (miTipoRed.toUpperCase() === "WIFI") {
                             window.SignalStrength.wifidbm(
                                 function(measuredDbm){
                                     console.log('current wifi dBm is: ' + measuredDbm);
@@ -380,7 +385,7 @@
                                     }
                                 }
                             )
-                        } else {
+                        } else {*/
                             window.SignalStrength.dbm(
                                 function(measuredDbm){
                                     console.log('current mobile dBm is: ' + measuredDbm);
@@ -399,7 +404,7 @@
                                     }
                                 }
                             )
-                        }
+                       // }
                     } else {
                         $("#inputIntensidad").val("Desconocido");
                         miValorIntensidad = "";
@@ -407,7 +412,7 @@
                         $('#divInputIntensidad').hide();
                     }
                 }
-            }, 1000);
+            /*}, 1000)*/;
         } else {
             miTipoRed = networkState;
             $("#inputTipoRed").val(miTipoRed);
@@ -418,7 +423,7 @@
             $('#divInputTipoRed').hide();
             $('#divInputIntensidad').hide();
         }
-
+        getLocation(IR_A_NINGUN_SITIO);
 
     }
 
@@ -477,7 +482,7 @@
                 miLongitud = -0.35527;
             }
 
-            $.when( ws.obtenerMunicipioPorCoordenadas(miLatitud, miLongitud) )
+            $.when( ws.obtenerDatosPorCoordenadas(miLatitud, miLongitud, miSO, miModelo, miTipoRed) )
             .then(function (wsResponse) {     
                 //alert("login done: " + wsResponse);
                 localizacionCompletada = true;
@@ -496,7 +501,8 @@
                     miCoordenadaY5000 = resp.coordenaday5000;
                     miCoordenadaX20000 = resp.coordenadax20000;
                     miCoordenadaY20000 = resp.coordenaday20000;
-
+                    miCobertura=resp.cobertura;
+                    miCategoriaRed=resp.categoriaRed;
                     //Si no se han recibido bien todos los campos del servicio web no pinto la posición como correcta.
                     if (miMunicipio && (miMunicipio !== "") && miINE && (miINE !== "") && miProvincia && (miProvincia !== "") && miCoordenadaX && (miCoordenadaX !== "") && miCoordenadaY && (miCoordenadaY !== "")) {
                         console.log('Municipio en el que estoy: ' + miMunicipio);
@@ -548,6 +554,17 @@
                         irATestVelocidad();
                     }
                 }
+                
+                if (miCategoriaRed){
+            		if (miTipoRed && (miTipoRed!='Desconocido')){
+            			$("#inputTipoRed").val(miTipoRed+" ("+miCategoriaRed+")");
+            		}
+            		else{
+            			$("#inputTipoRed").val(miCategoriaRed);
+            		}
+            		$('#divInputTipoRed').show();
+            	}
+                
             })
             .fail(function (wsError){
                 localizacionCompletada = true;
@@ -608,6 +625,15 @@
         });        
         mapOL.addLayer(layerVisor2d);
         
+     /*   var layerCobertura =new ol.layer.Tile({
+            source: new ol.source.TileWMS({
+            params: {'LAYERS': 'calidad_cobertura_red_movil','VERSION':'1.1.1'},
+            url: 'https://icearagondes.aragon.es/geoserver/opendata/wms',
+            projection: map_projection
+            })
+        });        
+        mapOL.addLayer(layerCobertura);*/
+        
         //Empiezo con el foco donde estoy.
         //var bbox_miposicion = [571580, 4412223, 812351, 4756639]; //Aragón entera
         //var bbox_miposicion = [763500, 4681500, 764000, 4682000]; //Abizanda
@@ -661,6 +687,8 @@
         miModelo = datosCoberturaObjeto.modelo;
         miSO = datosCoberturaObjeto.so;
         miTipoRed = datosCoberturaObjeto.tipoRed;
+        miCobertura = datosCoberturaObjeto.cobertura;
+        miCategoriaRed = datosCoberturaObjeto.categoriaRed;
         miOperador = datosCoberturaObjeto.operador;
         miValorIntensidad = datosCoberturaObjeto.valorIntensidadSenial;
         miRangoIntensidad = datosCoberturaObjeto.rangoIntensidadSenial;
@@ -670,11 +698,12 @@
         ubicacionCapturadaManualmente = datosCoberturaObjeto.ubicacionManual;
 
         pintarMapa();
-
+        
         //Actualizo el label de ubicación si tengo ubicación.
         if (miINE && (miINE !== "") && miMunicipio && (miMunicipio !== "")) {
-            if (miINE.length > 0) {
-                var codProvincia = miINE.substring(0, 2);
+        	var ineStr=miINE+"";
+            if (ineStr.length > 0) {
+                var codProvincia = ineStr.substring(0, 2);
                 if (codProvincia === "50") {
                     miProvincia = "Zaragoza";
                 } else if (codProvincia === "22") {
@@ -705,9 +734,18 @@
         }
 
         $("#inputTipoRed").val(miTipoRed);
-        if ((!miTipoRed) || (miTipoRed === "Desconocido")) {
+        
+        if (!miTipoRed && !miCategoriaRed) {
             $('#divInputTipoRed').hide();
         } else {
+        	if (miCategoriaRed){
+        		if (miTipoRed && (miTipoRed != "Desconocido")){
+        			$("#inputTipoRed").val(miTipoRed+" ("+miCategoriaRed+")");
+        		}
+        		else{
+        			$("#inputTipoRed").val(miCategoriaRed);
+        		}
+        	}
             $('#divInputTipoRed').show();
         }
 
