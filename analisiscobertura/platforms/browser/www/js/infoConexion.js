@@ -556,7 +556,7 @@
                 }
                 
                 if (miCategoriaRed){
-            		if (miTipoRed){
+            		if (miTipoRed && (miTipoRed!='Desconocido')){
             			$("#inputTipoRed").val(miTipoRed+" ("+miCategoriaRed+")");
             		}
             		else{
@@ -698,11 +698,12 @@
         ubicacionCapturadaManualmente = datosCoberturaObjeto.ubicacionManual;
 
         pintarMapa();
-
+        
         //Actualizo el label de ubicación si tengo ubicación.
         if (miINE && (miINE !== "") && miMunicipio && (miMunicipio !== "")) {
-            if (miINE.length > 0) {
-                var codProvincia = miINE.substring(0, 2);
+        	var ineStr=miINE+"";
+            if (ineStr.length > 0) {
+                var codProvincia = ineStr.substring(0, 2);
                 if (codProvincia === "50") {
                     miProvincia = "Zaragoza";
                 } else if (codProvincia === "22") {
@@ -734,11 +735,11 @@
 
         $("#inputTipoRed").val(miTipoRed);
         
-        if ((!miTipoRed && !miCategoriaRed) || (miTipoRed === "Desconocido")) {
+        if (!miTipoRed && !miCategoriaRed) {
             $('#divInputTipoRed').hide();
         } else {
         	if (miCategoriaRed){
-        		if (miTipoRed){
+        		if (miTipoRed && (miTipoRed != "Desconocido")){
         			$("#inputTipoRed").val(miTipoRed+" ("+miCategoriaRed+")");
         		}
         		else{
