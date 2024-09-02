@@ -70,6 +70,7 @@
         //No se puede editar ninguna de las opciones y todas se cumplimentarán automáticamente (salvo la Ubicación en caso de que no se pueda obtener):
         $('#inputModeloSO').prop('disabled', true);
         $('#inputTipoRed').prop('disabled', true);
+        $('#inputCalidad').prop('disabled', true);
         $('#inputOperador').prop('disabled', true);
         $('#inputIntensidad').prop('disabled', true);
 
@@ -563,7 +564,27 @@
             			$("#inputTipoRed").val(miCategoriaRed);
             		}
             		$('#divInputTipoRed').show();
+            		
+            		
             	}
+                if (miCobertura) {
+                	$("#inputCalidad").text(miCobertura);
+                	if (miCobertura.startsWith(1)){
+                		$('#cajaCalidad').addClass("naranja");
+                	}
+                	else if (miCobertura.startsWith(2)){
+                		$('#cajaCalidad').addClass("amarillo");
+                	}
+                	else if (miCobertura.startsWith(3)){
+                		$('#cajaCalidad').addClass("verde");
+                	}
+                	else if (miCobertura.startsWith(4)){
+                		$('#cajaCalidad').addClass("verde-oscuro");
+                	}
+                	$('#divInputCalidad').show();
+                } else {
+                    $('#divInputCalidad').hide();
+                }
                 
             })
             .fail(function (wsError){
@@ -625,14 +646,14 @@
         });        
         mapOL.addLayer(layerVisor2d);
         
-     /*   var layerCobertura =new ol.layer.Tile({
+       var layerCobertura =new ol.layer.Tile({
             source: new ol.source.TileWMS({
-            params: {'LAYERS': 'calidad_cobertura_red_movil','VERSION':'1.1.1'},
-            url: 'https://icearagondes.aragon.es/geoserver/opendata/wms',
+            params: {'LAYERS': (miCategoriaRed=='RED MOVIL'?'calidad_cobertura_red_movil':'calidad_cobertura_red_fija'),'VERSION':'1.1.1'},
+            url: MAIN.urlGeoserver,
             projection: map_projection
             })
         });        
-        mapOL.addLayer(layerCobertura);*/
+        mapOL.addLayer(layerCobertura);
         
         //Empiezo con el foco donde estoy.
         //var bbox_miposicion = [571580, 4412223, 812351, 4756639]; //Aragón entera
@@ -749,6 +770,25 @@
             $('#divInputTipoRed').show();
         }
 
+        
+        if (miCobertura) {
+        	$("#inputCalidad").text(miCobertura);
+        	if (miCobertura.startsWith(1)){
+        		$('#cajaCalidad').addClass("naranja");
+        	}
+        	else if (miCobertura.startsWith(2)){
+        		$('#cajaCalidad').addClass("amarillo");
+        	}
+        	else if (miCobertura.startsWith(3)){
+        		$('#cajaCalidad').addClass("verde");
+        	}
+        	else if (miCobertura.startsWith(4)){
+        		$('#cajaCalidad').addClass("verde-oscuro");
+        	}
+        	$('#divInputCalidad').show();
+        } else {
+            $('#divInputCalidad').hide();
+        }
         $("#inputOperador").val(miOperador);
         if ((!miOperador) || (miOperador === "Desconocido")) {
             $('#divInputOperador').hide();

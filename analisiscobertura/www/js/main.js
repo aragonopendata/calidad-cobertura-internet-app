@@ -24,14 +24,20 @@ var MAIN = (function() {
     ret.entorno = "DEV_ARAGON";
     ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/ws-cobertura/api";
     ret.urlFicheroTestVelBajada = "https://desopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+    ret.urlCobertura="https://desopendata.aragon.es/servicios/cobertura";
+    ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
 
     //ret.entorno = "PRE_ARAGON";
     //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
     //ret.urlFicheroTestVelBajada = "https://preopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
-
+    //ret.urlCobertura="https://preopendata.aragon.es/servicios/cobertura";
+    //ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
+    
     //ret.entorno = "PROD_ARAGON";
     //ret.urlWS = "https://opendataei2a.aragon.es/cobertura/ws-cobertura/api";
     //ret.urlFicheroTestVelBajada = "https://opendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
+    //ret.urlCobertura="https://opendata.aragon.es/servicios/cobertura";
+    //ret.urlGeoserver="https://icearagon.aragon.es/geoserver/opendata/wms";
 
     ret.keyLocalStorageDatosCobertura = "keyLocalStorageDatosCObertura"; //Último reporte de de datos de cobertura capturado.
     ret.keyLSDatosCoberturaPendientesSubida = "keyLSDatosCoberturaPendientesSubida"; // Array de reportes de datos de cobertura pendientes de subir.

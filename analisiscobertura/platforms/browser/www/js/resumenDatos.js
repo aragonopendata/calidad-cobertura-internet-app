@@ -44,7 +44,27 @@
             $("#id_valor_resumen_ping").text("Desconocido");
             $('#div_resumen_ping').hide();
         }
-
+        if (misDatosCobertura.coberturaTest) {
+        	 var miCobertura= misDatosCobertura.coberturaTest;
+            $("#id_valor_resumen_calidad").text(miCobertura);
+           
+            if (miCobertura.startsWith(1)){
+        		$('#cajaCalidad').addClass("naranja");
+        	}
+        	else if (miCobertura.startsWith(2)){
+        		$('#cajaCalidad').addClass("amarillo");
+        	}
+        	else if (miCobertura.startsWith(3)){
+        		$('#cajaCalidad').addClass("verde");
+        	}
+        	else if (miCobertura.startsWith(4)){
+        		$('#cajaCalidad').addClass("verde-oscuro");
+        	}
+            $('#div_resumen_calidad').show();
+        } else {
+            $("#id_valor_resumen_calidad").text("Desconocido");
+            $('#div_resumen_calidad').hide();
+        }
         var textoMunicipio = misDatosCobertura.municipio;
         var miINE = misDatosCobertura.ine;
         if (miINE && (miINE !== "")) {

@@ -24,6 +24,7 @@ MAIN.ws = (function(){
     var postObtenerDatosPorCoordenadas = "/obtenerDatosPorCoordenadas";
     var postObtenerCoordenadasPorMunicipio = "/obtenerCoordenadasPorMunicipio";
     var postRegistrarDatosCobertura = "/registrarDatosCobertura";
+    var postObtenerCalidadCobertura = "/obtenerCalidadCobertura";
 
     /* CODIGOS SERVIDOR */
     ret.OK = 1;
@@ -98,6 +99,26 @@ MAIN.ws = (function(){
         return def.promise();
     };
 
+    ret.obtenerCalidadCobertura = function(velBajada, categoria) {
+
+        var def = $.Deferred();
+
+  
+
+        //console.log("obtenerMunicipioPorCoordenadas: Latitud: " + latTexto + " Longitud: " + lonTexto);
+
+        $.when( post( MAIN.urlWS + postObtenerCalidadCobertura+"?categoria="+categoria+"&velBajada="+velBajada, getDefaultHeaders(), WSResponse) )
+        .then(function (wsResponse){
+            //alert("wsResponse login: " + wsResponse);
+            def.resolve(wsResponse);
+            })
+        .fail(function (wsError){
+            //alert("wsError login: " + wsError);
+            def.reject(wsError)
+        });
+
+        return def.promise();
+    };
     /*************************/
     /*    METODOS PRIVADOS   */ 
     /*************************/
@@ -163,6 +184,65 @@ MAIN.ws = (function(){
         return def.promise();
     }
     
+    function post( url, headers, responseConstructor, password) {
+        //console.log("**** WS ("+url+")> " + JSON.stringify(dataToSend));
+        
+        var def = $.Deferred();
+
+        var respConstructor = responseConstructor;
+        if(!respConstructor){
+            respConstructor = WSResponse;
+        }
+        
+        if(MAIN.utils.connectivityManager.isOnline()) {
+
+            var success = function(data, textStatus, jqXHR){
+                //console.log("**** WS OK < " + JSON.stringify(data));
+                //console.log("Status: " + jqXHR.status + " Error: " + jqXHR.statusText + " Data: "+ JSON.stringify(jqXHR));
+                var response = new respConstructor(jqXHR.status, jqXHR.statusText, data, jqXHR.getResponseHeader("content-type") || "");
+                if(response.ok()){
+                    //console.log("WS < " + response.toString());
+                } else {
+                    //console.error("WS < " + response.toString());
+                }
+                def.resolve(response);
+                //callback(response);
+            };
+
+            var error = function(jqXHR, textStatus, errorThrown) {
+                //console.error("**** WS error < " + JSON.stringify(jqXHR));
+                //console.log("Status: " + jqXHR.status + " Error: " + errorThrown + " Data: "+ JSON.stringify(jqXHR));
+                var response = new respConstructor(jqXHR.status, jqXHR.statusText, jqXHR.responseText, jqXHR.getResponseHeader("content-type") || "");
+                if(response.ok()){
+                    //console.log("WS < " + response.toString());
+                } else {
+                    //console.error("WS < " + response.toString());
+                }
+                def.reject(response);
+                //callback(response);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                success: success,
+                error: error,
+                timeout:20000,
+                headers: (headers ? headers : getDefaultHeaders()),
+
+            });
+
+        } else {
+            var response = new respConstructor(ret.ERROR_CONECTIVIDAD, "No hay conectividad", null, null);
+            response.getResponseType = function(){
+                return ret.ERROR_CONECTIVIDAD;
+                //def.reject(ret.ERROR_CONECTIVIDAD);
+            };
+            def.reject(response);
+        }  
+
+        return def.promise();
+    }
     function getDefaultHeaders() {
         return {
             "Cache-Control": "private",
