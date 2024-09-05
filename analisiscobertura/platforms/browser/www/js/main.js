@@ -21,14 +21,14 @@ var MAIN = (function() {
     //ret.urlWS = "https://wsdevcobertura.itsoft.es/api";
     //ret.urlFicheroTestVelBajada = "https://d.itsoft.es/aragon/filedownload1.txt";
 
-    //ret.entorno = "DEV_ARAGON";
+   // ret.entorno = "DEV_ARAGON";
     //ret.urlWS = "https://desopendataei2a.aragon.es/cobertura/ws-cobertura/api";
     //ret.urlFicheroTestVelBajada = "https://desopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
     //ret.urlCobertura="https://desopendata.aragon.es/servicios/cobertura";
     //ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
 
     ret.entorno = "PRE_ARAGON";
-    ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api";
+    ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/ws-cobertura/api";
     ret.urlFicheroTestVelBajada = "https://preopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
     ret.urlCobertura="https://preopendata.aragon.es/servicios/cobertura";
     ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
