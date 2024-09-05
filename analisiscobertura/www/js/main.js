@@ -28,7 +28,7 @@ var MAIN = (function() {
     ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
 
     //ret.entorno = "PRE_ARAGON";
-    //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api/api";
+    //ret.urlWS = "https://preopendataei2a.aragon.es/cobertura/api";
     //ret.urlFicheroTestVelBajada = "https://preopendataei2a.aragon.es/cobertura/test-descarga/filedownload1.txt";
     //ret.urlCobertura="https://preopendata.aragon.es/servicios/cobertura";
     //ret.urlGeoserver="https://icearagondes.aragon.es/geoserver/opendata/wms";
