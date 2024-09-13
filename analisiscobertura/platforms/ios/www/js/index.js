@@ -57,6 +57,10 @@ function onDeviceReady() {
         e.preventDefault();
     }, false );
 
+    $("#id_bot_mapa").on(MAIN.clickEvent, function (){
+        console.log('Boton mapa pulsado.');
+        window.open(MAIN.urlCobertura, "_blank");
+    });
     $("#id_bot_empezar").on(MAIN.clickEvent, function (){
         console.log('Boton Empezar pulsado.');
         if(cordova.plugins && cordova.plugins.permissions){
