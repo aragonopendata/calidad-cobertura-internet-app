@@ -20,9 +20,9 @@ cordova.define("cordova-plugin-geolocation.Position", function(require, exports,
  *
  */
 
-const Coordinates = require('./Coordinates');
+var Coordinates = require('./Coordinates');
 
-const Position = function (coords, timestamp) {
+var Position = function (coords, timestamp) {
     if (coords) {
         this.coords = new Coordinates(
             coords.latitude,

@@ -31,7 +31,7 @@ cordova.define("cordova-plugin-geolocation.Coordinates", function(require, expor
  * @param {Object} altacc
  * @constructor
  */
-const Coordinates = function (lat, lng, alt, acc, head, vel, altacc) {
+var Coordinates = function (lat, lng, alt, acc, head, vel, altacc) {
     /**
      * The latitude of the position.
      */
@@ -51,11 +51,11 @@ const Coordinates = function (lat, lng, alt, acc, head, vel, altacc) {
     /**
      * The direction the device is moving at the position.
      */
-    this.heading = (typeof head === 'number' && head >= 0 && head <= 360 ? head : null);
+    this.heading = head !== undefined ? head : null;
     /**
      * The velocity with which the device is moving at the position.
      */
-    this.speed = (typeof vel === 'number' && vel >= 0 ? vel : null);
+    this.speed = vel !== undefined ? vel : null;
 
     if (this.speed === 0 || this.speed === null) {
         this.heading = NaN;

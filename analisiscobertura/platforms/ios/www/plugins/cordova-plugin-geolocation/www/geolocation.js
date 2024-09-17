@@ -20,17 +20,17 @@ cordova.define("cordova-plugin-geolocation.geolocation", function(require, expor
  *
  */
 
-const argscheck = require('cordova/argscheck');
-const utils = require('cordova/utils');
-const exec = require('cordova/exec');
-const PositionError = require('./PositionError');
-const Position = require('./Position');
+var argscheck = require('cordova/argscheck');
+var utils = require('cordova/utils');
+var exec = require('cordova/exec');
+var PositionError = require('./PositionError');
+var Position = require('./Position');
 
-const timers = {}; // list of timers in use
+var timers = {}; // list of timers in use
 
 // Returns default params, overrides if provided with values
 function parseParameters (options) {
-    const opt = {
+    var opt = {
         maximumAge: 0,
         enableHighAccuracy: false,
         timeout: Infinity
@@ -57,7 +57,7 @@ function parseParameters (options) {
 
 // Returns a timeout failure, closed over a specified timeout value and error callback.
 function createTimeout (errorCallback, timeout) {
-    let t = setTimeout(function () {
+    var t = setTimeout(function () {
         clearTimeout(t);
         t = null;
         errorCallback({
@@ -68,7 +68,7 @@ function createTimeout (errorCallback, timeout) {
     return t;
 }
 
-const geolocation = {
+var geolocation = {
     lastPosition: null, // reference to last known (cached) position returned
     /**
      * Asynchronously acquires the current position.
@@ -83,9 +83,9 @@ const geolocation = {
 
         // Timer var that will fire an error callback if no position is retrieved from native
         // before the "timeout" param provided expires
-        const timeoutTimer = { timer: null };
+        var timeoutTimer = { timer: null };
 
-        const win = function (p) {
+        var win = function (p) {
             clearTimeout(timeoutTimer.timer);
             if (!timeoutTimer.timer) {
                 // Timeout already happened, or native fired error callback for
@@ -93,7 +93,7 @@ const geolocation = {
                 // Don't continue with success callback.
                 return;
             }
-            const pos = new Position(
+            var pos = new Position(
                 {
                     latitude: p.latitude,
                     longitude: p.longitude,
@@ -108,10 +108,10 @@ const geolocation = {
             geolocation.lastPosition = pos;
             successCallback(pos);
         };
-        const fail = function (e) {
+        var fail = function (e) {
             clearTimeout(timeoutTimer.timer);
             timeoutTimer.timer = null;
-            const err = new PositionError(e.code, e.message);
+            var err = new PositionError(e.code, e.message);
             if (errorCallback) {
                 errorCallback(err);
             }
@@ -162,25 +162,25 @@ const geolocation = {
         argscheck.checkArgs('fFO', 'geolocation.getCurrentPosition', arguments);
         options = parseParameters(options);
 
-        const id = utils.createUUID();
+        var id = utils.createUUID();
 
         // Tell device to get a position ASAP, and also retrieve a reference to the timeout timer generated in getCurrentPosition
         timers[id] = geolocation.getCurrentPosition(successCallback, errorCallback, options);
 
-        const fail = function (e) {
+        var fail = function (e) {
             clearTimeout(timers[id].timer);
-            const err = new PositionError(e.code, e.message);
+            var err = new PositionError(e.code, e.message);
             if (errorCallback) {
                 errorCallback(err);
             }
         };
 
-        const win = function (p) {
+        var win = function (p) {
             clearTimeout(timers[id].timer);
             if (options.timeout !== Infinity) {
                 timers[id].timer = createTimeout(fail, options.timeout);
             }
-            const pos = new Position(
+            var pos = new Position(
                 {
                     latitude: p.latitude,
                     longitude: p.longitude,

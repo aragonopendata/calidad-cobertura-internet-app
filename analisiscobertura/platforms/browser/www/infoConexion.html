@@ -63,8 +63,25 @@
                 <!-- MAPA -->
                 <div id="map" class="map" tabindex="0"></div>
                 <!-- FIN MAPA -->
-
+			
                 <form id="formDatosConexion" class="ifta">
+                	<div id="legend">
+						<div id="legend-title">Leyenda calidad de la cobertura</div>
+						<ul>
+							<li>
+								<div class="caja naranja">&nbsp;</div> 1 - Baja
+							</li>
+							<li>
+								<div class="caja amarillo">&nbsp;</div> 2 - Media
+							</li>
+							<li>
+								<div class="caja verde">&nbsp;</div> 3 - Alta
+							</li>
+							<li>
+								<div class="caja verde-oscuro">&nbsp;</div> 4 - Muy Alta
+							</li>
+						</ul>
+					</div>
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-12">
@@ -91,6 +108,11 @@
                                     <div id="divInputIntensidad" class="group">
                                     <label class="small ifta-label" for="inputIntensidad">Intensidad de la señal</label>
                                     <input type="text" class="ifta-field" id="inputIntensidad" placeholder="- Ejemplo: Alta -" />
+                                    </div>
+                                    
+                                    <div id="divInputCalidad" class="group">
+                                    	<label class="small ifta-label" for="inputCalidadDiv">Calidad de la cobertura</label>
+                                    	<div id="inputCalidadDiv" class="ui-corner-all"><div id="cajaCalidad" class="caja">&nbsp;</div><span class="ifta-field" id="inputCalidad"  />- Desconocida -</span>
                                     </div>
                             </div>
                         </div>

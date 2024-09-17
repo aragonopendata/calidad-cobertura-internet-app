@@ -30,7 +30,7 @@
 
             //Compruebo si tengo el modo avión activo. Si lo tengo activo ya no dejo segir diciendo al usuario que que lo quite.
             var plataforma = MAIN.utils.platformDetector.getPlatform();
-            if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
+           /* if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
                 window.SignalStrength.checkAirPlaneModeOn(
                     function(estado){
                         console.log('Estado modo avión: ' + estado);
@@ -48,9 +48,9 @@
                     }
                 );
             } else {
-                console.log('Voy a getLocation 2.');
+                console.log('Voy a getLocation 2.');*/
                 getLocation();
-            }
+            //}
         });
 
         //Botón atrás
@@ -58,12 +58,14 @@
             console.log('Boton atrás pulsado.');
             volverAtras();
         });
+        document.addEventListener("backbutton", volverAtras, false);
     });
 
     function contarTimeoutLocalizacion() {
         setTimeout(function(){
             console.log('Se acabó el timeout para localizar el dispositivo.');
             if (!localizacionCompletada) {
+            	  console.log('Localización no completada');
                 localizacionDetenidaPorTimeout = true;
                 //Advierto una vez al usuario de que active la localización y si sigue sin localizar voy a la pantalla de infoConexion.
                 if (usuarioAdvertidoActivarLocalizacion) {

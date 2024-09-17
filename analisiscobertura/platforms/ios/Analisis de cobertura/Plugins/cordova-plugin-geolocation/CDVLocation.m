@@ -299,13 +299,8 @@
         [returnInfo setObject:[NSNumber numberWithDouble:lInfo.coordinate.latitude] forKey:@"latitude"];
         [returnInfo setObject:[NSNumber numberWithDouble:lInfo.coordinate.longitude] forKey:@"longitude"];
         
-        if([NSJSONSerialization isValidJSONObject:returnInfo]){
-            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
-            [result setKeepCallbackAsBool:keepCallback];
-        }else{
-            // return error
-            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:POSITIONUNAVAILABLE];
-        }
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnInfo];
+        [result setKeepCallbackAsBool:keepCallback];
     }
     if (result) {
         [self.commandDelegate sendPluginResult:result callbackId:callbackId];

@@ -44,7 +44,27 @@
             $("#id_valor_resumen_ping").text("Desconocido");
             $('#div_resumen_ping').hide();
         }
-
+        if (misDatosCobertura.coberturaTest) {
+        	 var miCobertura= misDatosCobertura.coberturaTest;
+            $("#id_valor_resumen_calidad").text(miCobertura);
+           
+            if (miCobertura.startsWith(1)){
+        		$('#cajaCalidad').addClass("naranja");
+        	}
+        	else if (miCobertura.startsWith(2)){
+        		$('#cajaCalidad').addClass("amarillo");
+        	}
+        	else if (miCobertura.startsWith(3)){
+        		$('#cajaCalidad').addClass("verde");
+        	}
+        	else if (miCobertura.startsWith(4)){
+        		$('#cajaCalidad').addClass("verde-oscuro");
+        	}
+            $('#div_resumen_calidad').show();
+        } else {
+            $("#id_valor_resumen_calidad").text("Desconocido");
+            $('#div_resumen_calidad').hide();
+        }
         var textoMunicipio = misDatosCobertura.municipio;
         var miINE = misDatosCobertura.ine;
         if (miINE && (miINE !== "")) {
@@ -78,6 +98,15 @@
         } else {
             $('#div_resumen_tipo_red').show();
         }
+        if (misDatosCobertura.categoriaRed){
+    		if (misDatosCobertura.tipoRed && misDatosCobertura.tipoRed != "Desconocido"){
+    			$("#id_valor_resumen_tipo_red").text(misDatosCobertura.tipoRed+" ("+misDatosCobertura.categoriaRed+")");
+    		}
+    		else{
+    			$("#id_valor_resumen_tipo_red").text(misDatosCobertura.categoriaRed);
+    		}
+    		$('#div_resumen_tipo_red').show();
+    	}
         $("#id_valor_resumen_operador").text(misDatosCobertura.operador);
         if (misDatosCobertura.operador === "Desconocido") {
             $('#div_resumen_operador').hide();
@@ -196,6 +225,7 @@
             console.log('Boton atrás pulsado.');
             volverAtras();
         });
+        document.addEventListener("backbutton", volverAtras, false);
     });
 
     function volverAtras() {

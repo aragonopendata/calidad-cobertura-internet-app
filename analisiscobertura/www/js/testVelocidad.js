@@ -1,4 +1,5 @@
 (function() {
+	  var ws = MAIN.ws;
     //*** IMPORTS ***//
         
         var dialogUtils = MAIN.utils.dialogUtils;
@@ -76,6 +77,8 @@
         var miTipoRed;
         var miValorIntensidad;
         var miRangoIntensidad;
+        var miCategoriaRed;
+        var miCobertura;
 
         var solicitadoDetenerTest = false;
         var testDetenidoPorTimeout = false;
@@ -200,10 +203,33 @@
             //Botón confirmar
             $("#id_bot_confirmar_test_velocidad").on(MAIN.clickEvent, function (){
                 console.log('Boton Confirmar pulsado.');
+                $.when( ws.obtenerCalidadCobertura(miVelocidadDescargaResultado, misDatosCobertura.categoriaRed) )
+                .then(function (wsResponse) {     
+                   
+                    var resp = wsResponse.getContent();
+                    miCobertura=resp;
                 
-                guardarResultados();
+                    guardarResultados();
 
-                document.location="resumenDatos.html";
+                    document.location="resumenDatos.html";
+                })
+                .fail(function (wsError){
+
+                    console.log("obtenerMunicipioPorCoordenadas Error: " + wsError);
+                    if(wsError.getResponseMessage() == "timeout"){
+                        console.log('Ha fallado el WS de obtenerMunicipioPorCoordenadas. Timeout.');
+                       
+                    }
+                    else{
+                        console.log('Ha fallado el WS de obtenerCalidadCobertura. Fail.');
+                       
+                    }
+                    guardarResultados();
+
+                    document.location="resumenDatos.html";
+
+                });
+               
             });
     
             //Botón atrás
@@ -211,7 +237,7 @@
                 console.log('Boton atrás pulsado.');
                 volverAtras();
             });
-
+            document.addEventListener("backbutton", volverAtras, false);
             //Vamos a intentar detectar el tipo de conexión con navigator.connection.type
             onOnline();
 
@@ -259,7 +285,7 @@
                         // Así sabemos si tenemos que coger la intensidad del movil o del wifi.
                         var plataforma = MAIN.utils.platformDetector.getPlatform();
                         if ((plataforma === MAIN.utils.platformDetector.ANDROID) && (window.SignalStrength)) {
-                            if (miTipoRed.toUpperCase() === "WIFI") {
+                           /* if (miTipoRed.toUpperCase() === "WIFI") {
                                 window.SignalStrength.wifidbm(
                                     function(measuredDbm){
                                         console.log('current wifi dBm is: ' + measuredDbm);
@@ -277,7 +303,7 @@
                                         }
                                     }
                                 )
-                            } else {
+                            } else {*/
                                 window.SignalStrength.dbm(
                                     function(measuredDbm){
                                         console.log('current mobile dBm is: ' + measuredDbm);
@@ -294,7 +320,7 @@
                                         }
                                     }
                                 )
-                            }
+                          //  }
                         } else {
                             miValorIntensidad = "";
                             miRangoIntensidad = "-1";
@@ -364,7 +390,7 @@
             } else {
                 misDatosCobertura.latencia = null;
             }
-
+            misDatosCobertura.coberturaTest = miCobertura;
             misDatosCobertura.tipoRed = miTipoRed;
             misDatosCobertura.valorIntensidadSenial = miValorIntensidad;
             misDatosCobertura.rangoIntensidadSenial = miRangoIntensidad;
