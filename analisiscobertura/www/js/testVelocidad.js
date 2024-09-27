@@ -2,7 +2,7 @@
 	  var ws = MAIN.ws;
     //*** IMPORTS ***//
         
-        var dialogUtils = MAIN.utils.dialogUtils;
+       // var dialogUtils = MAIN.utils.dialogUtils;
         var platformDetector = MAIN.utils.platformDetector;
         //Modificación Test Velocidad 08/05/2014: Las URLs de bajada de ficheros, de subida y para la latencia las obtenemos del JSON del evento.
         var dao = MAIN.modelo.dao;
@@ -84,7 +84,9 @@
         var testDetenidoPorTimeout = false;
     
     //*** INICIALIZACION ***//
-        $(document).on("pageinit", '#id_test_velocidad', function() {
+        
+       $(document).ready( function() {
+    	   $("#mainPage").css("visibility","visible");
             console.log('Página testVelocidad lista.');
 
             //Bloqueamos el botón físico de atrás para que no se haga un history.back.
@@ -177,6 +179,7 @@
                 $('#id_bot_detener_test_velocidad').show();
                 solicitadoDetenerTest = false;
                 $('#id_bot_confirmar_test_velocidad').prop('disabled', true);
+                $("#id_bot_confirmar_test_velocidad").button("refresh"); 
                 gauge_download.refresh(0);
                 gauge_upload.refresh(0);
                 sizeBuffDescarga = 0;
@@ -1140,6 +1143,7 @@
                 */
                 //Añadido 24/05/2022: Si el test de velocidad se detiene por timeout vuelvo a habilitar el botón de confirmar el test para que el usuario pueda continuar.
                 $('#id_bot_confirmar_test_velocidad').prop('disabled', false);
+                $("#id_bot_confirmar_test_velocidad").button("refresh"); 
             } else {
                 $('#id_test_velocidad_estado').text("Test detenido");
             }
@@ -1152,6 +1156,7 @@
             $('#id_bot_detener_test_velocidad').hide();
             $('#id_test_velocidad_button_start').show();
             $('#id_bot_confirmar_test_velocidad').prop('disabled', false);
+            $("#id_bot_confirmar_test_velocidad").button("refresh"); 
         }
     
         function volverAtras() {

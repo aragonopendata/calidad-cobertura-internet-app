@@ -36,6 +36,7 @@
     var dondeIrGlobal = "";
 
     $(document).ready(function () {
+    	$("#mainPage").css("visibility","visible");
         console.log('Página infoConexion lista.');
         localizacionDetenidaPorTimeout = false;
         localizacionCompletada = false;

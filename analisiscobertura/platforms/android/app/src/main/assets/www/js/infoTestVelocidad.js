@@ -1,6 +1,7 @@
 (function () {
 
     $(document).ready(function () {
+    	$("#mainPage").css("visibility","visible");
         console.log('Página info test velocidad lista.');
 
         //Bloqueamos el botón físico de atrás para que no se haga un history.back.

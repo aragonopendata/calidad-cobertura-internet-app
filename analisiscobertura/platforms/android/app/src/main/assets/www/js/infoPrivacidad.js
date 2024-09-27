@@ -7,6 +7,7 @@
     var usuarioAdvertidoActivarLocalizacion = false;
 
     $(document).ready(function () {
+    	$("#mainPage").css("visibility","visible");
         console.log('Página info privacidad lista.');
         localizacionDetenidaPorTimeout = false;
         localizacionCompletada = false;

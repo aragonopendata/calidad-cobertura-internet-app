@@ -2,7 +2,7 @@
 
 platform :ios, '11.0'
 
-target 'Analisis de cobertura' do
-	project 'Analisis de cobertura.xcodeproj'
+target 'AnalisisCobertura' do
+	project 'AnalisisCobertura.xcodeproj'
 
 end

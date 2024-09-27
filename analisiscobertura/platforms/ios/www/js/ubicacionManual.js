@@ -5,6 +5,7 @@
     var misDatosCobertura;
 
     $(document).ready(function () {
+    	$("#mainPage").css("visibility","visible");
         console.log('Página ubicación manual lista.');
 
         //Bloqueamos el botón físico de atrás para que no se haga un history.back.

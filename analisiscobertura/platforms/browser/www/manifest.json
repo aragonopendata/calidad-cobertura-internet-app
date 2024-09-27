@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "Analisis de cobertura",
-  "short_name": "Analisis de cobertura",
+  "name": "AnalisisCobertura",
+  "short_name": "AnalisisCobertura",
   "version": "es.aragon.analisiscobertura",
   "description": "Analisis de cobertura",
   "author": "Apache Cordova Team",

@@ -20,13 +20,14 @@
         <meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0" />
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/Inter.css">
-        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/jquery.mobile-1.5.0-alpha.1.min.css"/>
         <link rel="stylesheet" href="css/app-cobertura-aragon.css"/>
         <link rel="stylesheet" type="text/css" href="css/overhang.min.css" />
         <link rel="stylesheet" href="css/ol.css">
         <link rel="stylesheet" href="css/analisiscobertura.css">
-        <script src="js/librerias/jquery-2.1.1.min.js" type="text/javascript" charset="UTF-8"></script>
-        <script src="js/librerias/jquery.mobile-1.4.5.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery-3.6.0.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery.mobile-1.5.0-rc1.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="js/librerias/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/librerias/overhang.min.js"></script>
         <script src="js/librerias/MSelectDBox.js"></script>
@@ -45,18 +46,18 @@
         <title>Información de la conexión</title>
     </head>
     <body>
-        <div data-role="page">
+        <div id="mainPage"  id="mainPage" data-role="page" class="ui-page ui-page-theme-a ui-page-header-fixed ui-page-footer-fixed ui-page-active"  style="visibility:hidden;padding-top: 45px; padding-bottom: 145px;">
             <!--<ul class="navbarul">
                 <li class="navbarli"><span class="navbarlispan">Preparación</span></li>
             </ul>-->
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
-                <a id="id_bot_atras_info_conexion" href="#" data-icon="back">Atrás</a>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="ui-header ui-bar-b ui-header-fixed slidedown">
+                <a id="id_bot_atras_info_conexion" href="#" data-icon="back"  class="ui-link ui-btn-left ui-btn ui-icon-back ui-btn-icon-left ui-shadow ui-corner-all" data-role="button" role="button">Atrás</a>
                 <span class="ui-title" role="heading" aria-level="1">Preparación</span>
             </div>
 
             <div class="seccionComprobacion" hidden>Por favor, revise los datos y pulse Iniciar TEST</div>
 
-            <div data-role="content">
+            <div data-role="content" class="ui-content">
 
                 
 
@@ -122,7 +123,7 @@
             </div>
             <!-- /content -->
 
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="ui-footer ui-bar-inherit ui-footer-fixed slideup">
                 <button data-theme="c" id="id_bot_resultados_info_conexion" class="btn btn-primary btn-block mt-3 aumentado botonPie" hidden>Resultados</button>
                 <button data-theme="b" id="submitForm" class="btn btn-primary btn-block mt-3 aumentado botonPie">Iniciar test de velocidad</button>
             </div>
