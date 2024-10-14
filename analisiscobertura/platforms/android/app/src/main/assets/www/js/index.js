@@ -29,7 +29,9 @@ function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     //document.getElementById('deviceready').classList.add('ready');
     //$('#mensaje_error_permiso_gps_bienvenida').hide();
-
+    cordova.getAppVersion.getVersionNumber().then(function (version) {
+        $('#version span').text(version);
+    });
     //Si estoy ejecutando la en un movil la web en el browser, le sugiero al usuario que se descargue la App.
     if (MAIN.utils.platformDetector.isMobile() && MAIN.esVersionWeb) {
         /*
