@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="es.aragon.analisiscobertura" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Analisis de cobertura</name>
+<widget id="es.aragon.analisiscobertura" version="1.3.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>AnalisisCobertura</name>
     <description>
         Analisis de cobertura
     </description>

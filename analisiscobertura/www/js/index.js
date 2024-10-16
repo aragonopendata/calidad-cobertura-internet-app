@@ -23,13 +23,15 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
-
+	$("#mainPage").css("visibility","visible");
     var controladorSincronizacion = MAIN.controladores.sincronizadorReportes;
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     //document.getElementById('deviceready').classList.add('ready');
     //$('#mensaje_error_permiso_gps_bienvenida').hide();
-
+    cordova.getAppVersion.getVersionNumber().then(function (version) {
+        $('#version span').text(version);
+    });
     //Si estoy ejecutando la en un movil la web en el browser, le sugiero al usuario que se descargue la App.
     if (MAIN.utils.platformDetector.isMobile() && MAIN.esVersionWeb) {
         /*

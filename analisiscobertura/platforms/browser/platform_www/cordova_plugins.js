@@ -21,6 +21,20 @@ module.exports = [
         "id": "cordova-plugin-network-information.NetworkInfoProxy",
         "pluginId": "cordova-plugin-network-information",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+        "id": "cordova-plugin-app-version.AppVersionPlugin",
+        "pluginId": "cordova-plugin-app-version",
+        "clobbers": [
+            "cordova.getAppVersion"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-app-version/src/browser/AppVersionProxy.js",
+        "id": "cordova-plugin-app-version.AppVersionProxy",
+        "pluginId": "cordova-plugin-app-version",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -28,7 +42,8 @@ module.exports.metadata =
 {
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-network-information": "3.0.0-dev",
-    "cordova-plugin-whitelist": "1.3.5"
+    "cordova-plugin-whitelist": "1.3.5",
+    "cordova-plugin-app-version": "0.1.14"
 }
 // BOTTOM OF METADATA
 });

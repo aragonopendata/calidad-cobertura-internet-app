@@ -10,21 +10,21 @@
         <meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0" />
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/Inter.css">
-        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/jquery.mobile-1.5.0-alpha.1.min.css"/>
         <link rel="stylesheet" href="css/app-cobertura-aragon.css"/>
         <link rel="stylesheet" href="css/ol.css">
 		<link rel="stylesheet" href="css/testvelocidad/custom_de_jqm.css" />
         <link rel="stylesheet" href="css/testvelocidad/aragoneventos.css" />
         <link rel="stylesheet" href="css/analisiscobertura.css">
-        <script src="js/librerias/jquery-2.1.1.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="js/librerias/jquery-3.6.0.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="js/librerias/ol.js" type="text/javascript"></script>
         <script src="js/librerias/jquery.validate.min.js"></script>
         <script src="cordova.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/librerias/jquery.mobile-1.4.5.js" type="text/javascript" charset="UTF-8"></script>
-        <script src="js/librerias/jquery.mobile.simpledialog2.min.js"></script>
+        <script src="js/librerias/jquery.mobile-1.5.0-rc1.min.js" type="text/javascript" charset="UTF-8"></script>
         
-        <script src="js/utils/css_loader.js"></script>
+        <!-- script src="js/utils/css_loader.js"></script-->
         
         <script src="js/librerias/moment.min.js"></script>
         <script src="js/librerias/moment_es.js"></script>
@@ -48,15 +48,15 @@
         <title>Información de la conexión</title>
     </head>
     <body>
-        <div id="id_test_velocidad" data-role="page" data-theme="a">
+        <div id="mainPage" style="visibility:hidden;" id="id_test_velocidad" data-role="page" data-theme="a" class="ui-page ui-page-theme-a ui-page-header-fixed ui-page-footer-fixed ui-page-active">
             
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b">
-                <a id="id_bot_atras_test_velocidad" href="#" data-icon="back">Atrás</a>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="ui-header ui-bar-b ui-header-fixed slidedown">
+                <a id="id_bot_atras_test_velocidad" href="#" data-icon="back"  class="ui-link ui-btn-left ui-btn ui-icon-back ui-btn-icon-left ui-shadow ui-corner-all" data-role="button" role="button">Atrás</a>
                 <span class="ui-title" role="heading" aria-level="1">Test de velocidad</span>
             </div>
             <!-- /header -->
 
-            <div data-role="content" class="content-test-velocidad">
+            <div data-role="content" class="content-test-velocidad ui-content">
 
                 <div id="id_test_velocidad_container">
                     <!--<div id="id_test_velocidad_heading">Test de Velocidad</div> !-->
@@ -121,7 +121,7 @@
             </div>
             <!-- content -->
 
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="ui-footer ui-bar-inherit ui-footer-fixed slideup">
                 <button data-theme="c" id="id_test_velocidad_button_start" class="btn btn-primary btn-block mt-3 aumentado botonPie" hidden>Repetir Test</button>
                 <button data-theme="c" id="id_bot_detener_test_velocidad" class="btn btn-primary btn-block mt-3 aumentado botonPie">Detener</button>
                 <button data-theme="b" id="id_bot_confirmar_test_velocidad" class="btn btn-primary btn-block mt-3 aumentado botonPie" disabled>Confirmar</button>

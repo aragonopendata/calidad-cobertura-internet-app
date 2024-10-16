@@ -334,7 +334,8 @@ h1 {
   border: solid 0;
   box-shadow: none;
 }
-.ui-input-text input.ifta-field ,#inputCalidadDiv{
+.ui-input-text input.ifta-field ,
+.ui-textinput input.ifta-field ,#inputCalidadDiv{
   /* border: solid 1px #7B7C7D; */
   /* border-radius:6px; */
   padding: 2.2rem 0.8rem 0.4rem;
@@ -346,7 +347,8 @@ h1 {
   color: #85909C;
   font-weight: 500;
 }
-.ui-input-text input.ifta-field[type="text"]:disabled,#inputCalidadDiv {
+.ui-input-text input.ifta-field[type="text"]:disabled,
+.ui-textinput input.ifta-field[type="text"]:disabled,#inputCalidadDiv {
   background: linear-gradient(0deg, #ffffff7a, transparent);
   box-shadow: inset 0 0 0 1px #9e9e9e5c;
   /* border: solid 1px #7b7c7d5c; */
@@ -354,12 +356,14 @@ h1 {
   color: #88939f;
   opacity: 1;
 }
-.ui-input-text input.ifta-field[type="text"]:disabled::placeholder {
+.ui-input-text input.ifta-field[type="text"]:disabled::placeholder,
+.ui-textinput input.ifta-field[type="text"]:disabled::placeholder {
   color: #000;
   font-weight: 300;
   text-shadow: none;
 }
-.ui-input-text input.ifta-field:focus {
+.ui-input-text input.ifta-field:focus,
+.ui-textinput input.ifta-field:focus {
   -webkit-appearance:none;
   outline:none;
   box-shadow:inset 0 0 0 2px #111111;
@@ -400,7 +404,7 @@ h1 {
   max-width: 100%;
   left: 0;
   background-color: #fff;
-  margin-top: -1.2rem;
+ 
 }
 
 #ACAI .contentPrincipal .container {
@@ -594,7 +598,7 @@ background-size: 348px 180px;
 /*
 *  Override jQuery Mobile
 */
-body, input, select, textarea, button, .ui-btn {
+body, input, select, textarea, button, .ui-btn, .ui-button {
   font-family: 'Inter', sans-serif;
 }
 .ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited,
@@ -602,9 +606,26 @@ body, input, select, textarea, button, .ui-btn {
 .ui-page-c .ui-btn, html .ui-bar-c .ui-btn, html .ui-body-c .ui-btn, html body .ui-group-theme-c .ui-btn, html head + body .ui-btn.ui-btn-c, .ui-page-theme-c .ui-btn:visited, html .ui-bar-c .ui-btn:visited, html .ui-body-c .ui-btn:visited, html body .ui-group-theme-c .ui-btn:visited, html head + body .ui-btn.ui-btn-c:visited {
   text-shadow: none;
 }
+
+.ui-page-theme-a .ui-button, html .ui-bar-a .ui-button, html .ui-body-a .ui-button, html body .ui-group-theme-a .ui-button, html head + body .ui-button.ui-button-a, .ui-page-theme-a .ui-button:visited, html .ui-bar-a .ui-button:visited, html .ui-body-a .ui-button:visited, html body .ui-group-theme-a .ui-button:visited, html head + body .ui-button.ui-button-a:visited,
+.ui-page-b .ui-button, html .ui-bar-b .ui-button, html .ui-body-b .ui-button, html body .ui-group-theme-b .ui-button, html head + body .ui-button.ui-button-b, .ui-page-theme-b .ui-button:visited, html .ui-bar-b .ui-button:visited, html .ui-body-b .ui-button:visited, html body .ui-group-theme-b .ui-button:visited, html head + body .ui-button.ui-button-b:visited,
+.ui-page-c .ui-button, html .ui-bar-c .ui-button, html .ui-body-c .ui-button, html body .ui-group-theme-c .ui-button, html head + body .ui-button.ui-button-c, .ui-page-theme-c .ui-button:visited, html .ui-bar-c .ui-button:visited, html .ui-body-c .ui-button:visited, html body .ui-group-theme-c .ui-button:visited, html head + body .ui-button.ui-button-c:visited {
+  text-shadow: none;
+}
+
 .ui-page-theme-a .ui-btn:focus, html .ui-bar-a .ui-btn:focus, html .ui-body-a .ui-btn:focus, html body .ui-group-theme-a .ui-btn:focus, html head + body .ui-btn.ui-btn-a:focus, .ui-page-theme-a .ui-focus, html .ui-bar-a .ui-focus, html .ui-body-a .ui-focus, html body .ui-group-theme-a .ui-focus, html head + body .ui-btn-a.ui-focus, html head + body .ui-body-a.ui-focus,
 .ui-page-theme-b .ui-btn:focus, html .ui-bar-b .ui-btn:focus, html .ui-body-b .ui-btn:focus, html body .ui-group-theme-b .ui-btn:focus, html head + body .ui-btn.ui-btn-b:focus, .ui-page-theme-b .ui-focus, html .ui-bar-b .ui-focus, html .ui-body-b .ui-focus, html body .ui-group-theme-b .ui-focus, html head + body .ui-btn-b.ui-focus, html head + body .ui-body-b.ui-focus,
 .ui-page-theme-c .ui-btn:focus, html .ui-bar-c .ui-btn:focus, html .ui-body-c .ui-btn:focus, html body .ui-group-theme-c .ui-btn:focus, html head + body .ui-btn.ui-btn-c:focus, .ui-page-theme-c .ui-focus, html .ui-bar-c .ui-focus, html .ui-body-c .ui-focus, html body .ui-group-theme-c .ui-focus, html head + body .ui-btn-c.ui-focus, html head + body .ui-body-c.ui-focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: rgb(0, 0, 0) solid 1px;
+  /*border: solid 2px;*/
+}
+
+.ui-page-theme-a .ui-button:focus, html .ui-bar-a .ui-button:focus, html .ui-body-a .ui-button:focus, html body .ui-group-theme-a .ui-button:focus, html head + body .ui-button.ui-button-a:focus, .ui-page-theme-a .ui-focus, html .ui-bar-a .ui-focus, html .ui-body-a .ui-focus, html body .ui-group-theme-a .ui-focus, html head + body .ui-button-a.ui-focus, html head + body .ui-body-a.ui-focus,
+.ui-page-theme-b .ui-button:focus, html .ui-bar-b .ui-button:focus, html .ui-body-b .ui-button:focus, html body .ui-group-theme-b .ui-button:focus, html head + body .ui-button.ui-button-b:focus, .ui-page-theme-b .ui-focus, html .ui-bar-b .ui-focus, html .ui-body-b .ui-focus, html body .ui-group-theme-b .ui-focus, html head + body .ui-button-b.ui-focus, html head + body .ui-body-b.ui-focus,
+.ui-page-theme-c .ui-button:focus, html .ui-bar-c .ui-button:focus, html .ui-body-c .ui-button:focus, html body .ui-group-theme-c .ui-button:focus, html head + body .ui-button.ui-button-c:focus, .ui-page-theme-c .ui-focus, html .ui-bar-c .ui-focus, html .ui-body-c .ui-focus, html body .ui-group-theme-c .ui-focus, html head + body .ui-button-c.ui-focus, html head + body .ui-body-c.ui-focus {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -653,19 +674,19 @@ body .ui-footer-fixed {
   padding: 0 calc(50% - 240px);
 }
 
-body .ui-btn-icon-left:after {
+body .ui-btn-icon-left:after,body .ui-button-icon-left:after {
   background-color: transparent;
   border-radius: 0;
   background-image: url(../img/acaicon-atras.svg);
   background-size: 22px;
 }
-html .ui-btn-icon-left {
+html .ui-btn-icon-left, html .ui-button-icon-left {
   background: transparent !important;
   color: #fff !important;
   text-shadow: none !important;
   text-indent: -99999px;
 }
-html .ui-btn {
+html .ui-btn, html .ui-button {
   box-sizing: border-box !important;
   transition: border .1s ease-in !important;
 }
@@ -680,6 +701,15 @@ html head + body .ui-btn.ui-btn-b:hover {
   transition: border .1s ease-in !important;
 }
 
+.ui-page-theme-b .ui-button:hover,
+html .ui-bar-b .ui-button:hover,
+html .ui-body-b .ui-button:hover,
+html body .ui-group-theme-b .ui-button:hover,
+html head + body .ui-button.ui-button-b:hover {
+  text-shadow: none !important;
+  box-sizing: border-box !important;
+  transition: border .1s ease-in !important;
+}
 /*
 *:focus:not(:focus-visible) {
   outline: none !important;
@@ -752,3 +782,16 @@ body .ui-icon-back:focus {
     line-height: 1.4em;
     min-height: 2.2em;
 }
+
+.ui-header .ui-icon-back{
+	float:left;
+	    top: 0;
+}
+
+#version {
+    text-align: right;
+    padding-right: 20px;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
