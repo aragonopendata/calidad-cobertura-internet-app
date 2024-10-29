@@ -22,6 +22,14 @@
               "mode": "merge",
               "id": "config.xml"
             }
+          ],
+          "NSLocationAlwaysUsageDescription": [
+            {
+              "xml": "<string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.\r\nEste dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
           ]
         }
       },
@@ -30,6 +38,10 @@
           "/*": [
             {
               "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
               "count": 1
             },
             {
@@ -42,10 +54,6 @@
             },
             {
               "xml": "<feature name=\"SignalStrength\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.SignalStrength\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
               "count": 1
             }
           ]
@@ -79,6 +87,9 @@
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "es.aragon.analisiscobertura"
     },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "es.aragon.analisiscobertura"
+    },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "es.aragon.analisiscobertura"
@@ -87,9 +98,6 @@
       "PACKAGE_NAME": "es.aragon.analisiscobertura"
     },
     "org.apache.cordova.signal-strength": {
-      "PACKAGE_NAME": "es.aragon.analisiscobertura"
-    },
-    "cordova-plugin-app-version": {
       "PACKAGE_NAME": "es.aragon.analisiscobertura"
     }
   },
@@ -101,6 +109,14 @@
       "pluginId": "cordova-plugin-android-permissions",
       "clobbers": [
         "cordova.plugins.permissions"
+      ]
+    },
+    {
+      "id": "cordova-plugin-app-version.AppVersionPlugin",
+      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+      "pluginId": "cordova-plugin-app-version",
+      "clobbers": [
+        "cordova.getAppVersion"
       ]
     },
     {
@@ -140,21 +156,13 @@
       "clobbers": [
         "signal-strength"
       ]
-    },
-    {
-      "id": "cordova-plugin-app-version.AppVersionPlugin",
-      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
-      "pluginId": "cordova-plugin-app-version",
-      "clobbers": [
-        "cordova.getAppVersion"
-      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-android-permissions": "1.1.3",
+    "cordova-plugin-app-version": "0.1.14",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-network-information": "3.0.0-dev",
-    "org.apache.cordova.signal-strength": "1.0.0",
-    "cordova-plugin-app-version": "0.1.14"
+    "org.apache.cordova.signal-strength": "1.0.0"
   }
 }

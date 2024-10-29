@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="es.aragon.analisiscobertura" version="1.3.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="es.aragon.analisiscobertura" version="1.3.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>AnalisisCobertura</name>
     <description>
         Analisis de cobertura
@@ -20,6 +20,10 @@
 Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
+        <string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.
+Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
         <string>La app necesita capturar su posición aproximada para saber desde qué zona se está haciendo la medición de la calidad en la cobertura de acceso a internet.
 Este dato nunca se vincula con información personal del usuario y se guarda de forma anonimizada en una cuadrícula de una precisión de no más de 500 x 500m</string>
     </edit-config>
