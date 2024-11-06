@@ -1,4 +1,6 @@
-(function () {
+ document.addEventListener("deviceready", onDeviceReady, false);
+ 
+ 
 
     var miTimestamp;
     var miLatitud;
@@ -35,7 +37,7 @@
     var IR_A_RESUMEN_DATOS = "IrResumenDatos";
     var dondeIrGlobal = "";
 
-    $(document).ready(function () {
+    function onDeviceReady() {
     	$("#mainPage").css("visibility","visible");
         console.log('Página infoConexion lista.');
         localizacionDetenidaPorTimeout = false;
@@ -184,7 +186,7 @@
             volverAtras();
         });
         document.addEventListener("backbutton", volverAtras, false);
-    });
+    }
 
     function irATestVelocidad() {
         miOperador = $("#inputOperador").val();
@@ -828,4 +830,3 @@
         }
     }
 
-}());
