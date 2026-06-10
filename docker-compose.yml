@@ -1,0 +1,11 @@
+services:
+  app-cobertura:
+    image: app-cobertura:${BUILD_ENV:-PROD_ARAGON}
+    container_name: app-cobertura
+    build:
+      context: ./analisiscobertura
+      args:
+        BUILD_ENV: ${BUILD_ENV:-PROD_ARAGON}
+    ports:
+      - "4000:80"
+    restart: always

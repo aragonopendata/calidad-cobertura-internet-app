@@ -26,7 +26,7 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "org.apache.cordova.signal-strength": {},
+      "cordova-plugin-signal-strength": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-geolocation": {
         "GPS_REQUIRED": "true"
