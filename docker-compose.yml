@@ -9,3 +9,9 @@ services:
     ports:
       - "4000:80"
     restart: always
+    networks:
+      - infraestructura_opendata
+
+networks:
+  infraestructura_opendata:
+    external: true
