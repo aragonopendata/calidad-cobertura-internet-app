@@ -18,6 +18,8 @@ RUN cordova platform add browser
 # server runs Docker 20.10.5, which does not support Dockerfile heredoc syntax
 RUN node patch-main.js
 
+RUN gunzip www/test-descarga/filedownload1.txt.gz
+
 RUN cordova build browser
 
 # Stage 2 — serve
